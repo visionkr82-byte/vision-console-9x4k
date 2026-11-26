@@ -2548,6 +2548,7 @@ class StatusWindow:
         self.logger = logger
         self.on_quit = on_quit
         self.events: queue.Queue = queue.Queue()
+        self.should_close = False
         self.root = None
         self.status_var = None
         self.heard_var = None
@@ -2609,6 +2610,9 @@ class StatusWindow:
         root.after(120, self._pump)
 
     def _pump(self) -> None:
+        if self.should_close:
+            self._destroy()
+            return
         try:
             while True:
                 kind, text = self.events.get_nowait()
@@ -2658,9 +2662,13 @@ class StatusWindow:
                 self.on_quit()
             except Exception:
                 pass
+        self._destroy()
+
+    def _destroy(self) -> None:
         try:
-            assert self.root is not None
-            self.root.destroy()
+            if self.root is not None:
+                self.root.destroy()
+                self.root = None
         except Exception:
             pass
 
@@ -3131,11 +3139,7 @@ def main(argv=None) -> int:
                     logger.exception("본체가 멈췄습니다: %s", exc)
                     exit_code = 1
                 finally:
-                    try:
-                        if window.root is not None:
-                            window.root.after(0, window.root.destroy)
-                    except Exception:
-                        pass
+                    window.should_close = True   # 창 정리는 창을 만든 쪽(메인 스레드)이 한다
 
             thread = threading.Thread(target=worker, name="assistant", daemon=True)
             thread.start()
