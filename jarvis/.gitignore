@@ -1,0 +1,8 @@
+.venv/
+config.json
+davis.log
+davis.log.*
+__pycache__/
+*.pyc
+vosk-model-small-ko-0.22/
+vosk-model-small-ko-0.22*.zip

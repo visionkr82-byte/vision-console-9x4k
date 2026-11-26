@@ -1,0 +1,10 @@
+# 다비스 음성 비서에 필요한 파이썬 패키지
+# install.bat 이 자동으로 설치합니다. 직접 설치할 때는:
+#   .venv\Scripts\python -m pip install -r requirements.txt
+
+sounddevice>=0.4.6
+numpy>=1.24
+vosk>=0.3.45
+faster-whisper>=1.0.3
+edge-tts>=6.1.12
+pygame>=2.5.2

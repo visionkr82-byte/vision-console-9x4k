@@ -1,0 +1,20 @@
+{
+  "vosk_model_path": "",
+  "wake_words": ["자비스", "헤이 자비스"],
+  "wake_sensitivity": 0.4,
+  "wake_reply": "네, 대표님",
+  "whisper_model": "small",
+  "tts_voice": "ko-KR-SunHiNeural",
+  "max_answer_chars": 400,
+  "claude_exe": "claude",
+  "claude_timeout_sec": 180,
+  "claude_cwd": "",
+  "silence_sec": 1.2,
+  "max_record_sec": 10,
+  "min_record_sec": 1,
+  "listen_wait_sec": 8,
+  "speech_threshold": 0.02,
+  "owner_name": "김용진",
+  "assistant_name": "자비스",
+  "announce_start": false
+}
