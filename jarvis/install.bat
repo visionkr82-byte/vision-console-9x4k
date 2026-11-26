@@ -18,7 +18,8 @@ REM  1. 파이썬 찾기
 REM ============================================================
 echo [1/7] 파이썬을 확인합니다...
 set "PY="
-for %%V in (3.12 3.11 3.10 3.13) do call :try_py %%V
+REM 3.12 를 가장 먼저 찾습니다. (vosk 등 음성 라이브러리가 3.13 에서는 설치가 안 되는 경우가 있습니다)
+for %%V in (3.12 3.11 3.10) do call :try_py %%V
 if not defined PY call :try_py_default
 if not defined PY goto :no_python
 
@@ -35,6 +36,8 @@ exit /b 0
 :try_py_default
 python -c "import sys" >nul 2>&1
 if errorlevel 1 exit /b 0
+for /f "tokens=2" %%A in ('python -V 2^>^&1') do set "PYVER=%%A"
+echo   파이썬 %PYVER% 을 찾았습니다.
 set "PY=python"
 exit /b 0
 
@@ -94,7 +97,18 @@ echo      2~5분 걸립니다. 창이 멈춘 것처럼 보여도 기다려 주세요.
 "%VENVPY%" -m pip install --upgrade pip --disable-pip-version-check
 "%VENVPY%" -m pip install -r requirements.txt --disable-pip-version-check
 if errorlevel 1 goto :pip_fail
+"%VENVPY%" -c "import numpy, sounddevice, vosk, faster_whisper, edge_tts, pygame" >nul 2>&1
+if errorlevel 1 goto :pip_check_fail
 goto :get_model
+
+:pip_check_fail
+echo.
+echo   [문제] 설치가 끝났는데 일부 프로그램을 불러오지 못합니다.
+echo          파이썬 버전이 3.13 이면 음성 라이브러리가 아직 없을 수 있습니다.
+echo          https://www.python.org/downloads/release/python-3127/ 에서
+echo          파이썬 3.12 를 설치한 뒤, 이 폴더의 .venv 폴더를 지우고 다시 실행해 주세요.
+pause
+exit /b 1
 
 :pip_fail
 echo.
@@ -131,7 +145,7 @@ echo [5/7] 컴퓨터를 켤 때 자동으로 시작되도록 등록합니다...
 echo      (예전 '다비스' 판이 남긴 자동 시작 항목이 있으면 함께 정리합니다)
 cscript //nologo "%~dp0자비스 시작.vbs" /install
 if errorlevel 1 goto :shortcut_fail
-echo   자동 시작 등록 완료 (이 폴더 기준)
+echo   [정상] 자동 시작 등록 완료 (이 폴더 기준)
 goto :check_claude
 
 :shortcut_fail
@@ -172,13 +186,18 @@ echo   부르는 말:  "자비스"   (길게 "헤이 자비스" 라고 해도 됩니다)
 echo   가입이나 키는 필요 없습니다.
 echo.
 echo   컴퓨터를 켜면 이 폴더의 자비스가 저절로 켜집니다.
+echo   켜지면 작은 '자비스' 창이 하나 뜹니다. 그 창이 보이면 정상입니다.
+echo   (창을 닫아도 자비스는 계속 듣습니다. 끄려면 창의 [종료] 버튼)
+echo.
+echo   잘 안 되면 이 폴더의 logs 폴더에 날짜별 기록이 남습니다.
+echo.
 echo   예전 '다비스' 폴더가 아직 남아 있다면, 아래에서 자비스가 잘 되는 것을
 echo   확인한 뒤 그 폴더를 지워 주세요. (자동 시작은 이 폴더로 바뀌었습니다)
 echo.
 set /p ANS=  지금 자비스를 시작할까요? Y 또는 N 입력 후 Enter:
 if /i not "%ANS%"=="Y" goto :not_now
 start "" wscript.exe "%~dp0자비스 시작.vbs"
-echo   자비스가 켜졌습니다.
+echo   자비스가 켜졌습니다. 작은 '자비스' 창이 뜨면 정상입니다.
 echo   3초쯤 뒤에 마이크에 대고 "자비스" 라고 말해 보세요.
 goto :done
 
