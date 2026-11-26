@@ -1427,25 +1427,44 @@ class WhisperHolder:
         threading.Thread(target=self._load, args=(cfg, logger), name="whisper-load", daemon=True).start()
 
     def _load(self, cfg: dict, logger: logging.Logger = log) -> None:
+        configured = str(cfg.get("whisper_model") or "small")
+        # 메모리가 모자란 PC 에서 큰 모델을 못 읽으면 작은 모델로 내려간다
+        candidates = [configured]
+        for smaller in ("base", "tiny"):
+            if smaller not in candidates:
+                candidates.append(smaller)
+        last_error: Exception | None = None
         try:
             from faster_whisper import WhisperModel
-            name = str(cfg.get("whisper_model") or "small")
-            logger.info("받아쓰기 모델(%s)을 준비합니다. 처음 한 번은 내려받느라 시간이 걸립니다.", name)
-            started = time.time()
-            model = WhisperModel(name, device="cpu", compute_type="int8",
-                                 download_root=str(cache_dir() / "whisper"))
+            threads = max(1, min(4, int(os.cpu_count() or 2)))
+            for name in candidates:
+                try:
+                    logger.info("받아쓰기 모델(%s)을 준비합니다. 처음 한 번은 내려받느라 시간이 걸립니다.", name)
+                    started = time.time()
+                    model = WhisperModel(name, device="cpu", compute_type="int8",
+                                         cpu_threads=threads,
+                                         download_root=str(cache_dir() / "whisper"))
+                    with self._lock:
+                        self.model = model
+                        self.error = None
+                    self.load_seconds = time.time() - started
+                    self.ready.set()
+                    if name != configured:
+                        logger.warning("설정한 모델(%s)을 쓸 수 없어 %s 로 대신합니다.", configured, name)
+                    logger.info("받아쓰기 모델 준비 완료 (%s, %.1f초)", name, self.load_seconds)
+                    return
+                except Exception as exc:
+                    last_error = exc
+                    logger.warning("받아쓰기 모델(%s)을 읽지 못했습니다: %s", name, exc)
             with self._lock:
-                self.model = model
-                self.error = None
-            self.load_seconds = time.time() - started
-            self.ready.set()
-            logger.info("받아쓰기 모델 준비 완료 (%.1f초)", self.load_seconds)
+                self.error = last_error
+            logger.warning("받아쓰기 모델을 쓰지 못합니다(Vosk 로 대신합니다): %s", last_error)
         except Exception as exc:
             with self._lock:
                 self.error = exc
-            self.ready.set()
             logger.warning("받아쓰기 모델 준비 실패(Vosk 로 대신합니다): %s", exc)
         finally:
+            self.ready.set()          # 실패해도 다음 질문이 오래 기다리지 않게
             with self._lock:
                 self._loading = False
 
@@ -1689,73 +1708,83 @@ class Speaker:
                 self._state("듣는 중")
 
     def say_stream(self, chunks: Iterable[str], max_chars: int = 400) -> str:
-        """답변 조각을 받는 대로 문장 단위로 읽어 준다. 읽은 전체 글자를 돌려준다."""
+        """답변 조각을 받는 대로 문장 단위로 읽어 준다. 읽은 전체 글자를 돌려준다.
+
+        일꾼 스레드가 (1) 글자를 문장으로 나누고 (2) 소리 파일을 만든다.
+        이 스레드(부른 쪽)는 만들어진 소리를 차례로 재생한다.
+        그래서 첫 문장이 나오는 대로 읽기 시작하고, 그동안 다음 문장을 만든다.
+        """
         max_chars = int(max_chars or 400)
-        sentences: queue.Queue = queue.Queue()
+        audio_queue: queue.Queue = queue.Queue(maxsize=4)
         produced: list[str] = []
         errors: list[BaseException] = []
+        stop = threading.Event()
         DONE = object()
 
-        def producer() -> None:
+        def worker() -> None:
             buffer = ""
             spoken = 0
             try:
                 for chunk in chunks:
-                    if not chunk:
+                    if not chunk or stop.is_set():
                         continue
                     produced.append(chunk)
                     buffer += chunk
-                    if spoken + len(buffer) > max_chars:
-                        buffer = buffer[: max(0, max_chars - spoken)]
                     ready, buffer = split_sentences(buffer)
                     for sentence in ready:
-                        if spoken >= max_chars:
+                        if spoken >= max_chars or stop.is_set():
                             break
-                        sentences.put(sentence)
-                        spoken += len(sentence)
+                        text = clean_for_speech(sentence)
+                        if not text:
+                            continue
+                        spoken += len(text)
+                        path = self._make_mp3(text)
+                        try:
+                            audio_queue.put((text, path), timeout=20)
+                        except queue.Full:
+                            pass
                     if spoken >= max_chars:
                         break
-                rest = buffer.strip()
-                if rest and spoken < max_chars:
-                    sentences.put(rest)
-            except BaseException as exc:
-                self.logger.warning("답변을 받는 중 오류: %s", exc)
+                rest = clean_for_speech(buffer.strip()) if buffer.strip() else ""
+                if rest and spoken < max_chars and not stop.is_set():
+                    path = self._make_mp3(rest)
+                    try:
+                        audio_queue.put((rest, path), timeout=20)
+                    except queue.Full:
+                        pass
+            except BaseException as exc:      # 클로드 오류도 여기로 온다
                 errors.append(exc)
+                self.logger.warning("답변을 받는 중 오류: %s", exc)
             finally:
                 try:
                     if hasattr(chunks, "close"):
-                        chunks.close()          # 클로드 프로세스를 바로 정리한다
+                        chunks.close()        # 클로드 프로세스를 바로 정리한다
                 except Exception:
                     pass
-                sentences.put(DONE)
+                try:
+                    audio_queue.put(DONE, timeout=20)
+                except queue.Full:
+                    pass
 
-        # 앞 문장의 소리를 만드는 동안 다음 문장 소리를 미리 만든다
-        audio_queue: queue.Queue = queue.Queue(maxsize=3)
-        AUDIO_DONE = object()
-
-        def audio_maker() -> None:
-            while True:
-                item = sentences.get()
-                if item is DONE:
-                    audio_queue.put(AUDIO_DONE)
-                    return
-                text = clean_for_speech(str(item))
-                if not text:
-                    continue
-                path = self._make_mp3(text)
-                audio_queue.put((text, path))
-
-        maker = threading.Thread(target=audio_maker, name="tts-make", daemon=True)
-        prod = threading.Thread(target=producer, name="tts-text", daemon=True)
+        thread = threading.Thread(target=worker, name="tts", daemon=True)
         with self._lock:
             self.speaking = True
             self._state("말하는 중")
             try:
-                prod.start()
-                maker.start()
+                try:
+                    thread.start()
+                except Exception as exc:
+                    # 스레드를 만들 수 없는 상황이면 통째로 받아 한 번에 읽는다
+                    self.logger.warning("문장 단위 읽기를 시작하지 못해 통째로 읽습니다: %s", exc)
+                    text = "".join(chunks)
+                    produced.append(text)
+                    spoken_text = trim_answer(clean_for_speech(text), max_chars)
+                    if spoken_text:
+                        self._say_blocking(spoken_text)
+                    return text
                 while True:
                     item = audio_queue.get()
-                    if item is AUDIO_DONE:
+                    if item is DONE:
                         break
                     text, path = item
                     if path is None:
@@ -1772,6 +1801,7 @@ class Speaker:
                         except Exception:
                             pass
             finally:
+                stop.set()
                 self.speaking = False
                 self._state("듣는 중")
         if errors and not produced:
@@ -2189,6 +2219,9 @@ class Assistant:
                  on_state: Callable[[str], None] | None = None,
                  on_heard: Callable[[str], None] | None = None,
                  on_answer: Callable[[str], None] | None = None) -> None:
+        if not logger.handlers:
+            # 어디서 만들어 쓰든 로그는 남도록
+            logger = setup_logging(False)
         self.cfg = cfg
         self.logger = logger
         self.on_state = on_state
@@ -2448,6 +2481,14 @@ class Assistant:
     def run(self) -> int:
         """멈출 때까지 듣고 대답한다. 반환값은 종료 코드."""
         self.logger.info("자비스 시작 (v%s, 엔진=%s)", APP_VERSION, self.engine())
+
+        # 두 모델을 동시에 읽으면 메모리가 모자란 PC 에서 프로세스가 통째로 죽을 수 있다.
+        # 부르는 말(Vosk, 작고 빠름)을 먼저 올리고, 그다음 받아쓰기를 백그라운드로 읽는다.
+        if self.engine() != "accurate":
+            try:
+                self.vosk.get(self.cfg, self.logger)
+            except Exception as exc:
+                self.logger.warning("부르는 말 모델(Vosk)을 미리 읽지 못했습니다: %s", exc)
         self.whisper.start(self.cfg, self.logger)
 
         # 자가진단 — 문제가 있으면 한 번은 소리로도 알려 준다
