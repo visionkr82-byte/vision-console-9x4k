@@ -3731,7 +3731,7 @@ input,textarea,select{font:inherit}
     es:null, pollTimer:null, retryTimer:null, bootTimer:null, quietTimer:null,
     since:0, seen:{}, seenN:0,
     peers:{}, lastIn:0, lastOut:0, lastSnap:0, lastWant:0, startedAt:0,
-    gotRemote:false, dirtySinceSnap:false, fail:0, chunks:{}, renderTimer:null
+    gotRemote:false, dirtySinceSnap:false, fail:0, chunks:{}, renderTimer:null, lastCatch:0
   };
 
   function syncHash(s){
@@ -4129,6 +4129,7 @@ input,textarea,select{font:inherit}
     if(sync.pollTimer){ clearInterval(sync.pollTimer); sync.pollTimer = null; }
     clearTimeout(sync.retryTimer); clearTimeout(sync.bootTimer); clearTimeout(sync.quietTimer);
     sync.since = 0; sync.seen = {}; sync.seenN = 0; sync.chunks = {}; sync.peers = {};
+    sync.lastCatch = 0;
     sync.queue = [];
     syncStart();
   }
@@ -4159,18 +4160,43 @@ input,textarea,select{font:inherit}
   }
   function syncPollOnce(){
     if(!sync.on){ if(sync.pollTimer){ clearInterval(sync.pollTimer); sync.pollTimer = null; } return; }
-    fetch(syncUrl("/json?poll=1&since=all"), { cache:"no-store" })
+    fetch(syncUrl("/json?poll=1&since=" + syncSinceSec()), { cache:"no-store" })
       .then(function(r){ return r.text(); })
       .then(function(t){
-        if(!sync.pollTimer && !sync.es) sync.live = "on";
+        sync.lastCatch = Date.now();
         String(t || "").split("\n").forEach(function(line){
           line = line.replace(/^\s+|\s+$/g, "");
           if(line) syncFeed(line);
         });
+        sync.live = "on";
         syncRender();
       })
       .catch(function(){ sync.live = "checking"; syncRender(); });
   }
+
+  function syncSinceSec(){
+    return sync.since ? Math.max(0, sync.since - 5) : Math.floor(Date.now() / 1000) - 3600;
+  }
+  /* 한 번만 되짚어 보기 — 잠자던 탭이 돌아오거나 SSE가 끊겼을 때 최신 상태를 따라잡습니다 */
+  function syncCatchUp(){
+    if(!sync.on) return;
+    fetch(syncUrl("/json?poll=1&since=" + syncSinceSec()), { cache:"no-store" })
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        sync.lastCatch = Date.now();
+        String(t || "").split("\n").forEach(function(line){
+          line = line.replace(/^\s+|\s+$/g, "");
+          if(line) syncFeed(line);
+        });
+        sync.live = "on";
+        syncRender();
+      })
+      .catch(function(){});
+  }
+  document.addEventListener("visibilitychange", function(){
+    if(!document.hidden && sync.ready && sync.on) setTimeout(syncCatchUp, 400);
+  });
+  window.addEventListener("online", function(){ if(sync.ready && sync.on) setTimeout(syncCatchUp, 400); });
 
   /* ---------- 첫 연결: 마이그레이션 · 시드 ---------- */
   function syncBootDone(){
@@ -4296,6 +4322,12 @@ input,textarea,select{font:inherit}
     syncPeerCount();
     syncRender();
     if(sync.on && sync.dirtySinceSnap && Date.now() - sync.lastSnap > SYNC_SNAP_GAP){ syncSnapshot(); }
+    /* 감시 — 연결 표시가 안 켜지거나 1분 넘게 새 소식이 없으면 한 번 되짚어 봅니다 */
+    if(sync.on && sync.bootDone){
+      var now = Date.now();
+      var quiet = now - Math.max(sync.lastIn || 0, sync.lastCatch || 0, sync.startedAt || 0);
+      if((sync.live !== "on" || quiet > 60000) && now - (sync.lastCatch || 0) > 45000) syncCatchUp();
+    }
   }
   setInterval(syncTick, 3000);
 
