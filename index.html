@@ -250,7 +250,7 @@ input,textarea,select{font:inherit}
 .zone-label i{width:6px;height:6px;border-radius:50%;background:var(--orange);flex:none}
 .zone:hover .zone-label{background:#fff;color:var(--navy)}
 /* 부서 레일 */
-.dept-rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:8px;margin-top:14px}
+.dept-rail{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
 .rail{display:flex;align-items:center;gap:8px;padding:10px 11px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:left;transition:.16s;min-width:0}
 .rail:hover{border-color:var(--orange);transform:translateY(-1px);box-shadow:var(--shadow)}
 .rail-no{flex:none;font-family:var(--mono);font-size:10px;font-weight:800;color:#8a7960;background:var(--cream-2);border:1px solid var(--line);border-radius:6px;padding:2px 5px}
@@ -452,7 +452,7 @@ input,textarea,select{font:inherit}
   .hero-grid{grid-template-columns:1fr}
   .report{min-height:480px;max-height:none}
   .nav{display:none}
-  .dept-rail{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .dept-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media (max-width:760px){
   :root{--head:56px}
@@ -1727,7 +1727,7 @@ input,textarea,select{font:inherit}
     });
     var now = $("#briefNow");
     if(now){
-      var live = briefLiveTask();
+      var live = liveFresh(briefLiveTask());
       if(live){
         var idx = live.pc.state === "sent" ? 0 : pcStageIdxOf(live);
         var st = PC_STAGES[idx] || PC_STAGES[0];
@@ -3958,11 +3958,15 @@ input,textarea,select{font:inherit}
       foot;
   };
 
+  function liveFresh(t){
+    if(!t || !t.pc) return null;
+    return (Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) > 600000 ? null : t;
+  }
   renderHeroReport = function(){
     var box = $("#heroReport");
     if(!box) return;
     box.className = "report";
-    var live = heroLiveTask();
+    var live = liveFresh(heroLiveTask());
     var t = heroReportTask();
     if(!t){
       heroStageId = live ? live.id : "";
@@ -4053,11 +4057,12 @@ input,textarea,select{font:inherit}
       return '<option value="' + d.no + '"' + (d.no === t.dept ? " selected" : "") + '>' + d.no + " " + esc(d.title) + '</option>';
     }).join("");
     var slist = staffOf(t.dept);
-    var staffOpts = '<option value=""' + (!t.staffId ? " selected" : "") + '>미배정</option>' + slist.map(function(s){
+    var orphan = !!t.staffName && (!t.staffId || !findStaff(t.dept, t.staffId));
+    var staffOpts = '<option value=""' + (!t.staffId && !orphan ? " selected" : "") + '>미배정</option>' + slist.map(function(s){
       return '<option value="' + esc(s.id) + '"' + (s.id === t.staffId ? " selected" : "") + '>' + esc(s.name) + '</option>';
     }).join("");
-    if(t.staffId && !findStaff(t.dept, t.staffId)){
-      staffOpts += '<option value="' + esc(t.staffId) + '" selected>' + esc((t.staffName || "삭제된 직원") + " (삭제됨)") + '</option>';
+    if(orphan){
+      staffOpts += '<option value="' + esc(t.staffId || "") + '" selected>' + esc(t.staffName + " (삭제됨)") + '</option>';
     }
     tmMeta.innerHTML = '<span class="rp-status s-' + t.status + '">' + st.label + '</span>' +
       '<span class="dotsep"></span><span>' + esc(resStamp(t)) + '</span>' +
