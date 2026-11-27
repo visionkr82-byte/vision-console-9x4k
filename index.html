@@ -3854,7 +3854,7 @@ input,textarea,select{font:inherit}
     });
     var now = $("#briefNow");
     if(now){
-      var live = briefLiveTask();
+      var live = liveFresh(briefLiveTask());
       if(live){
         var idx = live.pc.state === "sent" ? 0 : pcStageIdxOf(live);
         var st = PC_STAGES[idx] || PC_STAGES[0];
