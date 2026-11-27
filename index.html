@@ -3818,8 +3818,46 @@ input,textarea,select{font:inherit}
     sync.applying = false;
   }
 
+  /* 저장 전에 디스크(localStorage) 상태를 먼저 합칩니다.
+     같은 PC 에서 창을 두 개 열어도, 늦게 쓴 창이 다른 창의 최신 내용을 덮지 않게 합니다. */
+  function syncMergeDisk(){
+    var changed = false;
+    try{
+      var disk = JSON.parse(localStorage.getItem(SYNC_ITEMS) || "{}") || {};
+      var drev = JSON.parse(localStorage.getItem(SYNC_REV) || "{}") || {};
+      var dtomb = JSON.parse(localStorage.getItem(SYNC_TOMB) || "{}") || {};
+      var k, R, L;
+      for(k in dtomb){ if(!sync.tomb[k] || syncNewer(dtomb[k], sync.tomb[k])) sync.tomb[k] = dtomb[k]; }
+      for(k in disk){
+        R = drev[k];
+        if(!R) continue;
+        L = sync.rev[k] || sync.tomb[k];
+        if(L && !syncNewer(R, L)) continue;
+        if(dtomb[k] && syncNewer(dtomb[k], R)){
+          delete sync.items[k]; delete sync.rev[k]; delete sync.shadow[k];
+        }else{
+          sync.items[k] = disk[k];
+          sync.rev[k] = R;
+          sync.shadow[k] = JSON.stringify(disk[k]);
+          delete sync.tomb[k];
+        }
+        changed = true;
+      }
+      for(k in dtomb){
+        L = sync.rev[k];
+        if(L && syncNewer(dtomb[k], L)){
+          delete sync.items[k]; delete sync.rev[k]; delete sync.shadow[k];
+          sync.tomb[k] = dtomb[k];
+          changed = true;
+        }
+      }
+    }catch(e){}
+    return changed;
+  }
+
   function syncPersist(){
     state.depts = DEPTS;
+    var merged = syncMergeDisk();
     try{
       localStorage.setItem(SYNC_ITEMS, JSON.stringify(sync.items));
       localStorage.setItem(SYNC_REV, JSON.stringify(sync.rev));
@@ -3828,6 +3866,7 @@ input,textarea,select{font:inherit}
       localStorage.setItem(SYNC_SNAP, String(sync.lastSnap || 0));
       localStorage.setItem(STORE, JSON.stringify(state));
     }catch(e){}
+    if(merged){ syncProject(); syncRenderSoon(); }
   }
 
   function syncLoad(){
@@ -4263,18 +4302,9 @@ input,textarea,select{font:inherit}
   /* 같은 PC의 다른 탭과도 맞춥니다(localStorage 는 공유되지만 화면은 따로 그려짐) */
   window.addEventListener("storage", function(e){
     if(!e || !e.key) return;
-    if(e.key !== SYNC_ITEMS && e.key !== SYNC_REV) return;
+    if(e.key !== SYNC_ITEMS && e.key !== SYNC_REV && e.key !== SYNC_TOMB) return;
     if(!sync.ready || sync.applying) return;
-    try{
-      var it = JSON.parse(localStorage.getItem(SYNC_ITEMS) || "null");
-      if(!it) return;
-      sync.items = it;
-      try{ sync.rev = JSON.parse(localStorage.getItem(SYNC_REV) || "{}") || {}; }catch(e2){}
-      sync.shadow = {};
-      for(var k in sync.items){ sync.shadow[k] = JSON.stringify(sync.items[k]); }
-      syncProject();
-      syncRenderSoon();
-    }catch(e3){}
+    if(syncMergeDisk()) syncRenderSoon();
   });
 
   /* ---------- 설정 모달 이벤트 ---------- */
