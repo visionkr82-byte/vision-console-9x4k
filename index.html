@@ -388,6 +388,7 @@ input,textarea,select{font:inherit}
 .staff-add{width:100%;height:32px;margin-top:8px;border:1px dashed var(--line-2);border-radius:9px;background:var(--cream-2);font-size:11.5px;font-weight:800;color:#6b7a85}
 .staff-add:hover{border-color:var(--orange);color:var(--orange-d)}
 .staff-form{display:flex;flex-direction:column;gap:4px;margin-top:9px;padding:11px;background:#fff;border:1px solid var(--line);border-radius:11px}
+.staff-form[hidden]{display:none}
 .staff-form label{font-size:9.5px;font-weight:800;color:#7a8893;margin-top:3px}
 .staff-form input{height:32px;border:1px solid var(--line-2);border-radius:8px;padding:0 8px;font-size:12px;background:var(--cream-2)}
 .staff-form input:focus{outline:none;border-color:var(--orange);background:#fff}
@@ -2646,7 +2647,7 @@ input,textarea,select{font:inherit}
     if(!d) return;
     current = i;
     dwNo.textContent = d.no;
-    dwKicker.textContent = "부서 " + d.no + " · " + CAT[d.cat];
+    dwKicker.textContent = CAT[d.cat];
     dwTitle.textContent = d.title;
     dwOne.textContent = d.one;
 
@@ -4010,7 +4011,7 @@ input,textarea,select{font:inherit}
     if(!d) return;
     current = i;
     dwNo.textContent = d.no;
-    dwKicker.textContent = "부서 " + d.no + " · " + CAT[d.cat];
+    dwKicker.textContent = CAT[d.cat];
     dwTitle.textContent = d.title;
     dwOne.textContent = d.one || "";
 
@@ -4145,7 +4146,9 @@ input,textarea,select{font:inherit}
       else if(kind === "md"){ resDownload(t); }
       else if(kind === "pcrun"){ pcRun(t.id); renderTaskModal(); }
       else if(kind === "adv"){ advance(t.id); renderTaskModal(); }
-      else if(kind === "del"){ removeTask(t.id); closeTaskModal(); }
+      else if(kind === "del"){
+        if(window.confirm("이 카드를 삭제할까요? 되돌릴 수 없습니다.")){ removeTask(t.id); closeTaskModal(); }
+      }
     });
     taskModal.addEventListener("change", function(e){
       var t = findTask(modalTaskId);
