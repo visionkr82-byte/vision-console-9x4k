@@ -626,12 +626,12 @@ input,textarea,select{font:inherit}
       </div>
 
       <div class="stage" id="stage">
-        <img class="stage-img" src="assets/office-3d-v2.png?v=2" alt="미니어처 3D 오피스 — 대회의실, 지휘실, 부서 데스크, 라운지">
+        <img class="stage-img" src="assets/office-3d-v2.png?v=3" alt="미니어처 3D 오피스 — 대회의실, 지휘실, 부서 데스크, 라운지">
         <div class="office-zones" id="officeZones">
-          <button class="zone" type="button" data-zone="meeting" style="--zx:2.4%;--zy:14%;--zw:27.5%;--zh:64%"><span class="zone-label"><i></i>대회의실</span></button>
-          <button class="zone" type="button" data-zone="director" style="--zx:38.5%;--zy:18.5%;--zw:16%;--zh:22%"><span class="zone-label"><i></i>지휘실</span></button>
-          <button class="zone" type="button" data-zone="desks" style="--zx:30%;--zy:43%;--zw:40%;--zh:40%"><span class="zone-label"><i></i>부서 데스크</span></button>
-          <button class="zone" type="button" data-zone="lounge" style="--zx:64.5%;--zy:33%;--zw:34%;--zh:40%"><span class="zone-label"><i></i>라운지</span></button>
+          <button class="zone" type="button" data-zone="meeting" style="--zx:2.2%;--zy:6.5%;--zw:28%;--zh:77%"><span class="zone-label"><i></i>대회의실</span></button>
+          <button class="zone" type="button" data-zone="director" style="--zx:38.5%;--zy:12%;--zw:16%;--zh:26.5%"><span class="zone-label"><i></i>지휘실</span></button>
+          <button class="zone" type="button" data-zone="desks" style="--zx:30%;--zy:41.5%;--zw:40%;--zh:48%"><span class="zone-label"><i></i>부서 데스크</span></button>
+          <button class="zone" type="button" data-zone="lounge" style="--zx:64.5%;--zy:29.5%;--zw:34%;--zh:48%"><span class="zone-label"><i></i>라운지</span></button>
         </div>
         <div class="office-floor" id="officeFloor"></div>
       </div>
@@ -3789,8 +3789,8 @@ input,textarea,select{font:inherit}
 
   /* ---------- 오피스 ---------- */
   var DESK_POS = {
-    "01":[66,71.5], "02":[63.5,56], "03":[54.5,56], "04":[47.5,32.5], "05":[54.5,71.5],
-    "06":[45.5,72], "07":[46,56.5], "08":[35.5,56], "09":[33.5,72]
+    "01":[66,76], "02":[63.5,57.3], "03":[54.5,57.3], "04":[47.5,28.9], "05":[54.5,76],
+    "06":[45.5,76.6], "07":[46,57.9], "08":[35.5,57.3], "09":[33.5,76.6]
   };
   var SHORT_DEPT = { "01":"숏폼", "02":"업로드", "03":"배포", "04":"총괄", "05":"인스타", "06":"진단", "07":"스파이", "08":"영업", "09":"리포트" };
   function shortDept(d){ return SHORT_DEPT[d.no] || String(d.title || "").replace(/\s+/g, "").slice(0, 4); }
