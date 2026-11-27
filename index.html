@@ -3947,12 +3947,44 @@ input,textarea,select{font:inherit}
     }
     var list = sync.queue;
     sync.queue = [];
-    syncPublish({ a:"vcs", v:2, d:sync.dev, k:"d", at: Date.now(), it: list });
+    syncSendEntries(list);
   }
 
-  /* ---------- 보내기 ---------- */
+  /* ---------- 보내기 ----------
+     항목을 메시지 크기에 맞춰 담아 보냅니다. 한 항목이 너무 크면(긴 결과 보고) 그 항목만 쪼갭니다.
+     쪼갠 항목은 조각마다 다시 보내기를 하므로, 한 메시지가 막혀도 보드 전체가 날아가지 않습니다. */
+  function syncSendEntries(list){
+    if(!list || !list.length || !sync.on) return;
+    var batch = [], size = 0, i, e, esz;
+    for(i = 0; i < list.length; i++){
+      e = list[i];
+      if(!e || !e.key) continue;
+      try{ esz = pcBytes(JSON.stringify(e)) + 60; }catch(err){ continue; }
+      if(esz > SYNC_MAX - 250){
+        if(batch.length){ syncSendBatch(batch); batch = []; size = 0; }
+        syncSendItem(e);
+        continue;
+      }
+      if(batch.length && size + esz > SYNC_MAX - 250){ syncSendBatch(batch); batch = []; size = 0; }
+      batch.push(e);
+      size += esz;
+    }
+    if(batch.length) syncSendBatch(batch);
+  }
+  function syncSendBatch(batch){
+    syncPublish({ a:"vcs", v:2, d:sync.dev, k:"d", at: Date.now(), it: batch });
+  }
+  function syncSendItem(e){
+    var txt = (e.c == null) ? "null" : JSON.stringify(e.c);
+    var parts = syncSplit(txt, SYNC_MAX - 400), i;
+    var id = "c" + syncHash(e.key) + Date.now().toString(36);
+    for(i = 0; i < parts.length; i++){
+      syncPublish({ a:"vcs", v:2, d:sync.dev, k:"c", id:id, key:e.key, r:e.r, i:i + 1, n:parts.length, s:parts[i] }, i * 400);
+    }
+  }
   function syncSplit(text, maxBytes){
     var out = [], cur = "", size = 0, i, ch, b, c;
+    text = String(text == null ? "" : text);
     for(i = 0; i < text.length; i++){
       ch = text.charAt(i);
       c = text.charCodeAt(i);
@@ -3963,19 +3995,15 @@ input,textarea,select{font:inherit}
     if(cur) out.push(cur);
     return out.length ? out : [""];
   }
-  function syncPublish(obj){
+  function syncPublish(obj, delay){
     if(!sync.on || !sync.topic) return;
     var text;
     try{ text = JSON.stringify(obj); }catch(e){ return; }
-    var parts = syncSplit(text, SYNC_MAX), i;
-    if(parts.length === 1){ syncPost(parts[0], 0); return; }
-    var id = "m" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-    for(i = 0; i < parts.length; i++){
-      syncPost(JSON.stringify({ a:"vcs", v:2, d:sync.dev, k:"c", id:id, i:i + 1, n:parts.length, s:parts[i] }), i * 250);
-    }
+    if(pcBytes(text) > 4000) return;
+    syncPost(text, delay || 0);
   }
   function syncPost(body, delay){
-    var go = function(){
+    var attempt = function(n){
       if(!sync.on) return;
       fetch(syncUrl(""), {
         method:"POST",
@@ -3984,17 +4012,24 @@ input,textarea,select{font:inherit}
         cache:"no-store"
       }).then(function(r){
         if(r.ok){ sync.lastOut = Date.now(); sync.fail = 0; return; }
-        if(r.status === 429){ sync.fail++; sync.note = "전송 한도에 걸렸습니다 — 잠시 뒤 다시 맞춥니다"; }
-        throw new Error("HTTP " + r.status);
-      }).catch(function(){
+        var err = new Error("HTTP " + r.status);
+        err.status = r.status;
+        throw err;
+      }).catch(function(err){
         sync.fail++;
-        if(sync.fail > 4 && !sync.note) sync.note = "동기화 전송이 막혔습니다 — 네트워크를 확인하세요";
+        if(n < 3){
+          setTimeout(function(){ attempt(n + 1); }, 2000 * n);
+          return;
+        }
+        if(err && err.status === 429) sync.note = "전송 한도에 걸렸습니다 — 잠시 뒤 자동으로 다시 맞춥니다";
+        else if(sync.fail > 4 && !sync.note) sync.note = "동기화 전송이 막혔습니다 — 네트워크를 확인하세요";
         syncRender();
       });
     };
-    if(delay) setTimeout(go, delay); else go();
+    setTimeout(function(){ attempt(1); }, delay || 0);
   }
 
+  /* 보드 전체를 항목 묶음으로 나눠 여러 번 올립니다(한 덩어리로 보내면 한 번 막힐 때 통째로 실패) */
   function syncSnapshot(){
     if(!sync.on) return;
     var list = [], k;
@@ -4005,7 +4040,7 @@ input,textarea,select{font:inherit}
     for(k in sync.tomb){ list.push({ key:k, r: sync.tomb[k], c: null }); }
     sync.lastSnap = Date.now();
     sync.dirtySinceSnap = false;
-    syncPublish({ a:"vcs", v:2, d:sync.dev, k:"s", at: sync.lastSnap, it: list });
+    syncSendEntries(list);
     try{ localStorage.setItem(SYNC_SNAP, String(sync.lastSnap)); }catch(e){}
   }
   function syncWant(){
@@ -4034,24 +4069,27 @@ input,textarea,select{font:inherit}
     if(p.k === "c"){ syncChunk(p); return; }
     syncHandle(p);
   }
+  /* 쪼개져 온 항목 하나를 모아서 반영합니다 */
   function syncChunk(p){
-    if(!p.id || !p.n) return;
+    if(!p.id || !p.n || !p.key) return;
     var box = sync.chunks[p.id];
     if(!box){ box = sync.chunks[p.id] = { n:p.n, got:{}, at: Date.now() }; }
     box.got[p.i] = String(p.s || "");
     var cnt = 0, i;
     for(i in box.got){ cnt++; }
     if(cnt < box.n){
-      if(Date.now() - box.at > 180000) delete sync.chunks[p.id];
+      if(Date.now() - box.at > 120000){
+        delete sync.chunks[p.id];
+        if(sync.on && Date.now() - (sync.lastWant || 0) > 60000) syncWant();
+      }
       return;
     }
     var txt = "";
     for(i = 1; i <= box.n; i++) txt += (box.got[i] || "");
     delete sync.chunks[p.id];
-    var p2;
-    try{ p2 = JSON.parse(txt); }catch(e){ return; }
-    if(!p2 || p2.a !== "vcs" || p2.d === sync.dev) return;
-    syncHandle(p2);
+    var c;
+    try{ c = JSON.parse(txt); }catch(e){ return; }
+    syncApply([{ key:p.key, r:p.r, c:c }]);
   }
   function syncHandle(p){
     if(p.k === "d"){ syncApply(p.it); return; }
