@@ -3732,7 +3732,8 @@ input,textarea,select{font:inherit}
     es:null, pollTimer:null, retryTimer:null, bootTimer:null, quietTimer:null,
     since:0, seen:{}, seenN:0,
     peers:{}, lastIn:0, lastOut:0, lastSnap:0, lastWant:0, startedAt:0,
-    gotRemote:false, dirtySinceSnap:false, fail:0, chunks:{}, renderTimer:null, lastCatch:0, lastTopic:""
+    gotRemote:false, dirtySinceSnap:false, fail:0, chunks:{}, renderTimer:null, lastCatch:0, lastTopic:"",
+    retry:[], retryAt:0
   };
 
   function syncHash(s){
@@ -3972,14 +3973,20 @@ input,textarea,select{font:inherit}
     if(batch.length) syncSendBatch(batch);
   }
   function syncSendBatch(batch){
-    syncPublish({ a:"vcs", v:2, d:sync.dev, k:"d", at: Date.now(), it: batch });
+    syncPublish({ a:"vcs", v:2, d:sync.dev, k:"d", at: Date.now(), it: batch }, 0, batch);
+  }
+  function syncRetryPush(list){
+    if(!list || !list.length) return;
+    sync.retry = sync.retry.concat(list);
+    if(sync.retry.length > 300) sync.retry = sync.retry.slice(-300);
+    sync.retryAt = Date.now() + 15000;
   }
   function syncSendItem(e){
     var txt = (e.c == null) ? "null" : JSON.stringify(e.c);
     var parts = syncSplit(txt, SYNC_MAX - 400), i;
     var id = "c" + syncHash(e.key) + Date.now().toString(36);
     for(i = 0; i < parts.length; i++){
-      syncPublish({ a:"vcs", v:2, d:sync.dev, k:"c", id:id, key:e.key, r:e.r, i:i + 1, n:parts.length, s:parts[i] }, i * 400);
+      syncPublish({ a:"vcs", v:2, d:sync.dev, k:"c", id:id, key:e.key, r:e.r, i:i + 1, n:parts.length, s:parts[i] }, i * 400, [e]);
     }
   }
   function syncSplit(text, maxBytes){
@@ -3995,14 +4002,14 @@ input,textarea,select{font:inherit}
     if(cur) out.push(cur);
     return out.length ? out : [""];
   }
-  function syncPublish(obj, delay){
+  function syncPublish(obj, delay, entries){
     if(!sync.on || !sync.topic) return;
     var text;
     try{ text = JSON.stringify(obj); }catch(e){ return; }
     if(pcBytes(text) > 4000) return;
-    syncPost(text, delay || 0);
+    syncPost(text, delay || 0, entries);
   }
-  function syncPost(body, delay){
+  function syncPost(body, delay, entries){
     var attempt = function(n){
       if(!sync.on) return;
       fetch(syncUrl(""), {
@@ -4021,8 +4028,9 @@ input,textarea,select{font:inherit}
           setTimeout(function(){ attempt(n + 1); }, 2000 * n);
           return;
         }
-        if(err && err.status === 429) sync.note = "전송 한도에 걸렸습니다 — 잠시 뒤 자동으로 다시 맞춥니다";
-        else if(sync.fail > 4 && !sync.note) sync.note = "동기화 전송이 막혔습니다 — 네트워크를 확인하세요";
+        syncRetryPush(entries);
+        if(err && err.status === 429) sync.note = "전송이 잠시 미뤄졌습니다 — 자동으로 다시 보냅니다";
+        else if(!sync.note) sync.note = "전송이 잠시 미뤄졌습니다 — 자동으로 다시 보냅니다";
         syncRender();
       });
     };
@@ -4377,6 +4385,12 @@ input,textarea,select{font:inherit}
       var now = Date.now();
       var quiet = now - Math.max(sync.lastIn || 0, sync.lastCatch || 0, sync.startedAt || 0);
       if((sync.live !== "on" || quiet > 60000) && now - (sync.lastCatch || 0) > 45000) syncCatchUp();
+    if(sync.retry.length && now > (sync.retryAt || 0)){
+      var rlist = sync.retry;
+      sync.retry = [];
+      sync.retryAt = now + 20000;
+      syncSendEntries(rlist);
+    }
     }
   }
   setInterval(syncTick, 3000);
