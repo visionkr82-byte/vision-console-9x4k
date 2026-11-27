@@ -3772,7 +3772,7 @@ input,textarea,select{font:inherit}
       if(!h) return;
       m["h:" + (h.ts || 0) + "-" + syncHash(h.raw)] = h;
     });
-    m["cfg"] = { chain: !!state.chain, pc: { "in": pc["in"] || "", out: pc.out || "", auto: !!pc.auto } };
+    m["cfg"] = { chain: !!state.chain, pc: { "in": pc["in"] || "", out: pc.out || "" } };
     return m;
   }
 
@@ -3807,7 +3807,7 @@ input,textarea,select{font:inherit}
         var pcChanged = (ni && ni !== pc["in"]) || (no2 && no2 !== pc.out);
         if(ni) pc["in"] = ni;
         if(no2) pc.out = no2;
-        if(typeof cfg.pc.auto === "boolean") pc.auto = cfg.pc.auto;
+        /* auto(PC로 바로 실행)는 기기마다 다른 설정이라 공유하지 않습니다 */
         if(pcChanged){
           pc.live = "off"; pc.lastOk = 0; pcResetSub();
           pcStore();                        /* ← sync.applying 중이라 되돌아 발행되지 않음 */
