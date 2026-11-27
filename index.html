@@ -1632,8 +1632,9 @@ input,textarea,select{font:inherit}
     var name = d ? (d.no + " " + d.title) : (t.dept + " " + t.deptTitle);
     if(!r) return '<div class="t-route"><b>배정</b><span>' + esc(name) + '</span></div>';
     var why = (r.hits && r.hits.length) ? r.hits.join("·") : (r.why || "");
+    var isMove = r.mode === "manual" && String(r.why || "").indexOf("직접 변경") === 0;
     return '<div class="t-route' + (r.mode === "manual" ? " is-manual" : "") + '">' +
-      "<b>" + (r.mode === "manual" ? "변경" : "배정") + "</b>" +
+      "<b>" + (r.mode === "manual" ? (isMove ? "변경" : "직접") : "배정") + "</b>" +
       "<span>" + esc(name) + "</span>" +
       (r.mode === "manual" ? "" : "<em>점수 " + (r.score || 0) + "</em>") +
       (why ? "<span>· " + esc(why) + "</span>" : "") +
