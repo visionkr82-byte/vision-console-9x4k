@@ -77,6 +77,7 @@ input,textarea,select{font:inherit}
 .chip-doing{background:var(--blue-tint);color:#155cad;border-color:#cfe0f9}
 .chip-review{background:var(--orange-tint);color:var(--orange-d);border-color:#ffd9c4}
 .chip-done{background:var(--ok-tint);color:#127a4a;border-color:#cdebdb}
+.chip-error{background:#fdeceb;color:#a33a1c;border-color:#f8d2c7}
 .tag{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:7px;background:#f4f7fb;border:1px solid #e6edf5;font-size:11px;font-weight:700;color:#4d6073;letter-spacing:-.01em}
 
 /* ============ 2. 헤더 ============ */
@@ -144,19 +145,21 @@ input,textarea,select{font:inherit}
 .dot{width:8px;height:8px;border-radius:50%;background:#2bb673;box-shadow:0 0 0 4px rgba(43,182,115,.16);flex:none}
 .brief-top b{font-size:13.5px;letter-spacing:-.02em;color:#fff}
 .brief-date{margin-left:auto;font-size:11px;font-weight:800;color:#8fa5ba;letter-spacing:.02em;font-family:var(--mono)}
-.brief-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:13px}
+.brief-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:13px}
 .bstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 9px}
 .bstat span{display:block;font-size:10px;font-weight:800;color:#9db1c4;letter-spacing:-.01em}
 .bstat b{display:block;margin-top:1px;font-size:19px;font-weight:800;letter-spacing:-.03em;color:#fff;font-family:var(--mono);line-height:1.2}
 .bstat.is-doing b{color:#7fb6ff}
 .bstat.is-review b{color:#ffab7a}
 .bstat.is-done b{color:#6fd8a2}
+.bstat.is-error b{color:#ff9c9c}
 .brief-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.1);margin-top:12px;overflow:hidden;display:flex}
 .brief-bar i{display:block;height:100%}
 .brief-bar i:nth-child(1){background:#5a7691}
 .brief-bar i:nth-child(2){background:#4e93f0}
 .brief-bar i:nth-child(3){background:#ff8b4d}
 .brief-bar i:nth-child(4){background:#35b478}
+.brief-bar i:nth-child(5){background:#e5484d}
 .brief-now{margin-top:12px;font-size:12px;color:#b6c7d7;line-height:1.55}
 .brief-now b{color:#fff}
 .brief-list{display:flex;flex-direction:column;margin-top:10px}
@@ -183,7 +186,7 @@ input,textarea,select{font:inherit}
 .board-tools .btn{height:34px;font-size:12px;padding:0 12px;border-radius:9px}
 .board-tools .danger{color:#a33a1c;border-color:#f0d3c6}
 .board-tools .danger:hover{border-color:#c2410c;color:#c2410c}
-.board-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px;align-items:start}
+.board-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:26px;align-items:start}
 .col{background:#eaf1f8;border:1px solid #dde7f1;border-radius:15px;padding:10px;min-height:150px;min-width:0;transition:background .18s}
 .col-head{display:flex;align-items:center;gap:7px;padding:2px 3px 10px;font-size:12px;font-weight:800;color:#334b62}
 .col-head i{width:7px;height:7px;border-radius:50%;flex:none}
@@ -191,6 +194,7 @@ input,textarea,select{font:inherit}
 .col[data-status="doing"] .col-head i{background:var(--blue)}
 .col[data-status="review"] .col-head i{background:#ff7a33}
 .col[data-status="done"] .col-head i{background:#2bb673}
+.col[data-status="error"] .col-head i{background:#e5484d}
 .col-count{margin-left:auto;background:#fff;border:1px solid #dbe6f2;border-radius:999px;min-width:20px;height:19px;display:grid;place-items:center;font-size:10.5px;font-weight:800;color:#54687b;font-family:var(--mono);padding:0 6px}
 .col-empty{border:1px dashed #c9d7e5;border-radius:11px;padding:16px 8px;text-align:center;font-size:11px;color:#8b9dae;line-height:1.5}
 .task{background:#fff;border:1px solid #dde7f1;border-radius:12px;padding:11px 11px 10px;margin-bottom:9px;box-shadow:0 1px 2px rgba(13,32,52,.05);transition:box-shadow .18s,transform .18s}
@@ -205,13 +209,14 @@ input,textarea,select{font:inherit}
 .t-instr{margin-top:7px;font-size:10.5px;color:#93a2b2;line-height:1.45;padding-left:8px;border-left:2px solid #e4ecf4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .t-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}
 .t-tags span{font-size:9.5px;font-weight:800;color:#5c7288;background:#f2f6fa;border:1px solid #e6eef6;border-radius:5px;padding:1px 5px}
-.t-foot{display:flex;align-items:center;gap:3px;row-gap:5px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid #eef3f8}
+.t-foot{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:9px;padding-top:8px;border-top:1px solid #eef3f8}
+.t-foot .t-btn{width:100%;justify-content:center;padding:0 4px}
 .t-btn{height:26px;padding:0 6px;border-radius:6px;border:1px solid var(--line-2);background:#fff;font-size:10.5px;font-weight:800;color:#516678;display:inline-flex;align-items:center;gap:3px;transition:.14s;white-space:nowrap}
 .t-btn:hover{border-color:var(--navy);color:var(--navy)}
 .t-btn svg{width:11px;height:11px}
 .t-btn.copy{color:var(--orange-d);border-color:#ffd9c4;background:#fffaf7}
 .t-btn.copy:hover{border-color:var(--orange);color:var(--orange-d)}
-.t-adv{margin-left:auto;background:var(--navy);border-color:var(--navy);color:#fff}
+.t-adv{margin-left:0;background:var(--navy);border-color:var(--navy);color:#fff}
 .t-adv:hover{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
 .t-adv.is-last{background:#fff;color:#516678;border-color:var(--line-2);font-weight:800}
 .t-adv.is-last:hover{border-color:var(--navy);color:var(--navy)}
@@ -411,6 +416,33 @@ input,textarea,select{font:inherit}
 .t-staff-pick svg{width:8px;height:8px;flex:none}
 .t-staff-sel{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer;border:0;padding:0;margin:0}
 
+/* ============ 10-b. 자동 배정 · 자동 상태 이동 ============ */
+.t-dept-pick{position:relative;display:inline-flex;align-items:center;gap:3px;min-width:0;max-width:132px;height:19px;padding:0 4px 0 6px;border:1px solid #dbe6f2;border-radius:6px;background:#fff;font-size:10.5px;font-weight:800;color:#4d6377;letter-spacing:-.01em;flex:none}
+.t-dept-pick>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.t-dept-pick svg{width:8px;height:8px;flex:none}
+.t-dept-pick:hover{border-color:var(--navy);color:var(--navy)}
+.t-dept-pick:focus-within{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,106,31,.16)}
+.t-dept-sel{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer;border:0;padding:0;margin:0}
+.t-dept-pick.is-locked{opacity:.55;cursor:not-allowed}
+.t-route{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:7px;padding:4px 7px;border-radius:7px;background:#f3f9ff;border:1px solid #dbe8f5;font-size:10px;font-weight:800;color:#2c4a66;line-height:1.4;letter-spacing:-.01em}
+.t-route b{color:var(--orange-d);font-weight:800;flex:none}
+.t-route em{font-style:normal;font-family:var(--mono);font-size:9.5px;color:#5b7590;flex:none}
+.t-route span{color:#7b8ea0;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t-route.is-manual{background:#fffaf6;border-color:#ffe1cf}
+.t-route.is-manual b{color:#8a4318}
+.t-review{display:flex;align-items:center;gap:5px;margin-top:7px;font-size:10px;font-weight:800;color:#7b8ea0;cursor:pointer;-webkit-user-select:none;user-select:none;white-space:nowrap}
+.t-review input{width:12px;height:12px;margin:0;accent-color:var(--orange);cursor:pointer}
+.t-review.is-on{color:var(--orange-d)}
+.t-gate{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:8px}
+.t-gate button{height:27px;border-radius:7px;border:1px solid var(--line-2);background:#fff;font-size:10.5px;font-weight:800;color:#516678}
+.t-gate .ok{background:#127a4a;border-color:#127a4a;color:#fff}
+.t-gate .ok:hover{background:#0f6b45}
+.t-gate .no{color:#a33a1c;border-color:#f0d3c6;background:#fff8f6}
+.t-gate .no:hover{border-color:#c2410c;color:#c2410c}
+.t-reject{margin-top:6px;padding:4px 7px;border-radius:6px;background:#fff5f2;border:1px solid #f8d2c7;font-size:10px;line-height:1.45;color:#a33a1c;word-break:break-word}
+.t-stale{margin-top:6px;padding:4px 7px;border-radius:6px;background:#fffaf0;border:1px solid #ffe2b0;font-size:10px;font-weight:800;color:#8a5a00;line-height:1.45}
+.t-pc[data-pc="stale"]{background:#fffaf0;border-color:#ffe2b0;color:#8a5a00}
+
 /* ============ 10-c. 집 PC 연결 ============ */
 .pc-ctl{display:flex;align-items:center;gap:6px;flex:none}
 .pc-pill{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:28px;padding:0 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#c3d2e0;font-size:11px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;transition:.15s}
@@ -519,6 +551,7 @@ input,textarea,select{font:inherit}
   .dw-body{padding:16px 16px 24px}
   .dw-head{padding:15px 16px 12px}
   .cmd-note{display:none}
+  .brief-stats{grid-template-columns:repeat(3,1fr)}
   .foot-bottom{flex-direction:column;gap:6px}
   .cmd{padding:15px 14px 13px}
   .t-staff-badge{max-width:64%}
@@ -573,8 +606,8 @@ input,textarea,select{font:inherit}
     <div class="wrap hero-in">
       <div>
         <span class="pill"><i aria-hidden="true">1</i> INTERNAL · 김용진 대표님 전용 지휘실</span>
-        <h1>대표님은 한 줄만 던지세요.<br>부서가 <em>업무 카드</em>로 쪼개<br>받아 갑니다.</h1>
-        <p class="lead">머릿속 지시를 그대로 적으면 <b>01~09 부서 중 맞는 팀</b>이 골라지고, 카드마다 담당 툴·완료 기준·<b>클로드 코드에 그대로 붙여넣을 실행 지시문</b>이 붙습니다.</p>
+        <h1>대표님은 한 줄만 던지세요.<br>지시에 맞는 <em>부서 한 곳</em>이<br>카드로 받아 갑니다.</h1>
+        <p class="lead">머릿속 지시를 그대로 적으면 <b>01~09 부서 중 맞는 팀만</b> 점수로 골라 카드 <b>1장(최대 2장)</b>을 만들고, 카드마다 담당 툴·완료 기준·<b>클로드 코드에 그대로 붙여넣을 실행 지시문</b>이 붙습니다. 카드는 대표님이 옮기지 않아도 PC 실행 상태를 따라 스스로 움직입니다.</p>
 
         <form class="cmd" id="cmdForm" novalidate>
           <div class="cmd-head">
@@ -586,20 +619,20 @@ input,textarea,select{font:inherit}
           <textarea class="cmd-input" id="cmdText" rows="3" placeholder="예) 이번 주 인스타 릴스 3편 만들고 당근·블로그에도 같이 뿌려서 무료진단 문의 10건 당겨와"></textarea>
 
           <div class="presets" aria-label="빠른 지시 프리셋">
-            <button type="button" class="preset" data-preset="이번 주 인스타 릴스 3편 만들고 당근·블로그에도 같이 뿌려서 무료진단 문의 10건 당겨와">숏폼 3편 제작·배포</button>
-            <button type="button" class="preset" data-preset="인스타 DM 문의 폭주 세팅 — 키워드 자동응답 4종 만들고 반응 고객 저장까지 붙여줘">인스타 DM 문의 폭주 세팅</button>
-            <button type="button" class="preset" data-preset="당근 소식이랑 블로그 동시에 공략해서 이번 주 신규 상담 5건 잡아줘">당근+블로그 동시 공략</button>
-            <button type="button" class="preset" data-preset="경쟁사 릴스 10개 벤치마킹해서 우리 숏폼 대본 3편에 반영해줘">경쟁사 릴스 벤치마킹</button>
+            <button type="button" class="preset" data-preset="경쟁사 10곳 이번 주 움직임 브리핑해줘">경쟁사 10곳 브리핑</button>
+            <button type="button" class="preset" data-preset="이번 달 전환율이랑 매출 리포트 갱신해줘">전환·매출 리포트</button>
+            <button type="button" class="preset" data-preset="인스타 릴스 3편 대본 쓰고 9:16으로 렌더해줘">릴스 3편 제작</button>
+            <button type="button" class="preset" data-preset="계약서 문구 다듬어서 제안서에 넣을 수 있게 해줘">계약서 문구</button>
           </div>
 
           <div class="pick">
-            <div class="pick-label">부서 직접 지정 <em>— 비우면 자동 매칭</em></div>
+            <div class="pick-label">부서 직접 지정 <em>— 비우면 지시에 맞는 부서 1~2곳 자동 배정</em></div>
             <div class="pick-chips" id="pickChips" role="group" aria-label="부서 직접 지정"></div>
           </div>
 
           <div class="cmd-actions">
             <button class="btn btn-primary" type="submit" id="cmdGo">
-              부서별 분담하기
+              맞는 부서에 배정하기
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
             <button class="btn btn-ghost" type="reset" id="cmdReset">비우기</button>
@@ -607,6 +640,11 @@ input,textarea,select{font:inherit}
               <input type="checkbox" id="pcAuto" aria-label="지시를 집 PC로 바로 실행">
               <span class="pc-switch-track" aria-hidden="true"><i></i></span>
               <span>PC로 바로 실행</span>
+            </label>
+            <label class="pc-switch" id="chainWrap" title="켜면 예전처럼 04 취합·07 브리핑·09 리포트까지 한꺼번에 카드를 만듭니다 (기본 꺼짐)">
+              <input type="checkbox" id="chainAll" aria-label="전 과정 실행">
+              <span class="pc-switch-track" aria-hidden="true"><i></i></span>
+              <span>전 과정 실행</span>
             </label>
             <span class="cmd-note">분담 결과는 저장됩니다</span>
           </div>
@@ -632,9 +670,10 @@ input,textarea,select{font:inherit}
           <div class="bstat is-doing"><span>진행</span><b data-count="doing">0</b></div>
           <div class="bstat is-review"><span>검수</span><b data-count="review">0</b></div>
           <div class="bstat is-done"><span>완료</span><b data-count="done">0</b></div>
+          <div class="bstat is-error"><span>오류</span><b data-count="error">0</b></div>
         </div>
-        <div class="brief-bar" id="briefBar" aria-hidden="true"><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i></div>
-        <p class="brief-now" id="briefNow">아직 지시가 없습니다. 왼쪽에 한 줄 던지면 부서별 카드가 여기에 쌓입니다.</p>
+        <div class="brief-bar" id="briefBar" aria-hidden="true"><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i></div>
+        <p class="brief-now" id="briefNow">아직 지시가 없습니다. 왼쪽에 한 줄 던지면 배정된 부서 카드가 여기에 쌓입니다.</p>
         <ul class="brief-list" id="briefList"></ul>
         <a class="btn" href="#board">분담 보드 열기 →</a>
       </aside>
@@ -648,7 +687,7 @@ input,textarea,select{font:inherit}
         <div class="sec-head">
           <span class="eyebrow">Dispatch board</span>
           <h2>오늘의 분담 보드</h2>
-          <p>카드의 <b>→</b>를 누르면 대기 → 진행 중 → 대표님 검수 → 완료로 넘어갑니다. <b>▶ PC 실행</b>을 누르면 집 PC 클로드 코드가 실제로 돌고 결과가 그 카드에 붙습니다. <b>지시문 복사</b>로 직접 붙여넣을 수도 있습니다. 모든 변경은 이 브라우저에 자동 저장됩니다.</p>
+          <p>카드는 <b>대표님이 옮기지 않아도</b> 됩니다. 지시를 PC로 보내는 순간 <b>진행 중</b>으로, 결과가 오면 <b>완료</b>로, 결과에 승인·확인 요청이 있거나 <b>검수 필요</b>를 체크한 카드는 <b>검수 대기</b>로 스스로 넘어갑니다. 응답이 10분 없으면 <b>응답 없음</b>으로 표시됩니다. <b>→</b> 버튼으로 손수 옮길 수도 있습니다. 모든 변경은 이 브라우저에 자동 저장됩니다.</p>
         </div>
         <div class="board-tools">
           <button class="btn btn-ghost" type="button" id="copyAll">전체 지시문 복사</button>
@@ -1043,14 +1082,26 @@ input,textarea,select{font:inherit}
   /* ================= 상태 저장 ================= */
   var STORE = "vision_console_v1";
   var STATUS = [
-    { key:"wait",   label:"대기",        chip:"chip-wait" },
-    { key:"doing",  label:"진행 중",      chip:"chip-doing" },
-    { key:"review", label:"대표님 검수",  chip:"chip-review" },
-    { key:"done",   label:"완료",        chip:"chip-done" }
+    { key:"wait",   label:"대기",        chip:"chip-wait",   empty:"지시를 던지면 배정된 부서 카드가 여기 쌓입니다" },
+    { key:"doing",  label:"진행 중",      chip:"chip-doing",  empty:"PC로 보내는 순간 자동으로 넘어옵니다" },
+    { key:"review", label:"검수 대기",    chip:"chip-review", empty:"승인·확인이 필요하면 여기로 자동 이동합니다" },
+    { key:"done",   label:"완료",        chip:"chip-done",   empty:"결과가 오면 자동으로 넘어옵니다" },
+    { key:"error",  label:"오류",        chip:"chip-error",  empty:"오류가 돌아온 카드가 여기 남습니다" }
   ];
+  var CYCLE = ["wait","doing","review","done"];
+  function statusOf(key){
+    for(var i=0;i<STATUS.length;i++){ if(STATUS[i].key === key) return STATUS[i]; }
+    return STATUS[0];
+  }
+  var PC_STALE_MS = 10 * 60 * 1000;
+  var REVIEW_RE = /(승인|검수|컨펌|결재|확인\s*(해|을)?\s*주세요|확인\s*부탁|확인\s*바랍|검토\s*(해|부탁|후)|선택\s*해\s*주세요|어느\s*쪽|진행할까요|골라\s*주|정해\s*주)/i;
+  function needsReview(t, text){
+    if(t && t.review) return true;
+    return REVIEW_RE.test(String(text || ""));
+  }
   var PIPE_DEFAULT = { vals:[42000,380,46,27,4], unit:30 };
 
-  var state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff:null };
+  var state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff:null, chain:false };
   var legacyStaffData = false;
 
   function load(){
@@ -1062,6 +1113,7 @@ input,textarea,select{font:inherit}
       legacyStaffData = !(s.staff && typeof s.staff === "object");
       if(Array.isArray(s.tasks)) state.tasks = s.tasks.filter(function(t){ return t && t.dept && t.title; });
       if(Array.isArray(s.history)) state.history = s.history.slice(0,12);
+      if(typeof s.chain === "boolean") state.chain = s.chain;
       if(s.pipe && Array.isArray(s.pipe.vals) && s.pipe.vals.length === 5){
         state.pipe.vals = s.pipe.vals.map(function(v){ return isFinite(+v) ? +v : 0; });
         state.pipe.unit = isFinite(+s.pipe.unit) ? +s.pipe.unit : PIPE_DEFAULT.unit;
@@ -1338,40 +1390,101 @@ input,textarea,select{font:inherit}
 
   $$(".dept-art").forEach(function(el,i){ el.innerHTML = buildArt(el.getAttribute("data-art"), i); });
 
-  /* ================= 지시 → 부서 매칭 ================= */
-  var RULES = [
-    { dept:"01", kw:["숏폼","릴스","쇼츠","틱톡","영상","대본","편집","렌더","모션","컷"] },
-    { dept:"02", kw:["업로드","발행","예약발행","예약 발행","게시","올려","슬롯"] },
-    { dept:"03", kw:["배포","당근","블로그","스레드","카페","뿌려","확산","동시","채널"] },
-    { dept:"05", kw:["dm","댓글","스토리","활성","팔로우","반응","문의 폭주","키워드"] },
-    { dept:"06", kw:["진단","리드","db","랜딩","신청","유입","연락처"] },
-    { dept:"07", kw:["경쟁","벤치마킹","트렌드","스파이","분석","타사","요즘"] },
-    { dept:"08", kw:["문의","상담","영업","팀장","배정","업세일링","검색광고","계약"] },
-    { dept:"09", kw:["매출","수익","전환","리포트","보고서","cac","예산","목표"] },
-    { dept:"04", kw:["정리","브리핑","보고","일정","분담","취합"] }
+  /* ==================================================================
+     지시 → 부서 자동 배정(라우팅)
+     · kw: [단어, 가중치] — 지시문에 그 단어가 있으면 가중치를 더합니다.
+     · 한 부서에 여러 단어가 걸리면 합산하고, 부서당 최대 12점(RRI)까지만 셉니다.
+     · 1순위 1개만 카드로 만듭니다. 2순위는 '확실히 다른 일'일 때만:
+       점수 4점 이상 + 1순위의 60% 이상 + 1순위와 2점 이상 차이
+       (점수가 비슷하면 오배정을 막기 위해 1순위만 만듭니다)
+     · 아무 단어도 안 걸리면 04 총괄 비서실장으로 1장만 만듭니다.
+     ================================================================== */
+  var RRI = 12;
+  var ROUTE = [
+    { no:"01", name:"숏폼 제작자", kw:[
+      ["숏폼",5],["릴스",4],["쇼츠",4],["틱톡",3],["영상",3],["대본",5],["스크립트",4],
+      ["편집",4],["렌더",4],["컷",2],["모션",3],["자막",4],["tts",4],["9:16",4],
+      ["촬영",4],["카피",3],["훅",3],["문구",1],["기획",1],["콘텐츠",2],["제작",2]
+    ]},
+    { no:"02", name:"업로드 담당", kw:[
+      ["업로드",5],["예약 발행",4],["예약발행",4],["발행",3],["게시",3],["슬롯",3],
+      ["올리",2],["등록",2],["플랫폼",2]
+    ]},
+    { no:"03", name:"멀티채널 배포팀", kw:[
+      ["배포",5],["당근",5],["블로그",5],["스레드",5],["카페",4],["각색",5],
+      ["뿌려",4],["확산",3],["채널",3],["카드뉴스",4],["소식",3],["네이버",2]
+    ]},
+    { no:"04", name:"총괄 비서실장", kw:[
+      ["정리",2],["브리핑",3],["보고",3],["일정",4],["분담",3],["취합",3],
+      ["승인",3],["요약",3],["결정",2],["마감",2],["데일리",3],["비서",3],
+      ["회의",2],["체크리스트",3],["스케줄",3],["할 일",2]
+    ]},
+    { no:"05", name:"인스타 활성화 매니저", kw:[
+      ["dm",5],["댓글",5],["자동응답",5],["스토리",4],["팔로우",4],["반응",3],
+      ["키워드",2],["활성화",4],["인스타",3],["응답",3],["문의 폭주",5]
+    ]},
+    { no:"06", name:"무료진단·리드 수집기", kw:[
+      ["진단",5],["무료진단",5],["리드",5],["랜딩",4],["신청",3],["유입",3],
+      ["연락처",3],["진단폼",5],["진단서",4],["db",2],["폼",2]
+    ]},
+    { no:"07", name:"경쟁사·트렌드 스파이", kw:[
+      ["경쟁",5],["경쟁사",5],["벤치마킹",5],["트렌드",4],["스파이",5],["타사",4],
+      ["시장",3],["조사",4],["리서치",4],["동향",3],["업계",3],["요즘",2],["모니터링",3]
+    ]},
+    { no:"08", name:"문의·영업팀 배정", kw:[
+      ["문의",3],["상담",4],["영업",4],["팀장",4],["배정",3],["업세일",3],
+      ["검색광고",4],["계약",5],["제안서",4],["제안",3],["견적",4],["클로징",4],["미팅",3]
+    ]},
+    { no:"09", name:"전환·수익 리포트", kw:[
+      ["매출",5],["수익",5],["전환",5],["전환율",5],["리포트",5],["보고서",4],
+      ["cac",5],["예산",4],["지표",4],["성과",3],["데이터",3],["퍼널",5],["병목",3],["단가",3],["갱신",2]
+    ]}
   ];
 
-  function analyze(raw){
-    var t = raw.toLowerCase();
-    var hit = {};
-    RULES.forEach(function(r){
+  function normText(s){ return String(s == null ? "" : s).toLowerCase().replace(/\s+/g, " ").trim(); }
+
+  function route(raw){
+    var t = normText(raw);
+    var scored = ROUTE.map(function(r){
+      var s = 0, hits = [];
       for(var i=0;i<r.kw.length;i++){
-        if(t.indexOf(r.kw[i]) > -1){ hit[r.dept] = true; break; }
+        var k = r.kw[i];
+        if(k[0] && t.indexOf(k[0]) > -1){
+          s += k[1];
+          if(hits.length < 3) hits.push(k[0]);
+        }
+      }
+      if(s > RRI) s = RRI;
+      return { no:r.no, score:s, hits:hits };
+    }).sort(function(a,b){ return b.score - a.score || (a.no < b.no ? -1 : 1); });
+
+    var top = scored[0], second = scored[1];
+    if(!top || !top.score){
+      return { depts:[{ no:"04", score:0, hits:[], why:"키워드 없음 — 기본 배정" }], fallback:true, near:null };
+    }
+    var out = [{ no:top.no, score:top.score, hits:top.hits, why:"" }];
+    if(second && second.score >= 4 && second.score >= top.score * 0.6 && (top.score - second.score) >= 2){
+      out.push({ no:second.no, score:second.score, hits:second.hits, why:"" });
+    }
+    return { depts:out, fallback:false, near:(second && second.score > 0) ? second : null };
+  }
+
+  /* 전 과정 실행(기본 꺼짐) — 예전처럼 걸린 부서 전부 + 04 취합 카드를 만들고,
+     키워드가 없으면 04·07·09를 만듭니다. 대표님이 명시적으로 켰을 때만 씁니다. */
+  function analyzeChain(raw){
+    var t = normText(raw);
+    var hit = {};
+    ROUTE.forEach(function(r){
+      for(var i=0;i<r.kw.length;i++){
+        if(r.kw[i][0] && t.indexOf(r.kw[i][0]) > -1){ hit[r.no] = true; break; }
       }
     });
-    // 숏폼을 만들면 업로드까지 이어짐
     if(hit["01"]) hit["02"] = true;
-    // 문의·상담이 나오면 리드 수집과 배정이 같이 움직임
     if(hit["08"] && (t.indexOf("진단") > -1 || t.indexOf("문의") > -1)) hit["06"] = true;
-    hit["04"] = true; // 총괄은 항상 취합
-
+    hit["04"] = true;
     var depts = Object.keys(hit).filter(function(d){ return deptByNo(d); }).sort();
-    var fallback = false;
-    if(depts.length <= 1){
-      depts = ["04","07","09"];
-      fallback = true;
-    }
-    return { depts: depts, fallback: fallback };
+    if(depts.length <= 1) depts = ["04","07","09"];
+    return depts.map(function(no){ return { no:no, score:0, hits:[], why:"전 과정 실행" }; });
   }
 
   function parseCtx(raw){
@@ -1480,8 +1593,30 @@ input,textarea,select{font:inherit}
       id: uid(), dept: d.no, deptTitle: d.title,
       title: t.title, criteria: t.criteria, tools: t.tools, prompt: t.prompt,
       instr: rawInstr || ctx.raw, status: "wait", ts: Date.now(),
-      staffId: st ? st.id : "", staffName: st ? st.name : ""
+      staffId: st ? st.id : "", staffName: st ? st.name : "",
+      route: null, review: false
     };
+  }
+
+  /* 카드의 부서를 바꾸면 내용·직원·전송 역할 문구를 통째로 다시 만듭니다 */
+  function retargetTask(id, no){
+    var t = findTask(id), d = deptByNo(no);
+    if(!t || !d) return;
+    if(t.pc && (t.pc.state === "sent" || t.pc.state === "running")){
+      showToast("PC로 보낸 카드는 결과가 올 때까지 부서를 바꿀 수 없습니다");
+      renderBoard();
+      return;
+    }
+    var from = t.dept, hadPc = !!t.pc;
+    var nw = makeTask(no, parseCtx(t.instr || ""), t.instr || "", null);
+    if(!nw){ showToast("이 부서로는 카드를 만들 수 없습니다"); renderBoard(); return; }
+    t.dept = nw.dept; t.deptTitle = nw.deptTitle;
+    t.title = nw.title; t.criteria = nw.criteria; t.tools = nw.tools; t.prompt = nw.prompt;
+    t.staffId = nw.staffId; t.staffName = nw.staffName;
+    t.route = { mode:"manual", score:0, hits:[], why:"직접 변경 " + from + " → " + no, near:"" };
+    if(hadPc) t.pc = null;
+    save(); renderAll();
+    showToast(from + " → " + no + " " + d.title + " 부서로 바꿨습니다" + (hadPc ? " — 이전 부서 실행 기록은 지웠습니다" : ""));
   }
 
   /* ================= 렌더: 보드 ================= */
@@ -1490,6 +1625,22 @@ input,textarea,select{font:inherit}
     state.tasks.forEach(function(t){ if(t.status === key) n++; });
     return n;
   }
+
+  function routeLabel(t){
+    var r = t.route;
+    var d = deptByNo(t.dept);
+    var name = d ? (d.no + " " + d.title) : (t.dept + " " + t.deptTitle);
+    if(!r) return '<div class="t-route"><b>배정</b><span>' + esc(name) + '</span></div>';
+    var why = (r.hits && r.hits.length) ? r.hits.join("·") : (r.why || "");
+    return '<div class="t-route' + (r.mode === "manual" ? " is-manual" : "") + '">' +
+      "<b>" + (r.mode === "manual" ? "변경" : "배정") + "</b>" +
+      "<span>" + esc(name) + "</span>" +
+      (r.mode === "manual" ? "" : "<em>점수 " + (r.score || 0) + "</em>") +
+      (why ? "<span>· " + esc(why) + "</span>" : "") +
+      "</div>";
+  }
+
+  var CARET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 
   function renderBoard(){
     var grid = $("#boardGrid");
@@ -1500,47 +1651,64 @@ input,textarea,select{font:inherit}
       html += '<div class="col" data-status="' + s.key + '">' +
         '<div class="col-head"><i></i>' + s.label + '<span class="col-count">' + list.length + '</span></div>';
       if(!list.length){
-        html += '<div class="col-empty">' + (s.key === "wait" ? "지시를 던지면 카드가 여기 쌓입니다" : "아직 없음") + '</div>';
+        html += '<div class="col-empty">' + s.empty + '</div>';
       } else {
         list.forEach(function(t){
-          var nextIdx = STATUS.findIndex(function(x){ return x.key === t.status; }) + 1;
-          var nextLabel = nextIdx < STATUS.length ? STATUS[nextIdx].label : "완료 유지";
+          var ci = CYCLE.indexOf(t.status);
+          var nk = CYCLE[(ci + 1) % CYCLE.length];
+          var nextLabel = statusOf(nk).label;
           var nextIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
           var sName = staffNameOf(t);
           var slist = staffOf(t.dept);
           var cur = t.staffId || "";
           var known = cur && !!findStaff(t.dept, cur);
-          var opts = '<option value=""' + (cur === "" ? " selected" : "") + '>미배정</option>' + slist.map(function(s){
-            return '<option value="' + esc(s.id) + '"' + (s.id === cur ? " selected" : "") + '>' + esc(s.name) + '</option>';
+          var opts = '<option value=""' + (cur === "" ? " selected" : "") + '>미배정</option>' + slist.map(function(st){
+            return '<option value="' + esc(st.id) + '"' + (st.id === cur ? " selected" : "") + '>' + esc(st.name) + '</option>';
           }).join("");
           if(cur && !known){
             opts += '<option value="' + esc(cur) + '" selected>' + esc((t.staffName || "삭제된 직원") + " (삭제됨)") + '</option>';
           }
-          html += '<article class="task" data-id="' + t.id + '">' +
-            '<div class="task-top"><span class="t-no">' + esc(t.dept) + '</span><span class="t-dept">' + esc(t.deptTitle) + '</span>' +
-              '<button class="t-del" type="button" data-act="del" aria-label="카드 삭제">×</button></div>' +
+          var locked = !!(t.pc && (t.pc.state === "sent" || t.pc.state === "running"));
+          var deptOpts = DEPTS.map(function(d){ return '<option value="' + d.no + '"' + (d.no === t.dept ? " selected" : "") + '>' + d.no + " " + esc(d.title) + '</option>'; }).join("");
+          var runLabel = locked ? "⏳ 작업 중" : (t.pc && (t.pc.state === "done" || t.pc.state === "error")) ? "↻ 다시 실행" : "▶ PC 실행";
+
+          html += '<article class="task" data-id="' + t.id + '" data-st="' + t.status + '">' +
+            '<div class="task-top">' +
+              '<span class="t-no">' + esc(t.dept) + '</span>' +
+              '<span class="t-dept-pick' + (locked ? " is-locked" : "") + '" title="' + (locked ? "PC가 결과를 돌려줄 때까지는 부서를 바꿀 수 없습니다" : "부서 바꾸기") + '">' +
+                '<span>' + esc(t.deptTitle) + '</span>' + CARET +
+                '<select class="t-dept-sel" data-dept-sel aria-label="부서 변경"' + (locked ? " disabled" : "") + '>' + deptOpts + '</select>' +
+              '</span>' +
+              '<button class="t-del" type="button" data-act="del" aria-label="카드 삭제">×</button>' +
+            '</div>' +
+            routeLabel(t) +
             '<h4>' + esc(t.title) + '</h4>' +
             (sName
               ? '<div class="t-staff"><span class="t-staff-badge" title="담당 직원">' + esc(t.dept) + " · " + esc(sName) + '</span>'
               : '<div class="t-staff"><span class="t-staff-badge is-none" title="담당 직원 없음">' + esc(t.dept) + " · 미배정</span>") +
-              '<span class="t-staff-pick" title="담당 직원 바꾸기">바꾸기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+              '<span class="t-staff-pick" title="담당 직원 바꾸기">바꾸기' + CARET +
                 '<select class="t-staff-sel" data-staff-sel aria-label="담당 직원 변경">' + opts + '</select>' +
               '</span>' +
             '</div>' +
             '<p class="t-crit">' + esc(t.criteria) + '</p>' +
             '<p class="t-instr">' + esc(t.instr || "") + '</p>' +
             pcBlock(t) +
+            (t.pc && t.pc.stale && (t.pc.state === "sent" || t.pc.state === "running")
+              ? '<div class="t-stale">⚠️ 10분 넘게 응답이 없습니다 — 집 PC 전원·연결 프로그램을 확인하세요. 카드는 진행 중에 그대로 둡니다.</div>' : "") +
+            (t.reject ? '<div class="t-reject">반려 사유: ' + esc(t.reject) + '</div>' : "") +
+            '<label class="t-review' + (t.review ? " is-on" : "") + '" title="켜 두면 결과가 와도 완료가 아니라 검수 대기로 갑니다">' +
+              '<input type="checkbox" data-review="1"' + (t.review ? " checked" : "") + '> 검수 필요' +
+            '</label>' +
             '<div class="t-tags">' + t.tools.map(function(x){ return "<span>" + esc(x) + "</span>"; }).join("") + '</div>' +
+            (t.status === "review" ? '<div class="t-gate">' +
+              '<button type="button" class="ok" data-act="approve">승인</button>' +
+              '<button type="button" class="no" data-act="reject">반려</button></div>' : "") +
             '<div class="t-foot">' +
               '<button class="t-btn copy" type="button" data-act="copy">지시문 복사</button>' +
-              '<button class="t-btn pcrun" type="button" data-act="pcrun"' +
-                ((t.pc && (t.pc.state === "sent" || t.pc.state === "running")) ? " disabled" : "") + ">" +
-                ((t.pc && (t.pc.state === "sent" || t.pc.state === "running")) ? "⏳ 작업 중"
-                  : (t.pc && t.pc.state === "done") ? "↻ 다시 실행" : "▶ PC 실행") +
-              "</button>" +
+              '<button class="t-btn pcrun" type="button" data-act="pcrun"' + (locked ? " disabled" : "") + '>' + runLabel + '</button>' +
               '<button class="t-btn" type="button" data-act="open">부서</button>' +
-              '<button class="t-btn t-adv' + (nextIdx >= STATUS.length ? " is-last" : "") + '" type="button" data-act="adv" title="' + esc(nextLabel) + '">' +
-                (nextIdx >= STATUS.length ? "↺ 대기" : nextLabel) + ' ' + nextIcon +
+              '<button class="t-btn t-adv" type="button" data-act="adv" title="' + esc(nextLabel) + '로 옮기기">' +
+                nextLabel + ' ' + nextIcon +
               '</button>' +
             '</div></article>';
         });
@@ -1552,13 +1720,14 @@ input,textarea,select{font:inherit}
 
   function renderBrief(){
     var total = state.tasks.length;
-    ["wait","doing","review","done"].forEach(function(k){
+    var BKEYS = ["wait","doing","review","done","error"];
+    BKEYS.forEach(function(k){
       var el = document.querySelector('[data-count="' + k + '"]');
       if(el) el.textContent = countBy(k);
     });
     var bar = $("#briefBar");
     if(bar){
-      var parts = ["wait","doing","review","done"].map(function(k){
+      var parts = BKEYS.map(function(k){
         return Math.round(countBy(k) / (total || 1) * 1000) / 10;
       });
       $$("i", bar).forEach(function(el,i){ el.style.width = parts[i] + "%"; });
@@ -1570,7 +1739,7 @@ input,textarea,select{font:inherit}
       } else {
         var done = countBy("done");
         var pct = Math.round(done / total * 100);
-        now.innerHTML = "<b>" + total + "건</b> 분담 · 완료 <b>" + pct + "%</b> · 검수 대기 <b>" + countBy("review") + "건</b>";
+        now.innerHTML = "<b>" + total + "건</b> 배정 · 완료 <b>" + pct + "%</b> · 검수 대기 <b>" + countBy("review") + "건</b>" + (countBy("error") ? " · 오류 <b>" + countBy("error") + "건</b>" : "");
       }
     }
     var list = $("#briefList");
@@ -1634,50 +1803,86 @@ input,textarea,select{font:inherit}
     }).join("");
   }
 
-  function submitInstruction(raw){
-    var ta = $("#cmdText");
-    var ctx = parseCtx(raw);
-    var res = picked.length ? { depts: picked.slice().sort(), fallback:false, manual:true } : analyze(raw);
-    var made = [], skipped = 0;
-    res.depts.forEach(function(no){
-      /* 부서 안에서 누가 같이 움직여야 하는지 보고, 여러 명이면 직원별로 쪼개서 배정 */
-      var crew = matchStaff(no, raw);
-      if(!crew.length) crew = [null];
-      var split = crew.length > 1;
-      crew.forEach(function(st){
-        var dup = state.tasks.some(function(x){
-          return x.dept === no && x.instr === raw && x.status !== "done" && (x.staffId || "") === (st ? st.id : "");
-        });
-        if(dup){ skipped++; return; }
-        var t = makeTask(no, ctx, raw, st);
-        if(!t) return;
-        if(split && st) t.title = st.name + " → " + t.title;
-        made.push(t);
-      });
+  /* 전 과정 실행 체크박스 — 기본 꺼짐. 켜면 예전처럼 걸린 부서 전부를 카드로 만듭니다. */
+  function bindChain(){
+    var cb = $("#chainAll");
+    if(!cb) return;
+    cb.checked = !!state.chain;
+    cb.addEventListener("change", function(){
+      state.chain = !!cb.checked;
+      save();
+      showToast(state.chain
+        ? "전 과정 실행 켬 — 지시마다 걸린 부서 전부 + 04 취합 카드를 만듭니다"
+        : "전 과정 실행 끔 — 지시에 맞는 부서 1~2곳만 카드로 만듭니다");
     });
+  }
+
+  function submitInstruction(raw){
+    var ctx = parseCtx(raw);
+    var res, mode;
+    if(picked.length){
+      mode = "manual";
+      res = { depts: picked.slice().sort().map(function(no){
+        return { no:no, score:0, hits:[], why:"직접 지정" };
+      }), fallback:false, near:null };
+    }else if(state.chain){
+      mode = "chain";
+      res = { depts: analyzeChain(raw), fallback:false, near:null };
+    }else{
+      mode = "auto";
+      res = route(raw);
+    }
+
+    var made = [], skipped = 0;
+    res.depts.forEach(function(p){
+      var no = p.no;
+      /* 같은 지시로 같은 부서 카드가 이미 살아 있으면 건너뜀 */
+      var dup = state.tasks.some(function(x){
+        return x.dept === no && x.instr === raw && x.status !== "done";
+      });
+      if(dup){ skipped++; return; }
+      var t = makeTask(no, ctx, raw, null);
+      if(!t) return;
+      t.route = { mode:mode, score:p.score || 0, hits:(p.hits || []).slice(), why:p.why || "", near:res.near ? res.near.no : "" };
+      made.push(t);
+    });
+
     if(!made.length){
-      showToast(skipped ? "같은 지시로 만든 카드가 이미 보드에 있습니다" : "분담할 부서를 찾지 못했습니다. 부서를 직접 지정해 보세요.");
+      showToast(skipped ? "같은 지시로 만든 카드가 이미 보드에 있습니다" : "배정할 부서를 찾지 못했습니다. 부서를 직접 지정해 보세요.");
       return [];
     }
     state.tasks = made.concat(state.tasks);
-    state.history = [{ raw: raw, ts: Date.now(), depts: res.depts }].concat(state.history).slice(0,12);
+    state.history = [{ raw: raw, ts: Date.now(), depts: made.map(function(t){ return t.dept; }) }].concat(state.history).slice(0,12);
     save();
     renderAll();
     renderHistory();
 
     var box = $("#cmdResult");
     if(box){
-      box.innerHTML = (res.manual ? "<b>직접 지정</b>한 " : "<b>자동 매칭</b>으로 ") + made.length + "개 업무 카드를 " +
-        res.depts.length + "개 부서에 나눠 담았습니다." +
+      var head = mode === "manual" ? "<b>직접 지정</b> — " : mode === "chain" ? "<b>전 과정 실행</b> — " : "<b>자동 배정</b> — ";
+      var tail = mode === "chain"
+        ? "전 과정(분담→취합→브리핑→리포트) 카드 " + made.length + "장을 만들었습니다."
+        : made.length > 1
+        ? "지시에 두 부서가 걸려 카드 <b>2장</b>만 만들었습니다."
+        : "지시에 맞는 부서 <b>1곳</b>에 카드 1장만 만들었습니다.";
+      var chips = made.map(function(t){
+        var r = t.route;
+        var sc = (mode === "auto" && r.score) ? " · 점수 " + r.score : "";
+        var why = (r.hits && r.hits.length) ? " (" + r.hits.join("·") + ")" : (mode === "manual" ? " (직접 지정)" : "");
+        return "<span>" + esc(t.dept + " " + t.deptTitle) + esc(sc) + esc(why) + "</span>";
+      }).join("");
+      var near = (res.near && made.length === 1)
+        ? ' <span style="color:#6b8095">' + esc(res.near.no + " " + ((deptByNo(res.near.no) || {}).title || "")) + "도 " + res.near.score + "점 걸렸지만 1순위만 만들었습니다.</span>"
+        : "";
+      box.innerHTML = head + tail +
         (skipped ? " (이미 있던 " + skipped + "건은 건너뜀)" : "") +
-        (res.fallback ? " 지시에서 채널 키워드를 못 잡아 기본 분담(04·07·09)으로 만들었습니다." : "") +
-        '<div class="rs-depts">' + made.map(function(t){
-          var sn = staffNameOf(t);
-          return "<span>" + t.dept + " " + esc(t.deptTitle) + (sn ? " · " + esc(sn) : "") + "</span>";
-        }).join("") + "</div>";
+        (res.fallback ? " <b>키워드가 없어 기본 부서(04 총괄)</b>로 보냈습니다." : "") +
+        near +
+        '<div class="rs-depts">' + chips + "</div>" +
+        '<div style="margin-top:4px;color:#6b8095">다른 부서로 보내려면 카드 상단 부서 이름을 눌러 바꾸세요.</div>';
       box.classList.add("is-on");
     }
-    showToast(made.length + "개 업무 카드를 만들었습니다 — 담당 직원까지 지정됨");
+    showToast(made.length === 1 ? made[0].dept + " " + made[0].deptTitle + " 부서로 배정했습니다" : made.length + "개 부서로 배정했습니다");
     picked = [];
     $$(".pick-chip").forEach(function(c){ c.classList.remove("is-on"); c.setAttribute("aria-pressed","false"); });
 
@@ -1687,8 +1892,8 @@ input,textarea,select{font:inherit}
         pcOpen(true);
         setTimeout(function(){ showToast("카드는 만들었습니다. PC 설정에서 토픽을 넣으면 바로 실행됩니다"); }, 20);
       }else{
+        showToast("▶ " + made.map(function(t){ return t.dept + " " + t.deptTitle; }).join(", ") + " 부서로 보냅니다");
         made.forEach(function(t){ pcRun(t.id, true); });
-        showToast(made.length + "개 카드를 집 PC로 보냈습니다 — 결과가 카드에 표시됩니다");
       }
     }
 
@@ -1735,10 +1940,40 @@ input,textarea,select{font:inherit}
   function advance(id){
     var t = findTask(id);
     if(!t) return;
-    var i = STATUS.findIndex(function(s){ return s.key === t.status; });
-    t.status = STATUS[(i + 1) % STATUS.length].key;
+    var i = CYCLE.indexOf(t.status);
+    t.status = CYCLE[(i + 1) % CYCLE.length];
+    t.statusAt = Date.now();
+    t.statusWhy = "직접 변경";
+    if(t.status !== "wait") t.reject = "";
     save(); renderAll();
-    showToast(t.dept + " " + t.title + " → " + STATUS.filter(function(s){ return s.key === t.status; })[0].label);
+    showToast(t.dept + " " + t.title + " → " + statusOf(t.status).label + " (직접 변경)");
+  }
+
+  /* 검수 대기 카드: 승인 → 완료 / 반려 → 대기 */
+  function approveTask(id){
+    var t = findTask(id);
+    if(!t) return;
+    t.status = "done";
+    t.statusAt = Date.now();
+    t.statusWhy = "대표님 승인";
+    t.approvedAt = Date.now();
+    save(); renderAll();
+    showToast("승인 — " + t.dept + " " + t.title + "을(를) 완료 칸으로 옮겼습니다");
+  }
+  function rejectTask(id){
+    var t = findTask(id);
+    if(!t) return;
+    var reason = null;
+    try{ reason = window.prompt("반려 사유 (선택) — 비우고 확인을 누르면 사유 없이 대기로 돌립니다", ""); }catch(e){ reason = ""; }
+    if(reason === null) return;
+    t.status = "wait";
+    t.statusAt = Date.now();
+    t.statusWhy = "반려 → 대기";
+    t.reject = String(reason || "").slice(0,200);
+    t.rejectAt = Date.now();
+    if(t.pc) t.pc.rejected = true;
+    save(); renderAll();
+    showToast("반려 — " + t.dept + " " + t.title + "을(를) 대기 칸으로 되돌렸습니다");
   }
 
   function removeTask(id){
@@ -1973,6 +2208,7 @@ input,textarea,select{font:inherit}
     var t = makeTask(no, ctx, ctx.raw, s);
     if(!t){ showToast("이 부서는 업무 카드를 만들 수 없습니다"); return; }
     t.title = s.name + " · " + t.title;
+    t.route = { mode:"manual", score:0, hits:[], why:"드로어에서 직접 배정", near:"" };
     state.tasks = [t].concat(state.tasks);
     save(); renderAll(); renderDept(current);
     showToast(s.name + "에게 업무 카드를 만들어 보드에 올렸습니다");
@@ -2059,6 +2295,7 @@ input,textarea,select{font:inherit}
     var ctx = { raw: d.title + " 상시 업무 — 보드에서 직접 추가", n:0, unit:"", channels:[] };
     var t = makeTask(d.no, ctx, ctx.raw);
     if(t){
+      t.route = { mode:"manual", score:0, hits:[], why:"부서에서 직접 추가", near:"" };
       state.tasks = [t].concat(state.tasks);
       save(); renderAll();
       showToast(d.no + " " + d.title + " 업무를 보드에 추가했습니다");
@@ -2181,6 +2418,8 @@ input,textarea,select{font:inherit}
     else if(act === "copy" && t){ copyText(promptOf(t)); }
     else if(act === "open" && t){ openDept(DEPTS.map(function(d){ return d.no; }).indexOf(t.dept)); }
     else if(act === "adv"){ advance(id); }
+    else if(act === "approve"){ approveTask(id); }
+    else if(act === "reject"){ rejectTask(id); }
     else if(act === "del"){ removeTask(id); }
   });
 
@@ -2188,12 +2427,30 @@ input,textarea,select{font:inherit}
   var boardGrid = $("#boardGrid");
   if(boardGrid){
     boardGrid.addEventListener("change", function(e){
-      var sel = e.target.closest ? e.target.closest("select[data-staff-sel]") : null;
-      if(!sel) return;
-      var card = sel.closest(".task");
+      var card = e.target.closest ? e.target.closest(".task") : null;
       if(!card) return;
       var t = findTask(card.getAttribute("data-id"));
       if(!t) return;
+
+      /* 카드 상단 부서 드롭다운 → 내용·직원·전송 문구까지 다시 만듬 */
+      var dsel = e.target.closest ? e.target.closest("select[data-dept-sel]") : null;
+      if(dsel){
+        if(dsel.value && dsel.value !== t.dept) retargetTask(t.id, dsel.value);
+        else renderBoard();
+        return;
+      }
+
+      /* 검수 필요 체크 */
+      var rev = e.target.closest ? e.target.closest("input[data-review]") : null;
+      if(rev){
+        t.review = !!rev.checked;
+        save(); renderBoard();
+        showToast(t.review ? "검수 필요 켬 — 결과가 오면 검수 대기 칸으로 갑니다" : "검수 필요 꺼짐 — 결과가 오면 완료 칸으로 갑니다");
+        return;
+      }
+
+      var sel = e.target.closest ? e.target.closest("select[data-staff-sel]") : null;
+      if(!sel) return;
       var v = sel.value || "";
       if(!v){ t.staffId = ""; t.staffName = ""; }
       else {
@@ -2241,13 +2498,13 @@ input,textarea,select{font:inherit}
   });
 
   $("#exportData").addEventListener("click", function(){
-    var data = JSON.stringify({ tasks: state.tasks, history: state.history, pipe: state.pipe, staff: state.staff }, null, 2);
+    var data = JSON.stringify({ tasks: state.tasks, history: state.history, pipe: state.pipe, staff: state.staff, chain: state.chain }, null, 2);
     copyText(data);
   });
 
   $("#wipeData").addEventListener("click", function(){
     if(!window.confirm("이 브라우저에 저장된 콘솔 데이터를 모두 지웁니다. 계속할까요?")) return;
-    state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff: staffDefaults() };
+    state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff: staffDefaults(), chain: state.chain };
     try{ localStorage.removeItem(STORE); }catch(e){}
     staffFormOpen = false; staffEditId = null;
     renderAll(); renderPipeline();
@@ -2630,7 +2887,9 @@ input,textarea,select{font:inherit}
     t.pc.state = "running";
     t.pc.ackAt = Date.now();
     t.pc.note = p.text || "";
-    save(); renderBoard();
+    /* ack를 받으면 그대로 진행 중 칸에 둡니다 */
+    if(t.status !== "doing"){ t.status = "doing"; t.statusAt = Date.now(); t.statusWhy = "PC 작업 중"; }
+    save(); renderAll();
   }
 
   function pcOnResult(req, p){
@@ -2654,13 +2913,26 @@ input,textarea,select{font:inherit}
     var t = findTask(req.taskId);
     if(!t) return;
     t.pc = t.pc || {};
-    t.pc.state = p.event === "error" ? "error" : "done";
-    t.pc.text = full || (p.event === "error" ? "클로드 코드가 빈 오류를 돌려줬습니다." : "(빈 결과)");
+    var ok = p.event !== "error";
+    t.pc.state = ok ? "done" : "error";
+    t.pc.text = full || (ok ? "(빈 결과)" : "클로드 코드가 빈 오류를 돌려줬습니다.");
     t.pc.secs = typeof p.secs === "number" ? p.secs : (t.pc.at ? (Date.now() - t.pc.at) / 1000 : 0);
     t.pc.doneAt = Date.now();
     t.pc.open = true;
-    save(); renderBoard(); renderBrief();
-    showToast(t.dept + " " + t.deptTitle + " — " + (p.event === "error" ? "오류가 돌아왔습니다" : "결과가 도착했습니다"));
+    t.pc.stale = false;
+
+    /* 결과에 따라 카드가 스스로 칸을 옮깁니다: 오류 → 오류 / 승인·검수 요청 → 검수 대기 / 그 밖 → 완료 */
+    var key, why;
+    if(!ok){ key = "error"; why = "PC 오류"; }
+    else if(needsReview(t, t.pc.text)){ key = "review"; why = t.review ? "검수 필요 체크" : "결과에 승인·확인 요청"; }
+    else { key = "done"; why = "PC 완료"; }
+    t.status = key;
+    t.statusAt = Date.now();
+    t.statusWhy = why;
+    if(key === "review") t.reject = "";
+
+    save(); renderAll();
+    showToast(t.dept + " " + t.deptTitle + " — " + (key === "error" ? "오류가 돌아와 오류 칸으로 옮겼습니다" : key === "review" ? "검수 대기 칸으로 옮겼습니다 (" + why + ")" : "완료 칸으로 옮겼습니다"));
   }
 
   /* ---------- 카드에서 실행 ---------- */
@@ -2677,10 +2949,17 @@ input,textarea,select{font:inherit}
     }
     var body = pcTrim(promptOf(t), PC_MAX_BYTES);
     var id = pcNewId();
-    t.pc = { state:"sent", at:Date.now(), reqId:id, open:false, text:"", secs:0, ackAt:0 };
+    t.pc = { state:"sent", at:Date.now(), reqId:id, open:false, text:"", secs:0, ackAt:0, stale:false };
+    /* 보내는 순간 대기 → 진행 중으로 카드가 자리를 옮깁니다 */
+    t.status = "doing";
+    t.statusAt = Date.now();
+    t.statusWhy = "PC로 보냄";
+    t.reject = "";
     pcPending[id] = { kind:"task", taskId:t.id };
-    save(); renderBoard();
-    if(!quiet) showToast("PC로 보냈습니다 — 결과가 이 카드에 표시됩니다");
+    save(); renderAll();
+    if(!quiet){
+      showToast("▶ " + t.dept + " " + t.deptTitle + " 부서로 보냅니다 — " + t.title);
+    }
     pcPost(id, body, function(err){
       if(!err) return;
       var card = findTask(taskId);
@@ -2689,8 +2968,11 @@ input,textarea,select{font:inherit}
       card.pc.state = "error";
       card.pc.text = "전송하지 못했습니다: " + (err.message || err);
       card.pc.open = true;
+      card.status = "error";
+      card.statusAt = Date.now();
+      card.statusWhy = "전송 실패";
       delete pcPending[id];
-      save(); renderBoard();
+      save(); renderAll();
       showToast("PC로 보내지 못했습니다 — " + (err.message || err));
     });
   }
@@ -2698,10 +2980,12 @@ input,textarea,select{font:inherit}
   function pcBlock(t){
     var p = t.pc;
     if(!p || !p.state) return "";
-    var label = p.state === "sent" ? "⏳ 대기" : p.state === "running" ? "⚙️ 클로드 작업 중" : p.state === "done" ? "✅ 완료" : "❌ 오류";
     var live = (p.state === "sent" || p.state === "running");
+    var stale = live && p.stale;
+    var label = stale ? "⚠️ 응답 없음" : p.state === "sent" ? "⏳ 대기" : p.state === "running" ? "⚙️ 클로드 작업 중" : p.rejected ? "↩ 반려됨" : p.state === "done" ? "✅ 완료" : "❌ 오류";
+    var stateAttr = stale ? "stale" : p.state;
     var sec = live ? 0 : (p.secs || 0);
-    var html = '<div class="t-pc" data-pc="' + p.state + '">' +
+    var html = '<div class="t-pc" data-pc="' + stateAttr + '">' +
       '<span class="t-pc-state">' + label + '</span>';
     if(live){
       html += '<span class="t-pc-time" data-pc-live="1">' + pcSecsText((Date.now() - (p.ackAt || p.at || Date.now())) / 1000) + '</span>';
@@ -2721,14 +3005,24 @@ input,textarea,select{font:inherit}
 
   function pcTick(){
     var nodes = $$("[data-pc-live]");
-    if(!nodes.length) return;
-    nodes.forEach(function(el){
-      var card = el.closest ? el.closest(".task") : null;
-      if(!card) return;
-      var t = findTask(card.getAttribute("data-id"));
-      if(!t || !t.pc) return;
-      el.textContent = pcSecsText((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000);
+    if(nodes.length){
+      nodes.forEach(function(el){
+        var card = el.closest ? el.closest(".task") : null;
+        if(!card) return;
+        var t = findTask(card.getAttribute("data-id"));
+        if(!t || !t.pc) return;
+        el.textContent = pcSecsText((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000);
+      });
+    }
+    /* 10분 동안 응답이 없으면 '응답 없음'으로 표시 (카드는 진행 중 칸에 유지) */
+    var staleChanged = false;
+    state.tasks.forEach(function(t){
+      if(t.pc && (t.pc.state === "sent" || t.pc.state === "running") && !t.pc.stale && (Date.now() - (t.pc.at || 0)) > PC_STALE_MS){
+        t.pc.stale = true;
+        staleChanged = true;
+      }
     });
+    if(staleChanged){ save(); renderBoard(); showToast("10분 넘게 응답이 없는 카드가 있습니다 — 카드는 진행 중에 그대로 둡니다"); }
   }
   setInterval(pcTick, 1000);
 
@@ -2803,6 +3097,7 @@ input,textarea,select{font:inherit}
   pcLoad();
   pcReadHash();
   renderPickChips();
+  bindChain();
   renderAll();
   renderPipeline();
   bindPipeline();
