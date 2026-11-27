@@ -3719,9 +3719,9 @@ input,textarea,select{font:inherit}
   var SYNC_SNAP  = "vision_console_sync_snap_v1";
   var SYNC_MAX   = 3000;                 /* 메시지 한 개 본문 상한 (ntfy 4KB 한도 안쪽) */
   var SYNC_SNAP_GAP  = 3 * 60 * 60 * 1000;   /* 자동 스냅샷 간격 */
-  var SYNC_SNAP_OPEN = 60 * 60 * 1000;       /* 화면 열 때 스냅샷 간격 */
+  var SYNC_SNAP_OPEN = 2 * 60 * 60 * 1000;       /* 화면 열 때 스냅샷 간격 */
   var SYNC_TOMB_MS   = 30 * 24 * 60 * 60 * 1000;
-  var SYNC_PEER_MS   = 90 * 1000;
+  var SYNC_PEER_MS   = 15 * 60 * 1000;
 
   var sync = {
     ready:false, on:false, hold:true, dirty:false, applying:false, bootDone:false, booted:false,
@@ -4199,7 +4199,7 @@ input,textarea,select{font:inherit}
         box.innerHTML = "<b>연결하는 중…</b>" + (sync.note ? " " + esc(sync.note) : "");
       }else{
         var parts = [];
-        parts.push("<b>공유 중</b> — 이 보드는 " + (peers > 0 ? (peers + 1) + "대가 함께 보고 있습니다" : "이 PC만 연결돼 있습니다"));
+        parts.push("<b>공유 중</b> — " + (peers > 0 ? (peers + 1) + "대가 같이 보고 있습니다" : "다른 기기에서 이 보드를 열면 같은 카드가 저절로 맞춰집니다"));
         if(sync.lastIn) parts.push("마지막 반영 " + pcAgo(sync.lastIn));
         if(sync.note) parts.push(esc(sync.note));
         box.innerHTML = parts.join(" · ") + "\n<span style=\"opacity:.75\">보드 코드 " + esc(sync.code) + " — 다른 기기도 같은 코드여야 합니다.</span>";
