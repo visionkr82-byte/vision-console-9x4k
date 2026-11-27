@@ -346,7 +346,7 @@ input,textarea,select{font:inherit}
 .dw-title{flex:1;min-width:0}
 .dw-kicker{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .dw-title h2{margin-top:2px;font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--navy);line-height:1.3}
-.dw-title p{margin-top:3px;font-size:12px;color:var(--muted);line-height:1.5}
+.dw-title p{display:none}
 .dw-close{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--muted);flex:none;border:1px solid transparent}
 .dw-close:hover{background:#fff;border-color:var(--line);color:var(--ink)}
 .dw-body{flex:1;overflow:auto;padding:6px 22px 16px;overscroll-behavior:contain}
@@ -538,6 +538,11 @@ input,textarea,select{font:inherit}
   .pick-chip{min-width:28px;padding:0 5px}
   .stage-img{cursor:pointer}
 }
+
+.rp-body,.sheet-body,.dw-body,.res-list{scrollbar-width:thin;scrollbar-color:#ddd2c0 transparent}
+.rp-body::-webkit-scrollbar,.sheet-body::-webkit-scrollbar,.dw-body::-webkit-scrollbar{width:8px;height:8px}
+.rp-body::-webkit-scrollbar-thumb,.sheet-body::-webkit-scrollbar-thumb,.dw-body::-webkit-scrollbar-thumb{background:#ddd2c0;border-radius:99px}
+.rp-body::-webkit-scrollbar-track,.sheet-body::-webkit-scrollbar-track,.dw-body::-webkit-scrollbar-track{background:transparent}
 </style>
 </head>
 <body>
@@ -584,7 +589,7 @@ input,textarea,select{font:inherit}
                 부서에 배정
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
-              <label class="switch" id="pcAutoWrap" title="지시를 집 PC로 바로 실행">
+              <label class="switch" id="pcAutoWrap" title="PC로 바로 실행">
                 <input type="checkbox" id="pcAuto" aria-label="PC로 바로 실행">
                 <i aria-hidden="true"></i><span>PC 실행</span>
               </label>
@@ -740,14 +745,13 @@ input,textarea,select{font:inherit}
     <header class="pcm-head">
       <div>
         <h2 id="pcmTitle">집 PC 연결</h2>
-        <p>butter_agent.py · ntfy</p>
       </div>
       <button class="pcm-x" type="button" data-pcm-close aria-label="닫기">✕</button>
     </header>
     <div class="pcm-body">
-      <label for="pcIn">수신 토픽 <span>집 PC가 지시를 받는 곳</span></label>
+      <label for="pcIn">수신 토픽</label>
       <input id="pcIn" type="text" autocomplete="off" spellcheck="false" placeholder="butter-xxxxxxxxxxxxxxxx">
-      <label for="pcOut">응답 토픽 <span>집 PC가 결과를 보내는 곳</span></label>
+      <label for="pcOut">응답 토픽</label>
       <input id="pcOut" type="text" autocomplete="off" spellcheck="false" placeholder="butter-xxxxxxxxxxxxxxxx">
       <div class="pcm-acts">
         <button class="btn btn-primary" type="button" id="pcSaveBtn">저장</button>
