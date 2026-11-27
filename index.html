@@ -4024,13 +4024,20 @@ input,textarea,select{font:inherit}
         throw err;
       }).catch(function(err){
         sync.fail++;
+        /* 한도(429)에 걸리면 더 두드리지 않고 1분 뒤로 미룹니다 — 두드릴수록 한도가 안 풀립니다 */
+        if(err && err.status === 429){
+          syncRetryPush(entries);
+          sync.retryAt = Date.now() + 60000;
+          sync.note = "ntfy 전송 한도 — 1분 뒤 자동으로 다시 보냅니다";
+          syncRender();
+          return;
+        }
         if(n < 3){
           setTimeout(function(){ attempt(n + 1); }, 2000 * n);
           return;
         }
         syncRetryPush(entries);
-        if(err && err.status === 429) sync.note = "전송이 잠시 미뤄졌습니다 — 자동으로 다시 보냅니다";
-        else if(!sync.note) sync.note = "전송이 잠시 미뤄졌습니다 — 자동으로 다시 보냅니다";
+        if(!sync.note) sync.note = "전송이 잠시 미뤄졌습니다 — 자동으로 다시 보냅니다";
         syncRender();
       });
     };
