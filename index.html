@@ -520,6 +520,23 @@ input,textarea,select{font:inherit}
 .sheet-body .sheet-instr{margin:0 0 12px}
 .sheet-body .sheet-note{color:var(--muted)}
 .sheet-body b{font-weight:800;color:var(--navy)}
+
+/* mobile refine */
+@media (max-width:760px){
+  .board-grid{grid-template-columns:1fr;overflow:visible;scroll-snap-type:none;padding:0}
+  .col{min-height:0}
+  .col-empty{padding:11px 8px}
+  .desk{display:none}
+  .desk.is-active{display:flex}
+  .rp-nav{display:none}
+  .rp-sel{max-width:none;flex:1 1 100%}
+  .rp-tabs{scrollbar-width:none}
+  .rp-tabs::-webkit-scrollbar{display:none}
+  .sheet-tabs{scrollbar-width:none}
+  .sheet-tabs::-webkit-scrollbar{display:none}
+  .pick-chip{min-width:28px;padding:0 5px}
+  .stage-img{cursor:pointer}
+}
 </style>
 </head>
 <body>
@@ -3719,6 +3736,7 @@ input,textarea,select{font:inherit}
   function cardHTML(t){
     var st = statusOf(t.status);
     var live = !!(t.pc && (t.pc.state === "sent" || t.pc.state === "running"));
+    var stale = live && (Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) > 600000;
     var who = staffNameOf(t);
     var clock = live ? pcClock((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000) : "";
     return '<article class="task" data-id="' + t.id + '" data-st="' + t.status + '" tabindex="0" role="button" aria-label="' + esc(t.dept + " " + t.title + " 상세 보기") + '">' +
@@ -3730,8 +3748,8 @@ input,textarea,select{font:inherit}
       '<h4>' + esc(t.title) + '</h4>' +
       '<p class="t-sum">' + esc(taskSummary(t)) + '</p>' +
       '<div class="task-foot">' +
-        (live ? '<span class="t-live-mini" data-live-clock="1"><i></i>' + clock + '</span>'
-              : '<span class="t-time">' + hhmm(t.statusAt || t.ts) + '</span>') +
+        (live && !stale ? '<span class="t-live-mini" data-live-clock="1"><i></i>' + clock + '</span>'
+              : '<span class="t-time">' + (stale ? "응답 없음" : hhmm(t.statusAt || t.ts)) + '</span>') +
         (who ? '<span class="t-who">' + esc(who) + '</span>' : "") +
         '<span class="t-acts">' +
           '<button type="button" data-act="pcrun" title="PC로 실행"' + (live ? " disabled" : "") + '>' + ICON_PLAY + '</button>' +
@@ -4169,7 +4187,7 @@ input,textarea,select{font:inherit}
       }
       return;
     }
-    if(tg.closest("[data-zone]")){ openOfficeSheet(); return; }
+    if(tg.closest("[data-zone]") || tg.closest(".stage-img")){ openOfficeSheet(); return; }
     if(tg.closest("[data-office-close]")){ closeOfficeSheet(); return; }
   });
   document.addEventListener("keydown", function(e){
