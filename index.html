@@ -427,6 +427,11 @@ input,textarea,select{font:inherit}
 .pcm-state[data-live="on"]{background:var(--green-tint);border-color:#c6e7d6;color:#146d47}
 .pcm-state[data-live="checking"]{background:#fff8ea;border-color:#f3e0b6;color:#8a6114}
 .pcm-how,.pcm-warn{display:none}
+.pcm-sec{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.pcm-sec h3{font-size:12.5px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+.pcm-sec h3 em{font-style:normal;font-weight:700;font-size:10.5px;color:var(--muted);margin-left:6px}
+.sync-pill[data-live="on"]{color:#1c5a8a;border-color:#c4dced;background:#f3f9fd}
+.sync-pill[data-live="on"]::before{background:#2f7fb8;box-shadow:0 0 0 3px rgba(47,127,184,.14)}
 
 /* ============ toast / footer ============ */
 .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:120;max-width:min(520px,90vw);padding:11px 16px;border-radius:12px;background:rgba(20,38,53,.95);color:#fff;font-size:12.5px;font-weight:700;line-height:1.5;box-shadow:0 20px 50px -20px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center}
@@ -462,6 +467,7 @@ input,textarea,select{font:inherit}
   .top-in{gap:12px}
   .brand-sub{display:none}
   .clock{display:none}
+  .sync-pill{display:none}
   .cmd{padding:14px}
   .cmd textarea{min-height:120px;font-size:15.5px}
   .report{min-height:0;max-height:none}
@@ -577,6 +583,7 @@ input,textarea,select{font:inherit}
     </nav>
     <div class="top-right">
       <span class="clock" id="clock">—</span>
+      <button class="pc-pill sync-pill" id="syncPill" type="button" data-live="off"><span id="syncPillTxt">공유 꺼짐</span></button>
       <button class="pc-pill" id="pcPill" type="button" data-live="off"><span id="pcPillTxt">PC 미연결</span></button>
       <button class="icon-btn" id="pcOpen" type="button" aria-label="PC 설정" title="PC 연결 설정">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
@@ -775,6 +782,18 @@ input,textarea,select{font:inherit}
         <button class="btn btn-ghost" type="button" id="pcLinkBtn">연결 링크 복사</button>
       </div>
       <div class="pcm-state" id="pcState" data-live="off">아직 토픽이 없습니다.</div>
+
+      <div class="pcm-sec">
+        <h3>공유 보드 <em>PC·폰이 같은 카드를 봅니다</em></h3>
+        <label for="syncCodeIn">보드 코드 <span>다른 기기와 같아야 합니다</span></label>
+        <input id="syncCodeIn" type="text" autocomplete="off" spellcheck="false" placeholder="t1a2b3c4d5">
+        <div class="pcm-acts">
+          <button class="btn btn-ghost" type="button" id="syncSaveBtn">코드 저장</button>
+          <button class="btn btn-ghost" type="button" id="syncLinkBtn">동기화 링크 복사</button>
+          <button class="btn btn-ghost" type="button" id="syncPullBtn">지금 맞추기</button>
+        </div>
+        <div class="pcm-state" id="syncState" data-live="off">공유 보드에 연결되지 않았습니다.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -853,6 +872,7 @@ input,textarea,select{font:inherit}
   function save(){
     state.depts = DEPTS;
     try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
+    syncAfterSave();
   }
 
   function uid(){ return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
@@ -3115,6 +3135,7 @@ input,textarea,select{font:inherit}
   }
   function pcStore(){
     try{ localStorage.setItem(PCSTORE, JSON.stringify({ "in":pc["in"], out:pc.out, auto:pc.auto })); }catch(e){}
+    syncAfterSave();
   }
 
   /* ---------- base64url (#connect= 해시) ---------- */
@@ -3137,6 +3158,17 @@ input,textarea,select{font:inherit}
   /* #connect=BASE64URL({"in":..,"out":..})  또는  #connect=in=..&out=..  또는  #connect={"in":..,"out":..} */
   function pcReadHash(){
     var h = String(location.hash || "");
+    /* #sync=보드코드 — 공유 보드만 맞추는 짧은 링크 */
+    if(h.indexOf("#sync=") === 0){
+      var sc0 = "";
+      try{ sc0 = decodeURIComponent(h.slice(6)); }catch(e){ sc0 = h.slice(6); }
+      sc0 = String(sc0 || "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 24);
+      if(!sc0) return false;
+      try{ localStorage.setItem(SYNC_CODE, sc0); }catch(e){}
+      try{ history.replaceState(null, "", location.pathname + location.search); }
+      catch(e){ location.hash = ""; }
+      return true;
+    }
     if(h.indexOf("#connect=") !== 0) return false;
     var raw = h.slice(9);
     if(!raw) return false;
@@ -3163,7 +3195,16 @@ input,textarea,select{font:inherit}
     }
     if(!cfg) return false;
     var inT = pcTopic(cfg["in"]), outT = pcTopic(cfg.out);
-    if(!pcTopicOk(inT) || !pcTopicOk(outT)) return false;
+    var sc1 = String(cfg.s || "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 24);
+    if(sc1){ try{ localStorage.setItem(SYNC_CODE, sc1); }catch(e){} }
+    if(!pcTopicOk(inT) || !pcTopicOk(outT)){
+      if(sc1){
+        try{ history.replaceState(null, "", location.pathname + location.search); }
+        catch(e){ location.hash = ""; }
+        return true;
+      }
+      return false;
+    }
     pc["in"] = inT; pc.out = outT; pc.auto = true; pc.live = "off"; pc.note = "";
     pcStore();
     /* 주소창에서 해시 제거 — #board 같은 다른 탭 이동과 부딪히지 않게 */
@@ -3661,6 +3702,707 @@ input,textarea,select{font:inherit}
   }
   setInterval(pcTick, 1000);
 
+  /* ==================================================================
+     공유 보드 — PC·폰이 같은 카드를 보게 하는 동기화
+     · 카드·부서·직원·진행 단계·결과 보고·PC 연결 설정을 "항목" 단위로 나눠
+       ntfy 토픽 하나에 흘려 보내고, 다른 기기는 그 흐름을 받아 합칩니다.
+     · 브라우저 localStorage 는 복제본입니다 — 동기화가 끊겨도 화면은 그대로 동작합니다.
+     · 항목마다 (시각, 기기) 버전이 붙어서, 늦게 도착한 옛 값이 새 값을 덮지 않습니다.
+     · 항목 단위라서 충돌이 나도 그 카드 하나만 마지막 저장이 이깁니다(보드 전체가 날아가지 않음).
+     ================================================================== */
+  var SYNC_ITEMS = "vision_console_items_v1";
+  var SYNC_REV   = "vision_console_rev_v1";
+  var SYNC_TOMB  = "vision_console_tomb_v1";
+  var SYNC_DEV   = "vision_console_dev_v1";
+  var SYNC_CODE  = "vision_console_sync_code_v1";
+  var SYNC_BOOT  = "vision_console_sync_boot_v1";
+  var SYNC_SNAP  = "vision_console_sync_snap_v1";
+  var SYNC_TOPIC = "vision_console_sync_topic_v1";
+  var SYNC_MAX   = 3000;                 /* 메시지 한 개 본문 상한 (ntfy 4KB 한도 안쪽) */
+  var SYNC_SNAP_GAP  = 3 * 60 * 60 * 1000;   /* 자동 스냅샷 간격 */
+  var SYNC_SNAP_OPEN = 2 * 60 * 60 * 1000;       /* 화면 열 때 스냅샷 간격 */
+  var SYNC_TOMB_MS   = 30 * 24 * 60 * 60 * 1000;
+  var SYNC_PEER_MS   = 15 * 60 * 1000;
+
+  var sync = {
+    ready:false, on:false, hold:true, dirty:false, applying:false, bootDone:false, booted:false,
+    dev:"", code:"", topic:"", live:"off", note:"",
+    items:{}, rev:{}, tomb:{}, shadow:{},
+    queue:[], flushTimer:null, lastRev:0,
+    es:null, pollTimer:null, retryTimer:null, bootTimer:null, quietTimer:null,
+    since:0, seen:{}, seenN:0,
+    peers:{}, lastIn:0, lastOut:0, lastSnap:0, lastWant:0, startedAt:0,
+    gotRemote:false, dirtySinceSnap:false, fail:0, chunks:{}, renderTimer:null, lastCatch:0, lastTopic:"",
+    retry:[], retryAt:0
+  };
+
+  function syncHash(s){
+    var h1 = 0x811c9dc5, h2 = 0xc2b2ae35, i, c;
+    s = String(s == null ? "" : s);
+    for(i = 0; i < s.length; i++){
+      c = s.charCodeAt(i);
+      h1 = Math.imul(h1 ^ c, 16777619) >>> 0;
+      h2 = Math.imul(h2 ^ c, 2246822519) >>> 0;
+    }
+    return h1.toString(36) + h2.toString(36);
+  }
+  function syncNewDev(){ return "d" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function syncStoredCode(){ try{ return localStorage.getItem(SYNC_CODE) || ""; }catch(e){ return ""; } }
+
+  /* 보드 코드 — 따로 넣지 않았으면 이미 쓰는 PC 토픽에서 계산합니다(같은 링크로 열면 저절로 같아짐) */
+  function syncCodeNow(){
+    var m = syncStoredCode();
+    if(m) return m;
+    if(pcTopicOk(pc["in"]) && pcTopicOk(pc.out)) return "t" + syncHash("i:" + pc["in"] + "|o:" + pc.out);
+    return "";
+  }
+  function syncTopicNow(){
+    var c = String(syncCodeNow() || "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 24);
+    return c ? ("butter-sync-9x4k-" + c) : "";
+  }
+  function syncUrl(tail){ return "https://ntfy.sh/" + encodeURIComponent(sync.topic) + (tail || ""); }
+
+  function syncHasStore(){ try{ return localStorage.getItem(SYNC_ITEMS) !== null; }catch(e){ return false; } }
+
+  /* ---------- 항목 만들기 / 화면에 반영하기 ---------- */
+  function syncBuildItems(){
+    var m = {};
+    (state.tasks || []).forEach(function(t){ if(t && t.id) m["t:" + t.id] = t; });
+    DEPTS.forEach(function(d){ if(d && d.no) m["d:" + d.no] = d; });
+    if(state.staff) Object.keys(state.staff).forEach(function(no){ m["s:" + no] = state.staff[no]; });
+    (state.history || []).forEach(function(h){
+      if(!h) return;
+      m["h:" + (h.ts || 0) + "-" + syncHash(h.raw)] = h;
+    });
+    m["cfg"] = { chain: !!state.chain, pc: { "in": pc["in"] || "", out: pc.out || "" } };
+    return m;
+  }
+
+  function syncProject(){
+    var tasks = [], depts = [], hist = [], staff = {}, cfg = null, k, c;
+    for(k in sync.items){
+      c = sync.items[k];
+      if(!c) continue;
+      if(k.slice(0, 2) === "t:") tasks.push(c);
+      else if(k.slice(0, 2) === "d:") depts.push(c);
+      else if(k.slice(0, 2) === "s:") staff[k.slice(2)] = c;
+      else if(k.slice(0, 2) === "h:") hist.push(c);
+      else if(k === "cfg") cfg = c;
+    }
+    tasks.sort(function(a, b){ return (b.ts || 0) - (a.ts || 0); });
+    depts.sort(function(a, b){ return String(a.no || "").localeCompare(String(b.no || "")); });
+    hist.sort(function(a, b){ return (b.ts || 0) - (a.ts || 0); });
+
+    sync.applying = true;
+    state.tasks = tasks;
+    DEPTS.length = 0;
+    depts.forEach(function(d){ DEPTS.push(d); });
+    state.depts = DEPTS;
+    var st = {};
+    DEPTS.forEach(function(d){ st[d.no] = Array.isArray(staff[d.no]) ? staff[d.no] : []; });
+    state.staff = st;
+    state.history = hist.slice(0, 12);
+    if(cfg){
+      if(typeof cfg.chain === "boolean") state.chain = cfg.chain;
+      if(cfg.pc){
+        var ni = pcTopic(cfg.pc["in"]), no2 = pcTopic(cfg.pc.out);
+        var pcChanged = (ni && ni !== pc["in"]) || (no2 && no2 !== pc.out);
+        if(ni) pc["in"] = ni;
+        if(no2) pc.out = no2;
+        /* auto(PC로 바로 실행)는 기기마다 다른 설정이라 공유하지 않습니다 */
+        if(pcChanged){
+          pc.live = "off"; pc.lastOk = 0; pcResetSub();
+          pcStore();                        /* ← sync.applying 중이라 되돌아 발행되지 않음 */
+          if(pcReady()) pcSub();
+        }
+      }
+    }
+    sync.applying = false;
+  }
+
+  /* 저장 전에 디스크(localStorage) 상태를 먼저 합칩니다.
+     같은 PC 에서 창을 두 개 열어도, 늦게 쓴 창이 다른 창의 최신 내용을 덮지 않게 합니다. */
+  function syncMergeDisk(){
+    var changed = false;
+    try{
+      var disk = JSON.parse(localStorage.getItem(SYNC_ITEMS) || "{}") || {};
+      var drev = JSON.parse(localStorage.getItem(SYNC_REV) || "{}") || {};
+      var dtomb = JSON.parse(localStorage.getItem(SYNC_TOMB) || "{}") || {};
+      var k, R, L;
+      for(k in dtomb){ if(!sync.tomb[k] || syncNewer(dtomb[k], sync.tomb[k])) sync.tomb[k] = dtomb[k]; }
+      for(k in disk){
+        R = drev[k];
+        if(!R) continue;
+        L = sync.rev[k] || sync.tomb[k];
+        if(L && !syncNewer(R, L)) continue;
+        if(dtomb[k] && syncNewer(dtomb[k], R)){
+          delete sync.items[k]; delete sync.rev[k]; delete sync.shadow[k];
+        }else{
+          sync.items[k] = disk[k];
+          sync.rev[k] = R;
+          sync.shadow[k] = JSON.stringify(disk[k]);
+          delete sync.tomb[k];
+        }
+        changed = true;
+      }
+      for(k in dtomb){
+        L = sync.rev[k];
+        if(L && syncNewer(dtomb[k], L)){
+          delete sync.items[k]; delete sync.rev[k]; delete sync.shadow[k];
+          sync.tomb[k] = dtomb[k];
+          changed = true;
+        }
+      }
+    }catch(e){}
+    return changed;
+  }
+
+  function syncPersist(){
+    state.depts = DEPTS;
+    var merged = syncMergeDisk();
+    try{
+      localStorage.setItem(SYNC_ITEMS, JSON.stringify(sync.items));
+      localStorage.setItem(SYNC_REV, JSON.stringify(sync.rev));
+      localStorage.setItem(SYNC_TOMB, JSON.stringify(sync.tomb));
+      localStorage.setItem(SYNC_BOOT, sync.booted ? "1" : "0");
+      localStorage.setItem(SYNC_SNAP, String(sync.lastSnap || 0));
+      localStorage.setItem(STORE, JSON.stringify(state));
+    }catch(e){}
+    if(merged){ syncProject(); syncRenderSoon(); }
+  }
+
+  function syncLoad(){
+    try{ sync.dev = localStorage.getItem(SYNC_DEV) || ""; }catch(e){ sync.dev = ""; }
+    if(!sync.dev){
+      sync.dev = syncNewDev();
+      try{ localStorage.setItem(SYNC_DEV, sync.dev); }catch(e){}
+    }
+    try{ sync.items = JSON.parse(localStorage.getItem(SYNC_ITEMS) || "{}") || {}; }catch(e){ sync.items = {}; }
+    try{ sync.rev = JSON.parse(localStorage.getItem(SYNC_REV) || "{}") || {}; }catch(e){ sync.rev = {}; }
+    try{ sync.tomb = JSON.parse(localStorage.getItem(SYNC_TOMB) || "{}") || {}; }catch(e){ sync.tomb = {}; }
+    try{ sync.booted = localStorage.getItem(SYNC_BOOT) === "1"; }catch(e){ sync.booted = false; }
+    try{ sync.lastSnap = Number(localStorage.getItem(SYNC_SNAP) || 0) || 0; }catch(e){ sync.lastSnap = 0; }
+    try{ sync.lastTopic = localStorage.getItem(SYNC_TOPIC) || ""; }catch(e){ sync.lastTopic = ""; }
+    if(!syncHasStore()){
+      /* 예전 vision_console_v1 데이터 → 항목으로 쪼개서 보관(최초 1회 마이그레이션).
+         버전은 비워 둡니다 — 다른 PC에 이미 있는 항목이 있으면 그쪽이 이깁니다. */
+      sync.items = syncBuildItems();
+      sync.rev = {};
+      sync.tomb = {};
+    }
+    sync.shadow = {};
+    for(var k in sync.items){ sync.shadow[k] = JSON.stringify(sync.items[k]); }
+    sync.ready = true;
+  }
+
+  /* ---------- 바뀈을 때 항목별로 콜라내기 ---------- */
+  function syncNextRev(){
+    sync.lastRev = Math.max(Date.now(), (sync.lastRev || 0) + 1);
+    return { t: sync.lastRev, d: sync.dev };
+  }
+  function syncNewer(a, b){
+    if(!b) return true;
+    if(!a) return false;
+    if((a.t || 0) !== (b.t || 0)) return (a.t || 0) > (b.t || 0);
+    return String(a.d || "") > String(b.d || "");
+  }
+
+  function syncAfterSave(){
+    if(!sync.ready || !sync.on || sync.applying) return;
+    if(sync.hold){ sync.dirty = true; return; }
+    var now = syncBuildItems(), k, s, list = [], gone = [];
+    for(k in now){
+      s = JSON.stringify(now[k]);
+      if(sync.shadow[k] !== s){
+        sync.items[k] = now[k];
+        sync.rev[k] = syncNextRev();
+        sync.shadow[k] = s;
+        list.push({ key:k, r: sync.rev[k], c: now[k] });
+      }
+    }
+    for(k in sync.shadow){ if(!(k in now)) gone.push(k); }
+    gone.forEach(function(key){
+      delete sync.items[key];
+      delete sync.shadow[key];
+      delete sync.rev[key];
+      sync.tomb[key] = syncNextRev();
+      list.push({ key:key, r: sync.tomb[key], c: null });
+    });
+    var nowT = Date.now();
+    for(k in sync.tomb){ if(nowT - (sync.tomb[k].t || 0) > SYNC_TOMB_MS) delete sync.tomb[k]; }
+    syncPersist();
+    if(list.length){ sync.dirtySinceSnap = true; syncQueue(list); }
+  }
+
+  function syncQueue(list){
+    if(!list || !list.length) return;
+    sync.queue = sync.queue.concat(list);
+    if(sync.flushTimer || sync.hold) return;
+    sync.flushTimer = setTimeout(function(){ sync.flushTimer = null; syncFlush(); }, 900);
+  }
+  function syncFlush(){
+    if(!sync.queue.length || !sync.on) return;
+    if(sync.hold){
+      if(!sync.flushTimer) sync.flushTimer = setTimeout(function(){ sync.flushTimer = null; syncFlush(); }, 900);
+      return;
+    }
+    var list = sync.queue;
+    sync.queue = [];
+    syncSendEntries(list);
+  }
+
+  /* ---------- 보내기 ----------
+     항목을 메시지 크기에 맞춰 담아 보냅니다. 한 항목이 너무 크면(긴 결과 보고) 그 항목만 쪼갭니다.
+     쪼갠 항목은 조각마다 다시 보내기를 하므로, 한 메시지가 막혀도 보드 전체가 날아가지 않습니다. */
+  function syncSendEntries(list){
+    if(!list || !list.length || !sync.on) return;
+    var batch = [], size = 0, i, e, esz;
+    for(i = 0; i < list.length; i++){
+      e = list[i];
+      if(!e || !e.key) continue;
+      try{ esz = pcBytes(JSON.stringify(e)) + 60; }catch(err){ continue; }
+      if(esz > SYNC_MAX - 250){
+        if(batch.length){ syncSendBatch(batch); batch = []; size = 0; }
+        syncSendItem(e);
+        continue;
+      }
+      if(batch.length && size + esz > SYNC_MAX - 250){ syncSendBatch(batch); batch = []; size = 0; }
+      batch.push(e);
+      size += esz;
+    }
+    if(batch.length) syncSendBatch(batch);
+  }
+  function syncSendBatch(batch){
+    syncPublish({ a:"vcs", v:2, d:sync.dev, k:"d", at: Date.now(), it: batch }, 0, batch);
+  }
+  function syncRetryPush(list){
+    if(!list || !list.length) return;
+    sync.retry = sync.retry.concat(list);
+    if(sync.retry.length > 300) sync.retry = sync.retry.slice(-300);
+    sync.retryAt = Date.now() + 15000;
+  }
+  function syncSendItem(e){
+    var txt = (e.c == null) ? "null" : JSON.stringify(e.c);
+    var parts = syncSplit(txt, SYNC_MAX - 400), i;
+    var id = "c" + syncHash(e.key) + Date.now().toString(36);
+    for(i = 0; i < parts.length; i++){
+      syncPublish({ a:"vcs", v:2, d:sync.dev, k:"c", id:id, key:e.key, r:e.r, i:i + 1, n:parts.length, s:parts[i] }, i * 400, [e]);
+    }
+  }
+  function syncSplit(text, maxBytes){
+    var out = [], cur = "", size = 0, i, ch, b, c;
+    text = String(text == null ? "" : text);
+    for(i = 0; i < text.length; i++){
+      ch = text.charAt(i);
+      c = text.charCodeAt(i);
+      b = c < 128 ? 1 : (c < 2048 ? 2 : 3);
+      if(size + b > maxBytes && cur){ out.push(cur); cur = ""; size = 0; }
+      cur += ch; size += b;
+    }
+    if(cur) out.push(cur);
+    return out.length ? out : [""];
+  }
+  function syncPublish(obj, delay, entries){
+    if(!sync.on || !sync.topic) return;
+    var text;
+    try{ text = JSON.stringify(obj); }catch(e){ return; }
+    if(pcBytes(text) > 4000) return;
+    syncPost(text, delay || 0, entries);
+  }
+  function syncPost(body, delay, entries){
+    var attempt = function(n){
+      if(!sync.on) return;
+      fetch(syncUrl(""), {
+        method:"POST",
+        headers:{ "Content-Type":"text/plain; charset=utf-8", "X-Priority":"1", "X-Cache":"yes", "X-Firebase":"no" },
+        body: body,
+        cache:"no-store"
+      }).then(function(r){
+        if(r.ok){ sync.lastOut = Date.now(); sync.fail = 0; return; }
+        var err = new Error("HTTP " + r.status);
+        err.status = r.status;
+        throw err;
+      }).catch(function(err){
+        sync.fail++;
+        if(n < 3){
+          setTimeout(function(){ attempt(n + 1); }, 2000 * n);
+          return;
+        }
+        syncRetryPush(entries);
+        if(err && err.status === 429) sync.note = "전송이 잠시 미뤄졌습니다 — 자동으로 다시 보냅니다";
+        else if(!sync.note) sync.note = "전송이 잠시 미뤄졌습니다 — 자동으로 다시 보냅니다";
+        syncRender();
+      });
+    };
+    setTimeout(function(){ attempt(1); }, delay || 0);
+  }
+
+  /* 보드 전체를 항목 묶음으로 나눠 여러 번 올립니다(한 덩어리로 보내면 한 번 막힐 때 통째로 실패) */
+  function syncSnapshot(){
+    if(!sync.on) return;
+    var list = [], k;
+    for(k in sync.items){
+      if(!sync.rev[k]) sync.rev[k] = syncNextRev();
+      list.push({ key:k, r: sync.rev[k], c: sync.items[k] });
+    }
+    for(k in sync.tomb){ list.push({ key:k, r: sync.tomb[k], c: null }); }
+    sync.lastSnap = Date.now();
+    sync.dirtySinceSnap = false;
+    syncSendEntries(list);
+    try{ localStorage.setItem(SYNC_SNAP, String(sync.lastSnap)); }catch(e){}
+  }
+  function syncWant(){
+    if(!sync.on) return;
+    sync.lastWant = Date.now();
+    syncPublish({ a:"vcs", v:2, d:sync.dev, k:"w", at: Date.now(), n: Object.keys(sync.items).length });
+  }
+
+  /* ---------- 받기 ---------- */
+  function syncFeed(raw){
+    var ev;
+    try{ ev = JSON.parse(raw); }catch(e){ return; }
+    if(!ev || ev.event !== "message" || typeof ev.message !== "string") return;
+    if(ev.id){
+      if(sync.seen[ev.id]) return;
+      sync.seen[ev.id] = 1;
+      sync.seenN++;
+      if(sync.seenN > 600){ sync.seen = {}; sync.seenN = 0; sync.seen[ev.id] = 1; }
+    }
+    if(ev.time && ev.time > sync.since) sync.since = ev.time;
+    var p;
+    try{ p = JSON.parse(ev.message); }catch(e){ return; }
+    if(!p || p.a !== "vcs") return;
+    if(p.d && p.d === sync.dev) return;
+    if(p.d) sync.peers[p.d] = Date.now();
+    if(p.k === "c"){ syncChunk(p); return; }
+    syncHandle(p);
+  }
+  /* 쪼개져 온 항목 하나를 모아서 반영합니다 */
+  function syncChunk(p){
+    if(!p.id || !p.n || !p.key) return;
+    var box = sync.chunks[p.id];
+    if(!box){ box = sync.chunks[p.id] = { n:p.n, got:{}, at: Date.now() }; }
+    box.got[p.i] = String(p.s || "");
+    var cnt = 0, i;
+    for(i in box.got){ cnt++; }
+    if(cnt < box.n){
+      if(Date.now() - box.at > 120000){
+        delete sync.chunks[p.id];
+        if(sync.on && Date.now() - (sync.lastWant || 0) > 60000) syncWant();
+      }
+      return;
+    }
+    var txt = "";
+    for(i = 1; i <= box.n; i++) txt += (box.got[i] || "");
+    delete sync.chunks[p.id];
+    var c;
+    try{ c = JSON.parse(txt); }catch(e){ return; }
+    syncApply([{ key:p.key, r:p.r, c:c }]);
+  }
+  function syncHandle(p){
+    if(p.k === "d"){ syncApply(p.it); return; }
+    if(p.k === "s"){ syncApply(p.it, true); return; }
+    if(p.k === "w"){
+      if(Date.now() - sync.lastSnap > 45000 && !sync.hold) setTimeout(syncSnapshot, 300 + Math.random() * 1500);
+      return;
+    }
+    /* p(생존 신고) — 위에서 peers 에 기록됨 */
+  }
+  function syncApply(list, isSnap){
+    if(!list || !list.length) return;
+    var n = 0, i, e, L;
+    sync.applying = true;
+    for(i = 0; i < list.length; i++){
+      e = list[i];
+      if(!e || !e.key || !e.r) continue;
+      L = sync.rev[e.key] || sync.tomb[e.key];
+      if(L && !syncNewer(e.r, L)) continue;
+      if(e.r.t > (sync.lastRev || 0)) sync.lastRev = e.r.t;
+      if(e.c == null){
+        delete sync.items[e.key]; delete sync.rev[e.key]; delete sync.shadow[e.key];
+        sync.tomb[e.key] = e.r;
+      }else{
+        sync.items[e.key] = e.c;
+        sync.rev[e.key] = e.r;
+        delete sync.tomb[e.key];
+        sync.shadow[e.key] = JSON.stringify(e.c);
+      }
+      n++;
+    }
+    sync.applying = false;
+    if(!n) return;
+    sync.gotRemote = true;
+    sync.lastIn = Date.now();
+    sync.dirtySinceSnap = true;
+    syncProject();
+    syncPersist();
+    syncRenderSoon();
+    if(sync.hold){
+      clearTimeout(sync.quietTimer);
+      sync.quietTimer = setTimeout(syncBootDone, 1500);
+    }
+  }
+
+  function syncRenderSoon(){
+    if(sync.renderTimer) return;
+    sync.renderTimer = setTimeout(function(){
+      sync.renderTimer = null;
+      renderAll();
+      renderPC();
+      syncRender();
+    }, 120);
+  }
+
+  /* ---------- 연결 ---------- */
+  function syncStart(){
+    if(!sync.ready) return;
+    sync.code = syncCodeNow();
+    sync.topic = syncTopicNow();
+    sync.startedAt = Date.now();
+    sync.hold = true;
+    sync.bootDone = false;
+    sync.gotRemote = false;
+    sync.note = "";
+    sync.fail = 0;
+    if(!sync.topic){ sync.on = false; sync.live = "off"; syncRender(); return; }
+    sync.on = true;
+    sync.live = "checking";
+    syncSub();
+    clearTimeout(sync.bootTimer);
+    sync.bootTimer = setTimeout(syncBootDone, 2500);
+    syncRender();
+  }
+  function syncRestart(){
+    if(sync.es){ try{ sync.es.close(); }catch(e){} sync.es = null; }
+    if(sync.pollTimer){ clearInterval(sync.pollTimer); sync.pollTimer = null; }
+    clearTimeout(sync.retryTimer); clearTimeout(sync.bootTimer); clearTimeout(sync.quietTimer);
+    sync.since = 0; sync.seen = {}; sync.seenN = 0; sync.chunks = {}; sync.peers = {};
+    sync.lastCatch = 0;
+    sync.queue = [];
+    syncStart();
+  }
+  function syncSub(){
+    if(!sync.on || sync.es || sync.pollTimer) return;
+    if(typeof EventSource === "undefined"){ syncPoll(); return; }
+    try{
+      sync.es = new EventSource(syncUrl("/sse?since=all"));
+    }catch(e){ sync.es = null; syncPoll(); return; }
+    sync.es.onopen = function(){ sync.live = "on"; sync.note = ""; syncRender(); };
+    sync.es.onmessage = function(e){ syncFeed(e.data); };
+    sync.es.onerror = function(){
+      if(sync.es){ try{ sync.es.close(); }catch(e){} sync.es = null; }
+      sync.live = "checking";
+      syncRender();
+      syncPoll();
+      clearTimeout(sync.retryTimer);
+      sync.retryTimer = setTimeout(function(){
+        if(sync.es || sync.pollTimer) return;
+        syncSub();
+      }, 60000);
+    };
+  }
+  function syncPoll(){
+    if(sync.pollTimer || !sync.on) return;
+    syncPollOnce();
+    sync.pollTimer = setInterval(syncPollOnce, 6000);
+  }
+  function syncPollOnce(){
+    if(!sync.on){ if(sync.pollTimer){ clearInterval(sync.pollTimer); sync.pollTimer = null; } return; }
+    fetch(syncUrl("/json?poll=1&since=" + syncSinceSec()), { cache:"no-store" })
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        sync.lastCatch = Date.now();
+        String(t || "").split("\n").forEach(function(line){
+          line = line.replace(/^\s+|\s+$/g, "");
+          if(line) syncFeed(line);
+        });
+        sync.live = "on";
+        syncRender();
+      })
+      .catch(function(){ sync.live = "checking"; syncRender(); });
+  }
+
+  function syncSinceSec(){
+    return sync.since ? Math.max(0, sync.since - 5) : Math.floor(Date.now() / 1000) - 3600;
+  }
+  /* 한 번만 되짚어 보기 — 잠자던 탭이 돌아오거나 SSE가 끊겼을 때 최신 상태를 따라잡습니다 */
+  function syncCatchUp(){
+    if(!sync.on) return;
+    fetch(syncUrl("/json?poll=1&since=" + syncSinceSec()), { cache:"no-store" })
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        sync.lastCatch = Date.now();
+        String(t || "").split("\n").forEach(function(line){
+          line = line.replace(/^\s+|\s+$/g, "");
+          if(line) syncFeed(line);
+        });
+        sync.live = "on";
+        syncRender();
+      })
+      .catch(function(){});
+  }
+  document.addEventListener("visibilitychange", function(){
+    if(!document.hidden && sync.ready && sync.on) setTimeout(syncCatchUp, 400);
+  });
+  window.addEventListener("online", function(){ if(sync.ready && sync.on) setTimeout(syncCatchUp, 400); });
+
+  /* ---------- 첫 연결: 마이그레이션 · 시드 ---------- */
+  function syncBootDone(){
+    if(sync.bootDone || !sync.on) return;
+    sync.bootDone = true;
+    clearTimeout(sync.bootTimer); clearTimeout(sync.quietTimer);
+    if(sync.gotRemote){ syncBootFinish(); return; }
+    syncWant();
+    setTimeout(function(){
+      if(!sync.on) return;
+      syncBootFinish();
+    }, 2200);
+  }
+  function syncBootFinish(){
+    if(!sync.hold) return;
+    sync.hold = false;
+    sync.booted = true;
+    /* 보드 코드가 바뀌었거나 이 토픽에 처음 붙는 경우 — 이 PC 상태를 통째로 올려 둡니다 */
+    var newTopic = (sync.lastTopic !== sync.topic);
+    if(newTopic){
+      sync.lastTopic = sync.topic;
+      try{ localStorage.setItem(SYNC_TOPIC, sync.topic); }catch(e){}
+      setTimeout(syncSnapshot, 200);
+      syncPersist();
+      syncRender();
+      return;
+    }
+    if(!sync.gotRemote){
+      /* 이 보드에 아직 아무도 없다 — 이 PC 상태를 첫 값으로 올립니다 */
+      syncSnapshot();
+    }else{
+      var list = [], k;
+      for(k in sync.items){
+        if(!sync.rev[k]){ sync.rev[k] = syncNextRev(); list.push({ key:k, r: sync.rev[k], c: sync.items[k] }); }
+      }
+      if(list.length) syncQueue(list);
+      else if(Date.now() - sync.lastSnap > SYNC_SNAP_OPEN) setTimeout(syncSnapshot, 1500);
+    }
+    syncPersist();
+    if(sync.dirty){ sync.dirty = false; syncAfterSave(); }
+    syncFlush();
+    /* 다른 기기가 새로 열 때 바로 받도록, 이 PC 상태를 캐시에 한 번 남깁니다 */
+    if(sync.gotRemote && Date.now() - sync.lastSnap > SYNC_SNAP_OPEN) setTimeout(syncSnapshot, 2500);
+    syncRender();
+  }
+
+  /* ---------- 화면 ---------- */
+  function syncPeerCount(){
+    var n = 0, now = Date.now(), k;
+    for(k in sync.peers){ if(now - sync.peers[k] < SYNC_PEER_MS) n++; else delete sync.peers[k]; }
+    return n;
+  }
+  function syncRender(){
+    var pill = $("#syncPill"), txt = $("#syncPillTxt");
+    var peers = syncPeerCount();
+    var st = !sync.on ? "off" : (sync.live === "on" ? "on" : "checking");
+    if(pill){
+      pill.setAttribute("data-live", st);
+      pill.title = st === "on"
+        ? "공유 보드 연결됨 — 다른 PC·폰과 같은 카드를 봅니다"
+        : st === "checking" ? "공유 보드에 연결하는 중"
+        : "공유 보드가 꺼져 있습니다 — 눌러서 설정";
+    }
+    if(txt){
+      txt.textContent = st === "on"
+        ? (peers > 0 ? "공유 중 · " + (peers + 1) + "대" : "공유 중")
+        : st === "checking" ? "공유 연결 중" : "공유 꺼짐";
+    }
+    var box = $("#syncState");
+    if(box){
+      box.setAttribute("data-live", st);
+      if(st === "off"){
+        box.innerHTML = "<b>공유 보드가 꺼져 있습니다.</b><br>① 위에 집 PC 토픽을 넣고 저장하거나,\n② 다른 PC에서 <b>[동기화 링크 복사]</b>를 누른 뒤 그 링크를 이 PC에서 여세요.";
+      }else if(st === "checking"){
+        box.innerHTML = "<b>연결하는 중…</b>" + (sync.note ? " " + esc(sync.note) : "");
+      }else{
+        var parts = [];
+        parts.push("<b>공유 중</b> — " + (peers > 0 ? (peers + 1) + "대가 같이 보고 있습니다" : "다른 기기에서 이 보드를 열면 같은 카드가 저절로 맞춰집니다"));
+        if(sync.lastIn) parts.push("마지막 반영 " + pcAgo(sync.lastIn));
+        if(sync.note) parts.push(esc(sync.note));
+        box.innerHTML = parts.join(" · ") + "\n<span style=\"opacity:.75\">보드 코드 " + esc(sync.code) + " — 다른 기기도 같은 코드여야 합니다.</span>";
+      }
+    }
+    var inp = $("#syncCodeIn");
+    if(inp && document.activeElement !== inp) inp.value = sync.code || "";
+  }
+
+  function syncMount(){
+    var pill = $("#syncPill");
+    if(pill) pill.addEventListener("click", function(){
+      pcOpen(false);
+      var sec = $("#syncState");
+      if(sec && sec.scrollIntoView){ try{ sec.scrollIntoView({ block:"center" }); }catch(e){} }
+    });
+    var btnSave = $("#syncSaveBtn");
+    if(btnSave) btnSave.addEventListener("click", function(){
+      var inp = $("#syncCodeIn");
+      var v = String(inp ? inp.value : "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 24);
+      try{
+        if(v) localStorage.setItem(SYNC_CODE, v); else localStorage.removeItem(SYNC_CODE);
+      }catch(e){}
+      syncRestart();
+      showToast(v ? "보드 코드를 저장했습니다 — 다른 기기도 같은 코드로 맞춰 주세요" : "보드 코드를 지웠습니다 — PC 토픽으로 자동 계산합니다");
+    });
+    var btnLink = $("#syncLinkBtn");
+    if(btnLink) btnLink.addEventListener("click", function(){
+      var manual = syncStoredCode();
+      var cfg = { "in": pc["in"], out: pc.out };
+      if(manual) cfg.s = manual;
+      if(!pcTopicOk(pc["in"]) && !pcTopicOk(pc.out) && !manual){
+        showToast("위 수신·응답 토픽을 먼저 넣어 주세요");
+        return;
+      }
+      var base = location.href.split("#")[0];
+      copyText(base + "#connect=" + pcB64Txt(JSON.stringify(cfg)));
+      showToast("동기화 링크를 복사했습니다 — 다른 PC·폰에서 이 링크를 열면 같은 보드로 연결됩니다");
+    });
+    var btnPull = $("#syncPullBtn");
+    if(btnPull) btnPull.addEventListener("click", function(){
+      if(!sync.on){ showToast("먼저 위에 집 PC 토픽을 넣거나 동기화 링크를 여세요"); return; }
+      syncWant();
+      setTimeout(function(){ if(sync.on) syncSnapshot(); }, 600);
+      showToast("다른 기기와 지금 상태를 맞추는 중입니다");
+    });
+  }
+
+  /* ---------- 상태 점검(3초) ---------- */
+  function syncTick(){
+    if(!sync.ready) return;
+    if(syncTopicNow() !== sync.topic){ syncRestart(); return; }
+    if(sync.hold && !sync.bootDone && Date.now() - sync.startedAt > 6000) syncBootDone();
+    if(!sync.bootDone) return;
+    syncPeerCount();
+    syncRender();
+    if(sync.on && sync.dirtySinceSnap && Date.now() - sync.lastSnap > SYNC_SNAP_GAP){ syncSnapshot(); }
+    /* 감시 — 연결 표시가 안 켜지거나 1분 넘게 새 소식이 없으면 한 번 되짚어 봅니다 */
+    if(sync.on && sync.bootDone){
+      var now = Date.now();
+      var quiet = now - Math.max(sync.lastIn || 0, sync.lastCatch || 0, sync.startedAt || 0);
+      if((sync.live !== "on" || quiet > 60000) && now - (sync.lastCatch || 0) > 45000) syncCatchUp();
+    if(sync.retry.length && now > (sync.retryAt || 0)){
+      var rlist = sync.retry;
+      sync.retry = [];
+      sync.retryAt = now + 20000;
+      syncSendEntries(rlist);
+    }
+    }
+  }
+  setInterval(syncTick, 3000);
+
+  /* 같은 PC의 다른 탭과도 맞춥니다(localStorage 는 공유되지만 화면은 따로 그려짐) */
+  window.addEventListener("storage", function(e){
+    if(!e || !e.key) return;
+    if(e.key !== SYNC_ITEMS && e.key !== SYNC_REV && e.key !== SYNC_TOMB) return;
+    if(!sync.ready || sync.applying) return;
+    if(syncMergeDisk()) syncRenderSoon();
+  });
+
   /* ---------- 설정 모달 이벤트 ---------- */
   function pcBind(){
     var pill = $("#pcPill");
@@ -3693,7 +4435,11 @@ input,textarea,select{font:inherit}
       if(!v.out) v.out = pc.out;
       if(!pcTopicOk(v["in"]) || !pcTopicOk(v.out)){ showToast("토픽 두 개를 먼저 넣어 주세요"); return; }
       var base = location.href.split("#")[0];
-      var url = base + "#connect=" + pcB64Txt(JSON.stringify({ "in":v["in"], out:v.out }));
+      var payload = { "in":v["in"], out:v.out };
+      var mc = "";
+      try{ mc = localStorage.getItem(SYNC_CODE) || ""; }catch(e){}
+      if(mc) payload.s = mc;
+      var url = base + "#connect=" + pcB64Txt(JSON.stringify(payload));
       copyText(url);
       showToast("자동 연결 링크를 복사했습니다 — 이 링크에는 토픽 이름이 담겨 있으니 남에게 보내지 마세요");
     });
@@ -4270,6 +5016,8 @@ input,textarea,select{font:inherit}
   /* ================= 시작 ================= */
   load();
   if(!state.staff) state.staff = staffDefaults();
+  pcLoad();
+  syncLoad();
   resLoadSeen();
   /* 예전 저장값(직원 명단 없음)의 카드는 부서 대표 직원에게 이어받게 함 */
   if(legacyStaffData){
@@ -4283,13 +5031,15 @@ input,textarea,select{font:inherit}
     if(adopted) save();
   }
   pcBind();
-  pcLoad();
   pcReadHash();
   renderPickChips();
   bindChain();
   renderAll();
   renderPC();
+  syncMount();
+  syncRender();
   if(pcReady()){ pcSub(); pcCheck(); }
+  syncStart();
 })();
 </script>
 </body>
