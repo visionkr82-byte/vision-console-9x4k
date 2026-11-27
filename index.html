@@ -696,8 +696,8 @@ input,textarea,select{font:inherit}
   <div class="modal-bg" data-office-close></div>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="officeSheetTitle" style="width:min(540px,100%)">
     <div class="sheet-head">
-      <div class="sheet-kicker"><span class="no">OFFICE</span><span>부서 현황</span></div>
-      <h2 class="sheet-title" id="officeSheetTitle">오늘의 부서</h2>
+      <div class="sheet-kicker"><span class="no">OFFICE</span><span>실시간 오피스</span></div>
+      <h2 class="sheet-title" id="officeSheetTitle">부서 현황</h2>
       <button class="sheet-close" type="button" data-office-close aria-label="닫기">
         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
@@ -1199,8 +1199,8 @@ input,textarea,select{font:inherit}
       if(sEl) sEl.textContent = live ? live.label : "지시 대기 중";
       if(cEl) cEl.textContent = live ? pcClock(live.sec) : "";
     });
-    var wn = $("#voWorkingN"); if(wn) wn.textContent = working;
-    var inl = $("#voIdleN"); if(inl) inl.textContent = idle;
+    var wn = $("#voWorkingN"); if(wn && wn.textContent !== String(working)) wn.textContent = working;
+    var inl = $("#voIdleN"); if(inl && inl.textContent !== String(idle)) inl.textContent = idle;
   }
 
   /* ================= 부서별 소속 직원 (기본 프리셋) =================
@@ -3828,13 +3828,15 @@ input,textarea,select{font:inherit}
       if(desk){
         desk.classList.toggle("is-active", on);
         var b = desk.querySelector(".desk-bub b");
-        if(b) b.textContent = on ? voClip(live.detail, 20) : "";
+        var bub = on ? voClip(live.detail, 20) : "";
+        if(b && b.textContent !== bub) b.textContent = bub;
       }
       var rail = document.querySelector('.rail[data-dept-open="' + d.no + '"]');
       if(rail){
         rail.classList.toggle("is-working", on);
         var s = rail.querySelector(".rail-txt span");
-        if(s) s.textContent = live ? (stale ? "응답 없음" : live.label) : (staffOf(d.no).length + "명 · 대기");
+        var rt = live ? (stale ? "응답 없음" : live.label) : (staffOf(d.no).length + "명 · 대기");
+        if(s && s.textContent !== rt) s.textContent = rt;
       }
       if(on) working++; else idle++;
     });
@@ -3848,10 +3850,11 @@ input,textarea,select{font:inherit}
     if(!m || !body) return;
     body.innerHTML = DEPTS.map(function(d){
       var live = voLiveOf(d.no);
+      var stale = !!(live && live.sec > 600);
       var open = state.tasks.filter(function(t){ return t.dept === d.no && t.status !== "done" && t.status !== "error"; }).length;
-      return '<button class="rail' + (live ? " is-working" : "") + '" type="button" data-dept-open="' + esc(d.no) + '" style="width:100%;margin-bottom:7px">' +
+      return '<button class="rail' + (live && !stale ? " is-working" : "") + '" type="button" data-dept-open="' + esc(d.no) + '" style="width:100%;margin-bottom:7px">' +
         '<span class="rail-no">' + esc(d.no) + '</span>' +
-        '<span class="rail-txt"><b>' + esc(d.title) + '</b><span>' + esc(live ? live.label : (open ? open + "건 대기" : "대기")) + '</span></span>' +
+        '<span class="rail-txt"><b>' + esc(d.title) + '</b><span>' + esc(stale ? "응답 없음" : (live ? live.label : (open ? open + "건 대기" : "대기"))) + '</span></span>' +
         '<span class="rail-lamp" aria-hidden="true"></span>' +
       '</button>';
     }).join("");
