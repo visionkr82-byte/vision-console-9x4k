@@ -334,102 +334,72 @@ input,textarea,select{font:inherit}
 .de-row button.save{background:var(--navy);border-color:var(--navy);color:#fff}
 .de-row button.is-del{color:#a33a1c;border-color:#f0d3c6;background:#fff8f6}
 .de-row button:hover{filter:brightness(.97)}
-.dept .dept-manage{position:absolute;right:10px;top:10px;display:none;gap:4px}
 
-/* ============ 6. 파이프라인 ============ */
-.pipe-sec{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
-.total{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 15px}
-.total span{display:block;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:-.01em}
-.total b{display:block;margin-top:4px;font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.03em;font-family:var(--mono);line-height:1.25}
-.total small{display:block;margin-top:2px;font-size:10.5px;color:#8b9dae}
-.total.is-leak{border-color:#ffd9c4;background:#fffaf6}
-.total.is-leak b{color:var(--orange-d)}
-.pipe-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
-.stage{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 13px 12px;transition:border-color .18s}
-.stage:hover{border-color:#ffc7a9}
-.st-head{display:flex;align-items:center;gap:6px}
-.st-no{font-family:var(--mono);font-size:10.5px;font-weight:800;color:#fff;background:var(--navy);border-radius:5px;padding:1px 5px}
-.st-name{font-size:11.5px;font-weight:800;color:#3c556c;letter-spacing:-.01em}
-.st-val{display:flex;align-items:baseline;gap:4px;margin-top:9px}
-.st-val input{width:100%;min-width:0;border:1px solid transparent;background:#f7fafd;border-radius:8px;padding:4px 7px;font-size:18px;font-weight:800;color:var(--navy);letter-spacing:-.03em;font-family:var(--mono);transition:.15s}
-.st-val input:hover{border-color:var(--line-2)}
-.st-val input:focus{outline:none;border-color:var(--orange);background:#fff;box-shadow:0 0 0 3px rgba(255,106,31,.14)}
-.st-val span{font-size:10.5px;font-weight:800;color:var(--muted);flex:none}
-.st-note{margin-top:5px;font-size:10.5px;color:#8b9dae;line-height:1.45}
-.st-conv{margin-top:8px;padding-top:7px;border-top:1px dashed #e7eef6;font-size:10.5px;font-weight:800;color:#5d7286;display:flex;align-items:center;gap:4px}
-.st-conv b{color:var(--navy);font-family:var(--mono)}
-.st-conv.is-leak{color:var(--orange-d)}
-.st-conv.is-leak b{color:var(--orange-d)}
-.pipe-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--muted)}
-.pipe-foot .unit{display:inline-flex;align-items:center;gap:6px;font-weight:800;color:#4c6278}
-.pipe-foot .unit input{width:86px;border:1px solid var(--line-2);border-radius:8px;padding:4px 7px;font-size:12.5px;font-weight:800;font-family:var(--mono);color:var(--navy);text-align:right}
-.leak-note{margin-top:12px;background:#fffaf6;border:1px solid #ffe1cf;border-radius:11px;padding:11px 13px;font-size:12px;color:#8a4a24;line-height:1.55}
-.leak-note b{color:#c2410c}
-.rev-title{display:flex;align-items:center;gap:10px;margin-top:34px;font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.02em}
-.rev-title::after{content:"";flex:1;height:1px;background:var(--line)}
-.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-.rev-card{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
-.rev-no{flex:none;width:30px;height:30px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800}
-.rev-card h3{font-size:14px;font-weight:800;letter-spacing:-.02em;color:var(--navy);line-height:1.35}
-.rev-card p{margin-top:4px;font-size:12px;color:var(--body);line-height:1.55}
-.rev-card .rev-by{margin-top:8px;font-size:11px;font-weight:700;color:var(--muted)}
-.rev-card .rev-by b{color:var(--orange-d)}
-.flow-note{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.flow-note div{display:flex;gap:8px;font-size:11.5px;color:#5d7286;line-height:1.5;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:10px 11px}
-.flow-note i{flex:none;width:19px;height:19px;border-radius:6px;background:var(--orange-tint);color:var(--orange-d);display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800}
-.flow-note b{color:var(--navy)}
-
-/* ============ 7. 부서 그리드 ============ */
+/* ============ 6. 부서 탭 / 가상 오피스 ============ */
 .tabs{display:flex;flex-wrap:wrap;gap:5px}
 .tab{height:32px;padding:0 13px;border-radius:999px;border:1px solid var(--line-2);background:#fff;font-size:12px;font-weight:800;color:#5a6d80;transition:.16s}
 .tab:hover{border-color:var(--navy);color:var(--navy)}
 .tab.is-active{background:var(--navy);border-color:var(--navy);color:#fff}
-.dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
-.dept{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 18px 14px;text-align:left;cursor:pointer;transition:transform .22s,border-color .22s,box-shadow .22s;overflow:hidden}
-.dept::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--orange),#ffb27f);opacity:0;transition:opacity .22s}
-.dept:hover,.dept:focus-visible{transform:translateY(-4px);border-color:#ffc7a9;box-shadow:var(--shadow)}
-.dept:hover::before,.dept:focus-visible::before{opacity:1}
-.dept.is-hidden{display:none}
-.dept-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.dept-no{font-size:24px;line-height:1;font-weight:800;letter-spacing:-.04em;color:var(--navy);font-variant-numeric:tabular-nums}
-.dept-no::after{content:"";display:inline-block;vertical-align:middle;width:14px;height:2px;border-radius:2px;background:var(--orange);margin-left:8px}
-.dept-tools{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 .tool{display:inline-flex;align-items:center;justify-content:center;height:22px;padding:0 7px;border-radius:7px;background:#f4f7fb;border:1px solid #e7eef6;font-size:10px;font-weight:800;color:#4a5f74;letter-spacing:-.01em;white-space:nowrap}
-.dept h3{margin-top:12px;font-size:17.5px;font-weight:800;letter-spacing:-.03em;color:var(--navy);line-height:1.3}
-.dept-desc{margin-top:5px;font-size:12.5px;color:var(--body);line-height:1.55;min-height:38px}
-.dept-art{margin:12px -2px 10px;position:relative}
-.dept-art svg{width:100%;height:auto}
-.dept-foot{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:auto;padding-top:11px;border-top:1px solid #eef3f8}
-.dept-foot .tag{font-size:10px;padding:2px 6px}
-.dept-open{margin-left:auto;font-size:11px;font-weight:800;color:var(--orange-d);display:inline-flex;align-items:center;gap:3px}
-.dept-open svg{width:11px;height:11px;transition:transform .2s}
-.dept:hover .dept-open svg{transform:translateX(3px)}
+.vo-sec{background:linear-gradient(180deg,#f7fafd 0%,#eaf1f8 100%);border-top:1px solid var(--line)}
+.vo-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px;padding:11px 15px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.vo-live,.vo-idle{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;color:#3c556c;white-space:nowrap}
+.vo-live i,.vo-idle i{width:9px;height:9px;border-radius:50%;background:#bccbd9;flex:none}
+.vo-live i{background:var(--orange);box-shadow:0 0 0 4px rgba(255,106,31,.16);animation:voPulseDot 1.6s ease-in-out infinite}
+.vo-live b,.vo-idle b{font-family:var(--mono);font-size:14px;color:var(--navy)}
+.vo-bar .vo-note{margin-left:auto;font-size:11.5px;color:var(--muted);line-height:1.5}
+.vo-floor{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.vo-booth{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 13px 11px;text-align:left;cursor:pointer;overflow:hidden;transition:transform .22s,border-color .22s,box-shadow .22s}
+.vo-booth::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--orange),#ffb27f);opacity:.22;transition:opacity .22s}
+.vo-booth:hover,.vo-booth:focus-visible{transform:translateY(-3px);border-color:#ffc7a9;box-shadow:var(--shadow)}
+.vo-booth:hover::before{opacity:.9}
+.vo-booth.is-hidden{display:none}
+.vo-booth.is-working{border-color:#ffcfb4;background:linear-gradient(180deg,#fffaf6 0%,#fff 62%);animation:voGlow 2.8s ease-in-out infinite}
+.vo-booth.is-working::before{opacity:1}
+.vo-head{display:flex;align-items:flex-start;gap:8px}
+.vo-no{flex:none;font-family:var(--mono);font-size:11px;font-weight:800;color:#fff;background:var(--navy);border-radius:6px;padding:2px 6px;letter-spacing:0;transition:background .2s}
+.vo-booth.is-working .vo-no{background:var(--orange)}
+.vo-name{flex:1;min-width:0}
+.vo-name h3{font-size:15px;font-weight:800;letter-spacing:-.03em;color:var(--navy);line-height:1.32;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vo-name p{margin-top:1px;font-size:10.5px;color:var(--muted);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vo-lamp{flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#cbd8e5;box-shadow:0 0 0 3px rgba(203,216,229,.22);transition:background .2s}
+.vo-booth.is-working .vo-lamp{background:var(--orange);box-shadow:0 0 0 4px rgba(255,106,31,.18),0 0 12px rgba(255,106,31,.75);animation:voPulseDot 1.3s ease-in-out infinite}
+.vo-room{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:1px;min-height:190px;margin-top:9px;padding:32px 2px 0;border-radius:12px;background:linear-gradient(180deg,#f5f9fd 0%,#eaf1f9 74%,#dfe9f3 100%);box-shadow:inset 0 0 0 1px #e6eef6}
+.vo-staff{position:relative;flex:1 1 0;min-width:0;max-width:134px}
+.vo-seat{width:100%;height:auto;display:block}
+.vo-bubble{position:absolute;left:50%;top:-30px;z-index:3;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;width:max-content;max-width:calc(100% - 10px);padding:3px 7px 4px;border-radius:8px;background:#0b1c2e;color:#fff;font-size:9px;font-weight:700;line-height:1.32;letter-spacing:-.01em;text-align:center;word-break:keep-all;transform:translateX(-50%) translateY(3px);opacity:0;pointer-events:none;transition:opacity .28s,transform .28s}
+.vo-bubble::after{content:"";position:absolute;left:50%;bottom:-4px;margin-left:-4px;border:4px solid transparent;border-top-color:#0b1c2e;border-bottom:0}
+.vo-staff.is-active .vo-bubble{opacity:1;transform:translateX(-50%) translateY(0)}
+.vo-tag{padding:3px 2px 6px;text-align:center;min-width:0}
+.vo-tag b{display:block;font-size:10.5px;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vo-tag span{display:block;font-size:9px;font-weight:600;color:#8b9dae;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vo-staff.is-active .vo-tag b{color:var(--orange-d)}
+.vo-empty{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:14px 6px 12px;color:#93a2b2;text-align:center}
+.vo-empty svg{width:74px;height:auto;opacity:.8}
+.vo-empty b{font-size:11.5px;font-weight:800;color:#5d7286;margin-top:4px}
+.vo-empty span{font-size:10px;line-height:1.4}
+.vo-foot{display:flex;align-items:center;gap:8px;margin-top:9px;padding-top:9px;border-top:1px solid #eef3f8}
+.vo-state{display:inline-flex;align-items:center;gap:6px;min-width:0;font-size:11px;font-weight:800;color:#8394a5}
+.vo-state i{flex:none;width:7px;height:7px;border-radius:50%;background:#c3d0de}
+.vo-state b{font-weight:800;letter-spacing:-.01em;color:#5d7286;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vo-state span{flex:none;font-family:var(--mono);font-size:10.5px;font-weight:700;color:#93a2b2}
+.vo-booth.is-working .vo-state i{background:var(--orange);animation:voPulseDot 1.2s ease-in-out infinite}
+.vo-booth.is-working .vo-state b{color:var(--orange-d)}
+.vo-more{flex:none;margin-left:auto;font-size:10.5px;font-weight:800;color:var(--orange-d)}
+/* 일하는 중 애니메이션 */
+.vo-staff.is-active .vo-hands{animation:voType .42s ease-in-out infinite}
+.vo-staff.is-active .vo-screenbar{animation:voScreen 1.15s steps(2,end) infinite}
+.vo-staff.is-active .vo-mon{filter:drop-shadow(0 0 7px rgba(255,106,31,.5))}
+.vo-staff.is-active .vo-caret{opacity:1;animation:voBlink .9s steps(1,end) infinite}
+.vo-staff.is-active .vo-seat{animation:voBob 3.6s ease-in-out infinite}
+@keyframes voPulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.42;transform:scale(.8)}}
+@keyframes voGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,106,31,0)}50%{box-shadow:0 0 0 4px rgba(255,106,31,.08),0 18px 44px -28px rgba(255,106,31,.6)}}
+@keyframes voType{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes voScreen{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes voBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes voBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
 
-/* ============ 8. 조직도 ============ */
-.org-wrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow);margin-top:30px}
-.org-ai{padding-bottom:16px;margin-bottom:16px;border-bottom:1px dashed var(--line-2)}
-.oa-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.oa-top b{font-size:14px;font-weight:800;letter-spacing:-.02em;color:var(--navy)}
-.oa-top span{font-size:11.5px;font-weight:700;color:var(--muted)}
-.oa-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:9px}
-.oa-chips span{font-size:10.5px;font-weight:800;color:#3d5a75;background:var(--navy-tint);border:1px solid #dbe8f5;border-radius:6px;padding:2px 7px;letter-spacing:-.01em}
-.oa-link{margin-top:9px;font-size:11px;font-weight:700;color:var(--orange-d)}
-.org-svg{width:100%;height:auto}
-.org-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;padding-top:18px;border-top:1px dashed var(--line-2)}
-.org-note{display:flex;gap:9px;font-size:12px;color:var(--body);line-height:1.55;flex:1 1 240px}
-.org-note i{flex:none;width:21px;height:21px;border-radius:7px;background:var(--orange-tint);color:var(--orange-d);display:grid;place-items:center;font-style:normal;font-size:10.5px;font-weight:800}
-.org-note b{color:var(--navy)}
-
-/* ============ 9. 지키는 선 / 푸터 ============ */
-.rules{background:var(--navy);color:#fff;padding:44px 0 50px}
-.rules-in{display:grid;grid-template-columns:1fr 1.4fr;gap:34px;align-items:start}
-.rules h2{font-size:20px;font-weight:800;letter-spacing:-.03em;line-height:1.35}
-.rules p{margin-top:8px;font-size:12.5px;color:#a9bccd;line-height:1.65}
-.rules-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.rule{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:11px 13px}
-.rule b{display:block;font-size:11.5px;color:#ffb894;letter-spacing:-.01em;margin-bottom:2px}
-.rule span{font-size:11.5px;color:#c6d4e0;line-height:1.5}
+/* ============ 7. 푸터 ============ */
 .site-foot{background:#081522;color:#8499ad;padding:34px 0 28px;font-size:12px}
 .foot-in{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap}
 .foot-brand{display:flex;align-items:center;gap:9px}
@@ -438,9 +408,6 @@ input,textarea,select{font:inherit}
 .foot-brand span{font-size:10px;color:#ff9a5c;font-weight:700}
 .foot-note{flex:1 1 320px;line-height:1.7;color:#7d92a6}
 .foot-note b{color:#c6d4e0}
-.foot-tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.foot-tools button{height:30px;padding:0 10px;border-radius:8px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#a9bccd;font-size:11px;font-weight:800;transition:.15s}
-.foot-tools button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
 .foot-bottom{margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:10.5px;color:#61788e}
 
 /* ============ 10. 드로어 ============ */
@@ -752,11 +719,7 @@ input,textarea,select{font:inherit}
   .hero-in{grid-template-columns:1fr;gap:30px}
   .brief{max-width:560px}
   .board-grid{grid-template-columns:repeat(2,1fr)}
-  .pipe-grid{grid-template-columns:repeat(3,1fr)}
-  .totals{grid-template-columns:repeat(2,1fr)}
-  .dept-grid{grid-template-columns:repeat(2,1fr)}
-  .rev-grid,.flow-note{grid-template-columns:1fr}
-  .rules-in{grid-template-columns:1fr}
+  .vo-floor{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:860px){
   :root{--head:60px}
@@ -764,16 +727,12 @@ input,textarea,select{font:inherit}
   .hbadge{margin-left:auto}
   .hero{padding:30px 0 40px}
   .section{padding:52px 0}
-  .org-wrap{padding:18px 12px}
   .brief{max-width:none}
-  .rules-list{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .board-grid{grid-template-columns:1fr}
-  .pipe-grid{grid-template-columns:1fr}
-  .totals{grid-template-columns:1fr}
-  .dept-grid{grid-template-columns:1fr}
-  .dept-desc{min-height:0}
+  .vo-floor{grid-template-columns:1fr}
+  .vo-seat{max-width:132px;margin:0 auto}
   .hero-facts{gap:16px}
   .fact{flex:1 1 40%}
   .kpi-grid{grid-template-columns:1fr}
@@ -834,9 +793,7 @@ input,textarea,select{font:inherit}
       <a href="#command">지휘실</a>
       <a href="#results" id="navResults">결과 보고 <span class="nav-badge" id="navResBadge" hidden>0</span></a>
       <a href="#board">분담 보드</a>
-      <a href="#pipeline">수익·문의</a>
-      <a href="#office">비서실 09</a>
-      <a href="#org">조직·배분</a>
+      <a href="#office">가상 오피스</a>
     </nav>
     <div class="pc-ctl">
       <button class="pc-pill" id="pcPill" type="button" data-live="off" title="집 PC 연결 상태 — 눌러서 확인"><span id="pcPillTxt">⚪ PC 미연결</span></button>
@@ -973,70 +930,14 @@ input,textarea,select{font:inherit}
     </div>
   </section>
 
-  <!-- ================= 수익·문의 파이프라인 ================= -->
-  <section class="section pipe-sec" id="pipeline">
+  <!-- ================= 가상 오피스 ================= -->
+  <section class="section vo-sec" id="office" aria-label="가상 오피스">
     <div class="wrap">
       <div class="sec-top">
         <div class="sec-head">
-          <span class="eyebrow">Revenue &amp; lead pipeline</span>
-          <h2>이번 주 수익·문의 파이프라인</h2>
-          <p>칸에 <b>이번 주 실제 숫자</b>를 넣으면 단계별 전환율과 새는 구간을 바로 계산합니다. 지금 들어 있는 값은 <b>예시</b>이니 대표님 숫자로 바꿔 쓰세요. 입력값도 이 브라우저에 저장됩니다.</p>
-        </div>
-        <span class="chip chip-review">예시값 · 직접 수정</span>
-      </div>
-
-      <div class="totals" id="totals"></div>
-      <div class="pipe-grid" id="pipeGrid"></div>
-      <div class="pipe-foot">
-        <span class="unit">평균 계약 단가 <input id="pipeUnit" type="number" min="0" step="1" inputmode="numeric" aria-label="평균 계약 단가(만원)"> 만원 / 월</span>
-        <span>· 계약 1건당 월 반복매출 기준으로 계산합니다.</span>
-      </div>
-      <div class="leak-note" id="leakNote"></div>
-
-      <div class="rev-title">매출이 만들어지는 3개 라인</div>
-      <div class="rev-grid">
-        <div class="rev-card">
-          <span class="rev-no">A</span>
-          <div>
-            <h3>플레이스 상위노출 대행</h3>
-            <p>플레이스 세팅·콘텐츠·리뷰·소식 운영. 계약 전 2주 세팅 테스트로 먼저 확인시키는 구조.</p>
-            <div class="rev-by">담당 <b>01 · 03 · 05 · 06</b> → 계약 <b>1·2팀장</b></div>
-          </div>
-        </div>
-        <div class="rev-card">
-          <span class="rev-no">B</span>
-          <div>
-            <h3>검색광고 업세일링</h3>
-            <p>플레이스만으로 부족한 업종은 검색광고를 함께 설계. 상담 중 니즈가 확인되면 업세일링팀이 이어받음.</p>
-            <div class="rev-by">담당 <b>08</b> → <b>업세일링팀</b></div>
-          </div>
-        </div>
-        <div class="rev-card">
-          <span class="rev-no">C</span>
-          <div>
-            <h3>당근 대대행 수수료</h3>
-            <p>당근 공식 대행사와 대대행 계약 보유. 전문가 모드 광고 세팅만으로 수수료 수익이 붙는 라인.</p>
-            <div class="rev-by">담당 <b>03 · 08</b> → <b>업세일링팀</b></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flow-note">
-        <div><i>1</i><span><b>리드가 들어오면</b> 06이 진단·DB를 만들고 08이 5분 안에 1차 응대합니다.</span></div>
-        <div><i>2</i><span><b>지역 기준으로</b> 1팀장·2팀장에게 배정하고, 검색광고·당근 확장 니즈는 업세일링팀으로 넘깁니다.</span></div>
-        <div><i>3</i><span><b>계약·정산은</b> 관리팀이 맡고, 결과는 09 리포트에서 채널별로 다시 계산합니다.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 비서실 3x3 ================= -->
-  <section class="section" id="office">
-    <div class="wrap">
-      <div class="sec-top">
-        <div class="sec-head">
-          <span class="eyebrow">The office · 01–09</span>
-          <h2>대표님 지시를 받아 처리하는 <span id="deptCountTop">9</span>개 부서</h2>
-          <p>카드를 누르면 <b>하루 실행 루틴 · 쓰는 툴 · 산출물 · 목표 KPI · 지키는 선</b>이 열립니다. 드로어에서 바로 <b>보드에 업무 추가</b>도 됩니다.</p>
+          <span class="eyebrow">The office · live</span>
+          <h2>대표님 지시를 받아 일하는 <span id="deptCountTop">9</span>개 부서</h2>
+          <p>부스마다 직원이 앉아 실제로 일합니다. <b>불이 켜지고 모니터가 깜빡이면 지금 일하는 중</b>, 조용한 부스는 지시 대기 중입니다. 부스를 누르면 하루 실행 루틴·직원 관리가 열리고, 드로어에서 바로 <b>보드에 업무 추가</b>도 됩니다.</p>
         </div>
         <div class="tabs" role="tablist" aria-label="부서 분류">
           <button class="tab is-active" role="tab" aria-selected="true" data-filter="all">전체 <b id="deptCountAll">9</b></button>
@@ -1047,9 +948,15 @@ input,textarea,select{font:inherit}
         </div>
       </div>
 
+      <div class="vo-bar">
+        <span class="vo-live"><i aria-hidden="true"></i><b id="voWorkingN">0</b>곳 작업 중</span>
+        <span class="vo-idle"><i aria-hidden="true"></i><b id="voIdleN">9</b>곳 지시 대기</span>
+        <span class="vo-note">PC로 실행한 지시는 <b>비서 판단 → 직원 병렬 작업 → 인사이트 공유 → 컨펌 → 보고</b> 단계에 맞춰 말풍선과 모니터가 바뀝니다.</span>
+      </div>
+
       <div class="office-tools">
         <button class="btn btn-ghost btn-sm" type="button" id="deptAddToggle">+ 부서 추가</button>
-        <span class="note">부서는 <b>9개로 고정되지 않습니다</b> — 필요한 만큼 만들고, 이름·키워드·직원을 직접 관리하세요. 부서를 누르면 하단에서 <b>부서 정보 수정·삭제</b>도 됩니다.</span>
+        <span class="note">부서는 <b>9개로 고정되지 않습니다</b> — 필요한 만큼 만들고, 이름·키워드·직원을 직접 관리하세요. 부스를 누르면 <b>부서 정보 수정·삭제</b>도 됩니다.</span>
       </div>
       <div class="dept-add" id="deptAddForm" hidden>
         <div class="da-row">
@@ -1066,120 +973,11 @@ input,textarea,select{font:inherit}
           <button class="btn btn-ghost btn-sm" type="button" id="deptAddCancel">닫기</button>
         </div>
       </div>
-      <div class="dept-grid" id="deptGrid"></div>
-      </div>
+
+      <div class="vo-floor" id="officeFloor" aria-live="polite"></div>
     </div>
   </section>
 
-  <!-- ================= 조직도 ================= -->
-  <section class="section" id="org">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Organization</span>
-        <h2>비서실이 만든 문의가 앉는 자리</h2>
-        <p>비서실 9개 부서는 <b>대표님 직속</b>으로 보고합니다. 06이 모은 리드는 지역에 따라 <b>1팀장·2팀장</b>에게, 검색광고·당근 확장 니즈는 <b>업세일링팀</b>으로 배정되고, 계약·정산은 <b>관리팀</b>이 받습니다.</p>
-      </div>
-
-      <div class="org-wrap">
-        <div class="org-ai">
-          <div class="oa-top">
-            <b id="orgTitle">AI 비서실 01–09</b>
-            <span>대표님 직속 · 04 총괄이 매일 09:00에 취합 보고</span>
-          </div>
-          <div class="oa-chips" id="orgChips">
-            <span>01 숏폼</span><span>02 업로드</span><span>03 배포</span><span>04 총괄</span><span>05 인스타</span><span>06 진단·리드</span><span>07 스파이</span><span>08 영업 배정</span><span>09 리포트</span>
-          </div>
-          <p class="oa-link">여기서 만든 리드·문의가 아래 조직으로 배정됩니다 ↓</p>
-        </div>
-        <svg class="org-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 356" role="img" aria-label="조직도: 대표 총괄권한 아래 1팀장(플레이스) 영업과 2팀장(플레이스) 영업, 각 팀장 아래 사원 3명. 대표 옆에 업세일링팀(검색광고)과 관리팀.">
-                  <defs>
-                    <style>
-                      .ob{fill:#fff;stroke:#cfdae6;stroke-width:1.5}
-                      .ob-navy{fill:#0b1c2e;stroke:#0b1c2e}
-                      .ob-or{fill:#fff7f2;stroke:#ffb98c;stroke-width:1.5}
-                      .ob-emp{fill:#f6fafe;stroke:#dfe8f2;stroke-width:1.4;stroke-dasharray:4 3}
-                      .ot{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;fill:#0b1c2e;font-weight:800;letter-spacing:-.02em}
-                      .ot-s{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;fill:#7b8b9c;font-weight:600;letter-spacing:-.01em}
-                      .ot-w{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;fill:#fff;font-weight:800;letter-spacing:-.02em}
-                      .ot-wm{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;fill:#9fb3c7;font-weight:600}
-                      .ol{stroke:#c3d0de;stroke-width:1.6;fill:none}
-                      .ol-d{stroke:#c3d0de;stroke-width:1.4;stroke-dasharray:5 5;fill:none}
-                    </style>
-                  </defs>
-
-                  <rect class="ob-navy" x="375" y="12" width="250" height="80" rx="14"/>
-                  <text class="ot-w" x="500" y="46" text-anchor="middle" font-size="18">대표 총괄권한</text>
-                  <text class="ot-wm" x="500" y="68" text-anchor="middle" font-size="11.5">계약 · 예산 · 최종 승인</text>
-
-                  <rect class="ob" x="40" y="20" width="210" height="64" rx="12"/>
-                  <text class="ot" x="145" y="48" text-anchor="middle" font-size="16">업세일링팀</text>
-                  <text class="ot-s" x="145" y="67" text-anchor="middle" font-size="11.5">(검색광고)</text>
-
-                  <rect class="ob" x="750" y="20" width="210" height="64" rx="12"/>
-                  <text class="ot" x="855" y="48" text-anchor="middle" font-size="16">관리팀</text>
-                  <text class="ot-s" x="855" y="67" text-anchor="middle" font-size="11.5">계약 · 정산 관리</text>
-
-                  <path class="ol-d" d="M250 52 H375"/>
-                  <path class="ol-d" d="M625 52 H750"/>
-                  <path class="ol" d="M500 92 V112"/>
-                  <path class="ol" d="M300 112 H700"/>
-                  <path class="ol" d="M300 112 V132"/>
-                  <path class="ol" d="M700 112 V132"/>
-
-                  <rect class="ob-or" x="190" y="132" width="220" height="66" rx="12"/>
-                  <text class="ot" x="300" y="159" text-anchor="middle" font-size="15">1팀장 (플레이스) 영업</text>
-                  <text class="ot-s" x="300" y="178" text-anchor="middle" font-size="11">지역 분담 · 플레이스 계약</text>
-
-                  <rect class="ob-or" x="590" y="132" width="220" height="66" rx="12"/>
-                  <text class="ot" x="700" y="159" text-anchor="middle" font-size="15">2팀장 (플레이스) 영업</text>
-                  <text class="ot-s" x="700" y="178" text-anchor="middle" font-size="11">지역 분담 · 플레이스 계약</text>
-
-                  <path class="ol" d="M300 198 V232 H107.5 V270"/>
-                  <path class="ol" d="M107.5 232 H441.5"/>
-                  <path class="ol" d="M274.5 232 V270"/>
-                  <path class="ol" d="M441.5 232 V270"/>
-                  <path class="ol" d="M700 198 V232 H591.5 V270"/>
-                  <path class="ol" d="M591.5 232 H925.5"/>
-                  <path class="ol" d="M758.5 232 V270"/>
-                  <path class="ol" d="M925.5 232 V270"/>
-
-                  <rect class="ob-emp" x="45" y="270" width="125" height="54" rx="10"/>
-                  <text class="ot-s" x="107.5" y="302" text-anchor="middle" font-size="13.5" fill="#4c5d70">사원</text>
-                  <rect class="ob-emp" x="212" y="270" width="125" height="54" rx="10"/>
-                  <text class="ot-s" x="274.5" y="302" text-anchor="middle" font-size="13.5" fill="#4c5d70">사원</text>
-                  <rect class="ob-emp" x="379" y="270" width="125" height="54" rx="10"/>
-                  <text class="ot-s" x="441.5" y="302" text-anchor="middle" font-size="13.5" fill="#4c5d70">사원</text>
-                  <rect class="ob-emp" x="529" y="270" width="125" height="54" rx="10"/>
-                  <text class="ot-s" x="591.5" y="302" text-anchor="middle" font-size="13.5" fill="#4c5d70">사원</text>
-                  <rect class="ob-emp" x="696" y="270" width="125" height="54" rx="10"/>
-                  <text class="ot-s" x="758.5" y="302" text-anchor="middle" font-size="13.5" fill="#4c5d70">사원</text>
-                  <rect class="ob-emp" x="863" y="270" width="125" height="54" rx="10"/>
-                  <text class="ot-s" x="925.5" y="302" text-anchor="middle" font-size="13.5" fill="#4c5d70">사원</text>
-                </svg>
-        <div class="org-legend">
-          <div class="org-note"><i>1</i><span><b>비서실 01~09</b>는 대표님 직속입니다. 04 총괄 비서실장이 8개 부서 보고를 모아 아침 9시에 한 장으로 올립니다.</span></div>
-          <div class="org-note"><i>2</i><span><b>06 무료진단 → 08 문의·영업</b>으로 이어진 리드는 지역·업종을 보고 1팀장·2팀장에게 1시간 안에 배정됩니다.</span></div>
-          <div class="org-note"><i>3</i><span><b>검색광고·당근 확장</b> 니즈는 상담 중 확인되는 즉시 업세일링팀으로 넘겨 한 번의 상담으로 두 개 계약을 봅니다.</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 지키는 선 ================= -->
-  <section class="rules" aria-label="운영 수칙">
-    <div class="wrap rules-in">
-      <div>
-        <h2>부서가 지키는 선</h2>
-        <p>속도보다 먼저 지켜야 하는 것들입니다. 카드 실행 지시문에도 같이 들어갑니다.</p>
-      </div>
-      <div class="rules-list">
-        <div class="rule"><b>발행은 검수 후</b><span>21:30 대표님 확인 → 승인분만 예약 발행. 승인 없는 발행 없음.</span></div>
-        <div class="rule"><b>야간 광고 금지</b><span>21시~08시 광고성 문자·DM 발송하지 않습니다. 접수만 해두고 오전에 연락.</span></div>
-        <div class="rule"><b>자동 좋아요·팔로우 금지</b><span>인스타는 댓글 1개당 DM 1통, 7일 이내. 상대가 먼저 보낸 DM은 24시간 내 응답.</span></div>
-        <div class="rule"><b>보장 표현 금지</b><span>"상위노출 보장" 같은 문구는 쓰지 않습니다. 수치는 실제 캡처가 있을 때만.</span></div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer class="site-foot">
@@ -1190,11 +988,7 @@ input,textarea,select{font:inherit}
         <span><b>주식회사 비전</b><span>비서실 지휘 콘솔 · 내부용</span></span>
       </div>
       <div class="foot-note">
-        <b>대표님 1인 사용 콘솔입니다.</b> 외부 공개·고객 배포용이 아닙니다. 지시·분담 카드·파이프라인 숫자는 이 브라우저(localStorage)에 저장되고, <b>PC로 실행</b>한 카드만 집 PC(ntfy 토픽)로 전달되어 결과가 이 화면에 표시됩니다.
-      </div>
-      <div class="foot-tools">
-        <button type="button" id="exportData">데이터 내보내기</button>
-        <button type="button" id="wipeData">저장값 초기화</button>
+        <b>대표님 1인 사용 콘솔입니다.</b> 외부 공개·고객 배포용이 아닙니다. 지시·분담 카드는 이 브라우저(localStorage)에만 저장되고, <b>PC로 실행</b>한 카드만 집 PC(ntfy 토픽)로 전달되어 결과가 이 화면에 표시됩니다.
       </div>
     </div>
     <div class="foot-bottom">
@@ -1306,9 +1100,7 @@ input,textarea,select{font:inherit}
     }
     return false;
   }
-  var PIPE_DEFAULT = { vals:[42000,380,46,27,4], unit:30 };
-
-  var state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff:null, chain:false, depts:null };
+  var state = { tasks:[], history:[], staff:null, chain:false, depts:null };
   var legacyStaffData = false;
 
   function load(){
@@ -1325,10 +1117,6 @@ input,textarea,select{font:inherit}
       if(Array.isArray(s.depts) && s.depts.length){
         var dl = s.depts.filter(function(d){ return d && d.no && d.title; }).map(normalizeDept);
         if(dl.length){ DEPTS.length = 0; dl.forEach(function(d){ DEPTS.push(d); }); }
-      }
-      if(s.pipe && Array.isArray(s.pipe.vals) && s.pipe.vals.length === 5){
-        state.pipe.vals = s.pipe.vals.map(function(v){ return isFinite(+v) ? +v : 0; });
-        state.pipe.unit = isFinite(+s.pipe.unit) ? +s.pipe.unit : PIPE_DEFAULT.unit;
       }
       /* 직원 명단 — 예전 저장값(직원 정보 없음)은 기본 프리셋으로 마이그레이션 */
       if(s.staff && typeof s.staff === "object"){
@@ -1443,9 +1231,6 @@ input,textarea,select{font:inherit}
     return null;
   }
 
-  /* 기본 9개 부서 스냅샷 — 저장값 초기화 때 되돌릴 원본 */
-  var BASE_DEPTS = JSON.parse(JSON.stringify(DEPTS));
-
   /* ================= 부서 관리 (9개 고정 아님) ================= */
   var ART_KEYS = ["video","upload","channels","brief","insta","score","spy","funnel","report"];
   var CATS = [{k:"content",n:"콘텐츠"},{k:"inflow",n:"유입"},{k:"convert",n:"전환"},{k:"ops",n:"운영"}];
@@ -1536,36 +1321,184 @@ input,textarea,select{font:inherit}
 
   var DEPT_OPEN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
-  function renderDeptGrid(){
-    var grid = $("#deptGrid");
-    if(!grid) return;
-    grid.innerHTML = DEPTS.map(function(d){
-      var tools = (d.tools || []).slice(0, 3).map(function(x){ return '<span class="tool">' + esc(x) + '</span>'; }).join("");
-      var tags = (d.outputs || []).slice(0, 3).map(function(x){ return '<span class="tag">' + esc(x) + '</span>'; }).join("");
-      return '<article class="dept" data-dept="' + esc(d.no) + '" data-cat="' + esc(d.cat) + '" tabindex="0" role="button" aria-haspopup="dialog">' +
-        '<div class="dept-top"><span class="dept-no">' + esc(d.no) + '</span><span class="dept-tools">' + tools + '</span></div>' +
-        '<h3>' + esc(d.title) + '</h3>' +
-        '<p class="dept-desc">' + esc(d.one || "") + '</p>' +
-        '<div class="dept-art" data-art="' + esc(d.art) + '"></div>' +
-        '<div class="dept-foot">' + tags + '<span class="dept-open">열기 ' + DEPT_OPEN_SVG + '</span></div>' +
-        '</article>';
+  /* ================= 가상 오피스 (실시간 근무 뷰) =================
+     부서 = 부스, 직원 = 책상에 앉은 캐릭터.
+     PC로 실행 중(⚙️ 진행 중)인 부서는 불이 켜지고 모니터가 깜빡이며
+     말풍선에 지금 하는 일이 뜹니다. 나머지는 조용한 '지시 대기' 상태입니다. */
+  var VO_SHIRT = ["#33556f","#d9662b","#3f738f","#6f58b8","#2f7c5e","#8a4d6a"];
+  var VO_SKIN = ["#f2d3b8","#e9c3a1","#f7ddc6","#e3b795"];
+  var VO_HAIR = ["#22323f","#2a2119","#3b2b22"];
+  var VO_STAGE = ["비서 판단","직원 병렬 작업","인사이트 공유","취합·컨펌","대표님 보고"];
+  var VO_STAGE_WAIT = ["업무 쪼개는 중…","직원 병렬 작업 중…","인사이트 공유 중…","취합·컨펌 중…","보고서 정리 중…"];
+
+  function voSeatSVG(k){
+    var shirt = VO_SHIRT[k % VO_SHIRT.length];
+    var skin = VO_SKIN[k % VO_SKIN.length];
+    var hair = VO_HAIR[k % VO_HAIR.length];
+    var gid = "voG" + k + "_" + (k % 2);
+    return '<svg class="vo-seat" viewBox="0 0 120 118" aria-hidden="true" focusable="false">' +
+      '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0" stop-color="#fbfdff"/><stop offset="1" stop-color="#eef4fb"/>' +
+      '</linearGradient></defs>' +
+      '<rect x="2" y="2" width="116" height="68" rx="10" fill="url(#' + gid + ')" stroke="#dbe6f2" stroke-width="1.2"/>' +
+      '<rect x="97" y="10" width="15" height="12" rx="2" fill="#ffe6bd" transform="rotate(6 104 16)"/>' +
+      '<rect x="102" y="57" width="11" height="10" rx="2.5" fill="#dcc7ab"/>' +
+      '<path d="M107.5 57c-4-1-6-4-5-7 3 0 5 2 5 5 0-3 2-6 5-6 1 3-1 6-5 8z" fill="#63a97f"/>' +
+      '<g class="vo-mon">' +
+        '<rect x="9" y="26" width="43" height="29" rx="4" fill="#12263a"/>' +
+        '<rect class="vo-screen" x="12" y="29" width="37" height="23" rx="2" fill="#1b3550"/>' +
+        '<rect class="vo-screenbar" x="15" y="32" width="19" height="2.4" rx="1.2" fill="#ff8b4d"/>' +
+        '<rect class="vo-screenbar" x="15" y="37" width="29" height="2.4" rx="1.2" fill="#547a9f"/>' +
+        '<rect class="vo-screenbar" x="15" y="42" width="14" height="2.4" rx="1.2" fill="#547a9f"/>' +
+        '<rect class="vo-caret" x="31" y="42" width="2.2" height="2.6" fill="#ffb98c" opacity="0"/>' +
+        '<rect x="26" y="55" width="10" height="4" rx="1.6" fill="#c6d5e4"/>' +
+      '</g>' +
+      '<rect x="60" y="44" width="28" height="34" rx="10" fill="#ccdaea"/>' +
+      '<rect x="69" y="56" width="10" height="8" rx="3" fill="' + skin + '"/>' +
+      '<path d="M50 90c0-12 10-19 24-19s24 7 24 19z" fill="' + shirt + '"/>' +
+      '<circle cx="74" cy="48" r="11" fill="' + skin + '"/>' +
+      '<path d="M63 48a11 11 0 0122 0c-1.6-6.6-5.6-10-11-10s-9.4 3.4-11 10z" fill="' + hair + '"/>' +
+      '<circle cx="70" cy="49" r="1.3" fill="#2a3644"/><circle cx="78" cy="49" r="1.3" fill="#2a3644"/>' +
+      '<path d="M70.5 53.6q3.5 2.2 7 0" stroke="#2a3644" stroke-width="1.1" fill="none" stroke-linecap="round"/>' +
+      '<g class="vo-hands">' +
+        '<path d="M54 80c-4 4 0 8 6 9" stroke="' + shirt + '" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<path d="M94 80c4 4 0 8-6 9" stroke="' + shirt + '" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<circle cx="60" cy="89" r="3.1" fill="' + skin + '"/>' +
+        '<circle cx="88" cy="89" r="3.1" fill="' + skin + '"/>' +
+      '</g>' +
+      '<rect x="54" y="85" width="30" height="4.4" rx="2.2" fill="#c7d6e5"/>' +
+      '<rect x="0" y="89" width="120" height="6" rx="2.5" fill="#d9e4f0"/>' +
+      '<rect x="3" y="95" width="114" height="18" rx="3" fill="#eaf1f9"/>' +
+      '<rect x="14" y="99" width="26" height="10" rx="2" fill="#f4f9fd" stroke="#dde7f2"/>' +
+      '<ellipse cx="60" cy="116" rx="46" ry="2.4" fill="#dbe5f0"/>' +
+    '</svg>';
+  }
+
+  function voEmptySVG(){
+    return '<svg viewBox="0 0 120 96" aria-hidden="true" focusable="false">' +
+      '<rect x="8" y="6" width="104" height="50" rx="9" fill="#f8fbfe" stroke="#dbe6f2" stroke-dasharray="5 4"/>' +
+      '<circle cx="60" cy="26" r="8" fill="none" stroke="#c7d5e3" stroke-width="2" stroke-dasharray="4 3"/>' +
+      '<rect x="42" y="38" width="36" height="18" rx="6" fill="#e6eef6"/>' +
+      '<rect x="0" y="66" width="120" height="6" rx="2.5" fill="#dde7f2"/>' +
+      '<rect x="4" y="72" width="112" height="16" rx="3" fill="#eaf1f8"/>' +
+    '</svg>';
+  }
+
+  /* 이 부서가 지금 일하고 있는가 — PC 진행 중 카드 우선, 없으면 진행 중 칸 카드 */
+  function voLiveOf(no){
+    var list = state.tasks.filter(function(t){
+      return t.dept === no && t.pc && (t.pc.state === "sent" || t.pc.state === "running");
+    }).sort(function(a, b){ return (b.pc.at || 0) - (a.pc.at || 0); });
+    var more = list.length > 1 ? " · 외 " + (list.length - 1) + "건" : "";
+    if(list.length){
+      var t = list[0], p = t.pc;
+      var idx = p.state === "sent" ? 0 : pcStageIdxOf(t);
+      if(idx < 0 || idx > 4) idx = 0;
+      return {
+        label:(p.state === "sent" ? "PC 수신 대기" : VO_STAGE[idx]) + more,
+        detail:(p.stageDetail || (p.state === "sent" ? "지시 받는 중…" : VO_STAGE_WAIT[idx])),
+        sec:(Date.now() - (p.ackAt || p.at || Date.now())) / 1000,
+        staffId:t.staffId || ""
+      };
+    }
+    var doing = state.tasks.filter(function(t){ return t.dept === no && t.status === "doing"; })
+      .sort(function(a, b){ return (b.statusAt || b.ts || 0) - (a.statusAt || a.ts || 0); });
+    if(doing.length){
+      var d = doing[0];
+      return {
+        label:"진행 중" + (doing.length > 1 ? " · 외 " + (doing.length - 1) + "건" : ""),
+        detail:(d.title || "업무") + " 진행 중",
+        sec:(Date.now() - (d.statusAt || d.ts || Date.now())) / 1000,
+        staffId:d.staffId || ""
+      };
+    }
+    return null;
+  }
+
+  function voClip(s, n){
+    s = String(s == null ? "" : s).replace(/\s+/g, " ").trim();
+    return s.length > n ? s.slice(0, n - 1) + "…" : s;
+  }
+
+  function renderOffice(){
+    var floor = $("#officeFloor");
+    if(!floor) return;
+    floor.innerHTML = DEPTS.map(function(d){
+      var list = staffOf(d.no);
+      var seats = list.length
+        ? list.map(function(s, k){
+            return '<div class="vo-staff" data-staff="' + esc(s.id) + '">' +
+              '<div class="vo-bubble" aria-hidden="true"></div>' +
+              voSeatSVG(k) +
+              '<div class="vo-tag"><b>' + esc(s.name) + '</b><span>' + esc(s.task || "담당 업무 미지정") + '</span></div>' +
+            '</div>';
+          }).join("")
+        : '<div class="vo-empty">' + voEmptySVG() + '<b>빈 자리</b><span>부스를 눌러 직원을 추가하세요</span></div>';
+      return '<article class="vo-booth" data-dept="' + esc(d.no) + '" data-cat="' + esc(d.cat) + '" tabindex="0" role="button" aria-haspopup="dialog" aria-label="' + esc(d.no + " " + d.title + " 부서 상세 열기") + '">' +
+        '<div class="vo-head">' +
+          '<span class="vo-no">' + esc(d.no) + '</span>' +
+          '<div class="vo-name"><h3>' + esc(d.title) + '</h3><p>' + esc(d.one || "") + '</p></div>' +
+          '<span class="vo-lamp" aria-hidden="true"></span>' +
+        '</div>' +
+        '<div class="vo-room">' + seats + '</div>' +
+        '<div class="vo-foot">' +
+          '<span class="vo-state"><i aria-hidden="true"></i><b data-vo-status>지시 대기 중</b><span data-vo-clock></span></span>' +
+          '<span class="vo-more">부서 열기 →</span>' +
+        '</div>' +
+      '</article>';
     }).join("") || '<div class="col-empty" style="grid-column:1/-1">부서가 없습니다 — 위의 <b>+ 부서 추가</b>로 만들어 주세요.</div>';
-    $$(".dept-art", grid).forEach(function(el, i){ el.innerHTML = buildArt(el.getAttribute("data-art"), i); });
+
     var cnt = $("#deptCountAll"); if(cnt) cnt.textContent = DEPTS.length;
     var top = $("#deptCountTop"); if(top) top.textContent = DEPTS.length;
-    var oc = $("#orgChips");
-    if(oc) oc.innerHTML = DEPTS.map(function(d){ return '<span>' + esc(d.no) + " " + esc(d.title) + '</span>'; }).join("");
-    var ot = $("#orgTitle");
-    if(ot && DEPTS.length) ot.textContent = "AI 비서실 " + DEPTS[0].no + "–" + DEPTS[DEPTS.length - 1].no;
-    var act = $(".tab.is-active[data-filter]");
-    var f = act ? act.getAttribute("data-filter") : "all";
-    $$(".dept", grid).forEach(function(card, i){
-      card.classList.toggle("is-hidden", f !== "all" && card.getAttribute("data-cat") !== f);
-      card.addEventListener("click", function(){ openDept(i); });
-      card.addEventListener("keydown", function(e){
-        if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openDept(i); }
+
+    $$(".vo-booth", floor).forEach(function(b){
+      b.addEventListener("click", function(){ voOpen(b); });
+      b.addEventListener("keydown", function(e){
+        if(e.key === "Enter" || e.key === " "){ e.preventDefault(); voOpen(b); }
       });
     });
+    voApplyFilter();
+    voTick();
+  }
+
+  function voOpen(b){
+    var no = b.getAttribute("data-dept");
+    for(var i = 0; i < DEPTS.length; i++){ if(DEPTS[i].no === no){ openDept(i); return; } }
+  }
+
+  function voApplyFilter(){
+    var floor = $("#officeFloor");
+    if(!floor) return;
+    var act = $(".tab.is-active[data-filter]");
+    var f = act ? act.getAttribute("data-filter") : "all";
+    $$(".vo-booth", floor).forEach(function(b){
+      b.classList.toggle("is-hidden", f !== "all" && b.getAttribute("data-cat") !== f);
+    });
+  }
+
+  /* 1초마다 상태만 갱신 — 판(플로어)은 다시 그리지 않아 애니메이션이 끊기지 않습니다 */
+  function voTick(){
+    var floor = $("#officeFloor");
+    if(!floor) return;
+    var working = 0, idle = 0;
+    $$(".vo-booth", floor).forEach(function(b){
+      var live = voLiveOf(b.getAttribute("data-dept"));
+      b.classList.toggle("is-working", !!live);
+      if(live) working++; else idle++;
+      var seats = $$(".vo-staff", b);
+      seats.forEach(function(el, i){
+        var on = !!live && (live.staffId ? el.getAttribute("data-staff") === live.staffId : i === 0);
+        el.classList.toggle("is-active", on);
+        var bub = $(".vo-bubble", el);
+        if(bub) bub.textContent = on ? voClip(live.detail, 40) : "";
+      });
+      var sEl = $("[data-vo-status]", b);
+      var cEl = $("[data-vo-clock]", b);
+      if(sEl) sEl.textContent = live ? live.label : "지시 대기 중";
+      if(cEl) cEl.textContent = live ? pcClock(live.sec) : "";
+    });
+    var wn = $("#voWorkingN"); if(wn) wn.textContent = working;
+    var inl = $("#voIdleN"); if(inl) inl.textContent = idle;
   }
 
   /* ================= 부서별 소속 직원 (기본 프리셋) =================
@@ -1726,42 +1659,6 @@ input,textarea,select{font:inherit}
     if(/^\[[^\]]*\]/.test(body)) return body.replace(/^\[[^\]]*\]/, head);
     return head + " 실행 지시문\n" + body;
   }
-
-  /* ================= 카드 일러스트 ================= */
-  var ART = {
-    video: '<rect x="58" y="26" width="46" height="74" rx="7" fill="#0b1c2e"/><circle cx="81" cy="62" r="11" fill="#ff6a1f"/><path d="M78 56.5v11l9.5-5.5z" fill="#fff"/><rect x="116" y="30" width="112" height="7" rx="3.5" fill="#dbe6f2"/><rect x="116" y="44" width="92" height="7" rx="3.5" fill="#e7eef7"/><rect x="116" y="61" width="112" height="4" rx="2" fill="#eef4fa"/><rect x="116" y="61" width="64" height="4" rx="2" fill="#ff6a1f"/><rect x="116" y="78" width="112" height="5" rx="2.5" fill="#eef4fa"/><rect x="116" y="90" width="72" height="5" rx="2.5" fill="#eef4fa"/>',
-    upload: '<rect x="58" y="26" width="116" height="21" rx="10.5" fill="#fff" stroke="#e2ebf5"/><circle cx="70" cy="36.5" r="4.5" fill="#ff6a1f"/><rect x="80" y="33" width="62" height="7" rx="3.5" fill="#e2ebf5"/><rect x="58" y="53" width="116" height="21" rx="10.5" fill="#fff" stroke="#e2ebf5"/><circle cx="70" cy="63.5" r="4.5" fill="#ef4444"/><rect x="80" y="60" width="48" height="7" rx="3.5" fill="#e2ebf5"/><rect x="58" y="80" width="116" height="21" rx="10.5" fill="#fff" stroke="#e2ebf5"/><circle cx="70" cy="90.5" r="4.5" fill="#0b1c2e"/><rect x="80" y="87" width="56" height="7" rx="3.5" fill="#e2ebf5"/><path d="M196 98V58" stroke="#ff6a1f" stroke-width="3" stroke-linecap="round"/><path d="M186 68l10-10 10 10" stroke="#ff6a1f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
-    channels: '<rect x="56" y="26" width="74" height="34" rx="9" fill="#fff" stroke="#e2ebf5"/><circle cx="70" cy="43" r="5.5" fill="#ff8a3d"/><rect x="80" y="36" width="40" height="5" rx="2.5" fill="#dbe6f2"/><rect x="80" y="46" width="28" height="4" rx="2" fill="#eef4fa"/><rect x="138" y="26" width="74" height="34" rx="9" fill="#fff" stroke="#e2ebf5"/><circle cx="152" cy="43" r="5.5" fill="#22c55e"/><rect x="162" y="36" width="40" height="5" rx="2.5" fill="#dbe6f2"/><rect x="162" y="46" width="24" height="4" rx="2" fill="#eef4fa"/><rect x="56" y="66" width="74" height="34" rx="9" fill="#fff" stroke="#e2ebf5"/><circle cx="70" cy="83" r="5.5" fill="#0b1c2e"/><rect x="80" y="76" width="36" height="5" rx="2.5" fill="#dbe6f2"/><rect x="80" y="86" width="30" height="4" rx="2" fill="#eef4fa"/><rect x="138" y="66" width="74" height="34" rx="9" fill="#fff" stroke="#e2ebf5"/><circle cx="152" cy="83" r="5.5" fill="#a855f7"/><rect x="162" y="76" width="38" height="5" rx="2.5" fill="#dbe6f2"/><rect x="162" y="86" width="22" height="4" rx="2" fill="#eef4fa"/>',
-    brief: '<rect x="72" y="24" width="120" height="80" rx="9" fill="#fff" stroke="#e2ebf5"/><rect x="104" y="18" width="56" height="12" rx="6" fill="#ffd9c4"/><circle cx="88" cy="48" r="5" fill="#eaf7f0"/><path d="M85.5 48l2 2 3.5-4" stroke="#17945a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="100" y="44.5" width="72" height="6" rx="3" fill="#dbe6f2"/><circle cx="88" cy="66" r="5" fill="#eaf7f0"/><path d="M85.5 66l2 2 3.5-4" stroke="#17945a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="100" y="62.5" width="58" height="6" rx="3" fill="#dbe6f2"/><circle cx="88" cy="84" r="5" fill="#fff2ea"/><circle cx="88" cy="84" r="1.8" fill="#ff6a1f"/><rect x="100" y="80.5" width="66" height="6" rx="3" fill="#eef4fa"/>',
-    insta: '<path d="M56 34a11 11 0 0111-11h82a11 11 0 0111 11v14a11 11 0 01-11 11H88l-11 9v-9h-10a11 11 0 01-11-11z" fill="#fff" stroke="#e2ebf5"/><rect x="70" y="32" width="62" height="6" rx="3" fill="#dbe6f2"/><rect x="70" y="43" width="44" height="5" rx="2.5" fill="#eef4fa"/><path d="M112 72a11 11 0 0111-11h82a11 11 0 0111 11v12a11 11 0 01-11 11h-12v9l-10-9h-60a11 11 0 01-11-11z" fill="#0b1c2e"/><rect x="126" y="70" width="58" height="6" rx="3" fill="#3a4f66"/><rect x="126" y="80" width="38" height="5" rx="2.5" fill="#2a3f56"/><path d="M196 66c-3.2-3.6-8.5-1.4-8.5 2.6 0 3.4 5 6.2 8.5 8.4 3.5-2.2 8.5-5 8.5-8.4 0-4-5.3-6.2-8.5-2.6z" fill="#ff6a1f"/>',
-    score: '<path d="M70 84a38 38 0 0176 0" fill="none" stroke="#eef3f8" stroke-width="11" stroke-linecap="round"/><path d="M70 84a38 38 0 0157-32" fill="none" stroke="#ff6a1f" stroke-width="11" stroke-linecap="round"/><text x="108" y="78" text-anchor="middle" font-size="23" font-weight="800" fill="#0b1c2e">68</text><text x="108" y="92" text-anchor="middle" font-size="9" font-weight="700" fill="#93a2b2">/ 100</text><rect x="86" y="98" width="44" height="6" rx="3" fill="#eef4fa"/>',
-    spy: '<circle cx="116" cy="62" r="36" fill="#fff" stroke="#dbe6f2" stroke-width="1.5"/><circle cx="116" cy="62" r="24" fill="none" stroke="#e9f0f7" stroke-width="1.5"/><circle cx="116" cy="62" r="12" fill="none" stroke="#e9f0f7" stroke-width="1.5"/><path d="M116 62l24-22" stroke="#ff6a1f" stroke-width="2.4" stroke-linecap="round"/><circle cx="136" cy="46" r="3.6" fill="#ff6a1f"/><circle cx="116" cy="62" r="2.4" fill="#0b1c2e"/><path d="M180 80l14 14" stroke="#0b1c2e" stroke-width="5" stroke-linecap="round"/><circle cx="174" cy="74" r="13" fill="rgba(255,255,255,.8)" stroke="#0b1c2e" stroke-width="3"/>',
-    funnel: '<path d="M72 28h116l-22 26H94z" fill="#0b1c2e"/><path d="M94 60h72l-8 22h-56z" fill="#ffb27f"/><path d="M102 88h56l-7 16h-42z" fill="#ff6a1f"/><path d="M198 34v34" stroke="#c3d0de" stroke-width="2.4" stroke-dasharray="4 4"/><path d="M192 62l6 8 6-8" fill="#c3d0de"/>',
-    report: '<rect x="62" y="96" width="18" height="10" rx="3" fill="#dbe6f2"/><rect x="86" y="80" width="18" height="26" rx="3" fill="#dbe6f2"/><rect x="110" y="66" width="18" height="40" rx="3" fill="#dbe6f2"/><rect x="134" y="50" width="18" height="56" rx="3" fill="#dbe6f2"/><rect x="158" y="36" width="18" height="70" rx="3" fill="#ff6a1f"/><path d="M62 96h122" stroke="#cfdae6" stroke-width="1.5"/><path d="M71 80l24-14 24-12 24-14" stroke="#0b1c2e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
-  };
-
-  function mascot(x,y,s,flip){
-    return '<g transform="translate(' + x + ',' + y + ') scale(' + (flip ? -s : s) + ',' + s + ')">' +
-      '<ellipse cx="0" cy="24" rx="20" ry="4" fill="#eef3f8"/>' +
-      '<path d="M-17 1l-7-5M17 1l7-5" stroke="#ff7a3d" stroke-width="4" stroke-linecap="round"/>' +
-      '<path d="M0-16c8 0 10 8 16 10 8 2 8 12 0 14-6 2-8 10-16 10s-10-8-16-10c-8-2-8-12 0-14C-10-8-8-16 0-16z" fill="#ff7a3d"/>' +
-      '<circle cx="-6" cy="1" r="3.4" fill="#12263a"/><circle cx="6" cy="1" r="3.4" fill="#12263a"/>' +
-      '<circle cx="-7" cy="0" r="1.1" fill="#fff"/><circle cx="5" cy="0" r="1.1" fill="#fff"/>' +
-      '<path d="M-4.5 8q4.5 3.5 9 0" stroke="#12263a" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-      '<path d="M-7 17v5M7 17v5" stroke="#ff7a3d" stroke-width="4" stroke-linecap="round"/></g>';
-  }
-
-  function buildArt(type,i){
-    var inner = ART[type] || ART.video;
-    return '<svg viewBox="0 0 300 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-      '<rect x="42" y="12" width="204" height="112" rx="11" fill="#ffffff" stroke="#d7e1ec" stroke-width="1.5"/>' +
-      '<rect x="50" y="20" width="188" height="86" rx="7" fill="#f4f8fd"/>' +
-      '<rect x="134" y="124" width="28" height="9" rx="3" fill="#dce5ef"/>' +
-      '<rect x="116" y="133" width="64" height="6" rx="3" fill="#e8eef6"/>' +
-      inner + mascot(266, 100, 0.82, i % 2 === 1) + '</svg>';
-  }
-
-  $$(".dept-art").forEach(function(el,i){ el.innerHTML = buildArt(el.getAttribute("data-art"), i); });
 
   /* ==================================================================
      지시 → 부서 자동 배정(라우팅)
@@ -2723,40 +2620,7 @@ input,textarea,select{font:inherit}
     });
   })();
 
-  function renderAll(){ renderDeptGrid(); renderDeptStaffs(); renderBoard(); renderBrief(); renderResults(); renderHeroReport(); resBadge(); }
-
-  /* ================= 부서 카드: 직원 배지 · 이름 스트립 ================= */
-  var PERSON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.5 3.1-5.6 7-5.6s7 2.1 7 5.6"/></svg>';
-
-  function renderDeptStaffs(){
-    var grid = $("#deptGrid");
-    if(!grid) return;
-    $$(".dept", grid).forEach(function(card){
-      var no = card.getAttribute("data-dept");
-      var list = staffOf(no);
-      var top = $(".dept-top", card);
-      if(top){
-        var badge = $(".dept-badge", top);
-        if(!badge){ badge = document.createElement("span"); badge.className = "dept-badge"; top.appendChild(badge); }
-        badge.innerHTML = PERSON_ICON + "직원 " + list.length + "명";
-        badge.title = list.length ? list.map(function(s){ return s.name; }).join(", ") : "소속 직원 없음";
-      }
-      var strip = $(".dept-staff", card);
-      if(!strip){
-        strip = document.createElement("div");
-        strip.className = "dept-staff";
-        var art = $(".dept-art", card);
-        if(art) card.insertBefore(strip, art); else card.appendChild(strip);
-      }
-      if(!list.length){
-        strip.innerHTML = '<b>직원 0명</b><span>드로어에서 직원을 추가하세요</span>';
-      } else {
-        var names = list.slice(0,2).map(function(s){ return s.name; }).join(" · ");
-        var more = list.length > 2 ? " +" + (list.length - 2) : "";
-        strip.innerHTML = PERSON_ICON + '<span>' + esc(names + more) + '</span>';
-      }
-    });
-  }
+  function renderAll(){ renderOffice(); renderBoard(); renderBrief(); renderResults(); renderHeroReport(); resBadge(); }
 
   /* ================= 지시 실행 ================= */
   var picked = [];
@@ -2957,137 +2821,10 @@ input,textarea,select{font:inherit}
     showToast("카드를 삭제했습니다");
   }
 
-  /* ================= 파이프라인 ================= */
-  var STAGE_META = [
-    { name:"콘텐츠 조회", unit:"회", note:"릴스·쇼츠·블로그 합산" },
-    { name:"반응", unit:"회", note:"저장·댓글·DM 합산" },
-    { name:"무료진단 신청", unit:"건", note:"연락처 남긴 리드" },
-    { name:"1차 상담", unit:"건", note:"5분 내 응답 기준" },
-    { name:"계약", unit:"건", note:"신규 계약 수" }
-  ];
-
   function fmt(n){
     if(!isFinite(n)) return "—";
     return Number(n).toLocaleString("ko-KR");
   }
-  function pctStr(a,b){
-    if(!b || !isFinite(a) || !isFinite(b)) return "—";
-    var v = a / b * 100;
-    if(v >= 10) return v.toFixed(1) + "%";
-    if(v >= 1) return v.toFixed(1) + "%";
-    return v.toFixed(2) + "%";
-  }
-
-  function renderPipeline(){
-    var grid = $("#pipeGrid");
-    if(!grid) return;
-    var v = state.pipe.vals;
-    var convs = [];
-    for(var i=1;i<5;i++){ convs.push(v[i-1] ? v[i] / v[i-1] * 100 : null); }
-    var minIdx = -1, minVal = Infinity;
-    convs.forEach(function(c,i){ if(c !== null && c < minVal){ minVal = c; minIdx = i; } });
-
-    grid.innerHTML = STAGE_META.map(function(s,i){
-      var html = '<div class="stage">' +
-        '<div class="st-head"><span class="st-no">0' + (i+1) + '</span><span class="st-name">' + s.name + '</span></div>' +
-        '<div class="st-val"><input type="text" inputmode="numeric" autocomplete="off" data-stage="' + i + '" aria-label="' + s.name + ' 값" value="' + fmt(v[i]) + '"><span>' + s.unit + '</span></div>' +
-        '<p class="st-note">' + s.note + '</p>';
-      if(i > 0){
-        var leak = (i - 1) === minIdx;
-        html += '<div class="st-conv' + (leak ? " is-leak" : "") + '">직전 대비 <b>' + (convs[i-1] === null ? "—" : pctStr(v[i], v[i-1])) + '</b>' + (leak ? " ▼" : "") + '</div>';
-      } else {
-        html += '<div class="st-conv">이번 주 시작점</div>';
-      }
-      return html + '</div>';
-    }).join("");
-
-    var unit = $("#pipeUnit");
-    if(unit) unit.value = state.pipe.unit;
-
-    var totals = $("#totals");
-    if(totals){
-      var mrr = (v[4] || 0) * (state.pipe.unit || 0);
-      var perDeal = v[4] ? Math.round(v[0] / v[4]) : 0;
-      totals.innerHTML =
-        '<div class="total"><span>전체 전환 (조회→계약)</span><b>' + pctStr(v[4], v[0]) + '</b><small>' + fmt(v[4]) + ' / ' + fmt(v[0]) + '</small></div>' +
-        '<div class="total"><span>리드→계약</span><b>' + pctStr(v[4], v[2]) + '</b><small>상담 전환 ' + pctStr(v[3], v[2]) + '</small></div>' +
-        '<div class="total"><span>계약 1건당 필요 조회</span><b>' + (perDeal ? fmt(perDeal) : "—") + '</b><small>회 / 건</small></div>' +
-        '<div class="total' + (minIdx > -1 ? " is-leak" : "") + '"><span>가장 많이 새는 구간</span><b>' + (minIdx > -1 ? STAGE_META[minIdx].name + " → " + STAGE_META[minIdx+1].name : "—") + '</b><small>' + (minIdx > -1 ? pctStr(v[minIdx+1], v[minIdx]) + ' · 여기부터 손댑니다' : '숫자를 넣어주세요') + '</small></div>';
-
-      var note = $("#leakNote");
-      if(note){
-        note.innerHTML = minIdx > -1
-          ? '<b>이번 주 병목은 ' + STAGE_META[minIdx].name + ' → ' + STAGE_META[minIdx+1].name + ' (' + pctStr(v[minIdx+1], v[minIdx]) + ')</b> 입니다. 이 구간을 맡은 ' +
-            (minIdx === 0 ? "01·03·05 (콘텐츠·배포·활성화)" : minIdx === 1 ? "06 (무료진단 랜딩)" : minIdx === 2 ? "08 (문의·영업 배정)" : "08·1·2팀장 (상담·클로징)") +
-            "에 이번 주 카드를 먼저 배분하세요. 예상 월 반복매출은 <b>약 " + fmt(mrr) + "만원</b> (계약 " + fmt(v[4]) + "건 × 단가 " + fmt(state.pipe.unit) + "만원)입니다."
-          : '단계별 숫자를 넣으면 병목과 예상 월 반복매출을 계산합니다.';
-      }
-    }
-  }
-
-  function bindPipeline(){
-    var grid = $("#pipeGrid");
-    if(grid){
-      grid.addEventListener("input", function(e){
-        var inp = e.target.closest("input[data-stage]");
-        if(!inp) return;
-        var i = parseInt(inp.getAttribute("data-stage"),10);
-        var val = Math.max(0, parseInt((inp.value || "0").replace(/[^0-9]/g, "") || "0", 10) || 0);
-        state.pipe.vals[i] = val;
-        save();
-        updatePipelineNumbers();
-      });
-      grid.addEventListener("blur", function(e){
-        var inp = e.target.closest("input[data-stage]");
-        if(inp) renderPipeline();
-      }, true);
-    }
-    var unit = $("#pipeUnit");
-    if(unit){
-      unit.addEventListener("input", function(){
-        state.pipe.unit = Math.max(0, parseInt((unit.value || "0").replace(/[^0-9]/g, "") || "0", 10) || 0);
-        save(); updatePipelineNumbers();
-      });
-    }
-  }
-
-  // 입력 중 포커스를 잃지 않도록 숫자 요약만 갱신
-  function updatePipelineNumbers(){
-    var grid = $("#pipeGrid");
-    if(!grid) return;
-    var v = state.pipe.vals;
-    var convs = [];
-    for(var i=1;i<5;i++){ convs.push(v[i-1] ? v[i] / v[i-1] * 100 : null); }
-    var minIdx = -1, minVal = Infinity;
-    convs.forEach(function(c,i){ if(c !== null && c < minVal){ minVal = c; minIdx = i; } });
-    $$(".stage", grid).forEach(function(stage,i){
-      var convEl = stage.querySelector(".st-conv");
-      if(!convEl) return;
-      if(i === 0){ convEl.className = "st-conv"; convEl.textContent = "이번 주 시작점"; return; }
-      var leak = (i - 1) === minIdx;
-      convEl.className = "st-conv" + (leak ? " is-leak" : "");
-      convEl.innerHTML = "직전 대비 <b>" + (convs[i-1] === null ? "—" : pctStr(v[i], v[i-1])) + "</b>" + (leak ? " ▼" : "");
-    });
-    var totals = $("#totals");
-    if(totals){
-      var mrr = (v[4] || 0) * (state.pipe.unit || 0);
-      var perDeal = v[4] ? Math.round(v[0] / v[4]) : 0;
-      totals.innerHTML =
-        '<div class="total"><span>전체 전환 (조회→계약)</span><b>' + pctStr(v[4], v[0]) + '</b><small>' + fmt(v[4]) + ' / ' + fmt(v[0]) + '</small></div>' +
-        '<div class="total"><span>리드→계약</span><b>' + pctStr(v[4], v[2]) + '</b><small>상담 전환 ' + pctStr(v[3], v[2]) + '</small></div>' +
-        '<div class="total"><span>계약 1건당 필요 조회</span><b>' + (perDeal ? fmt(perDeal) : "—") + '</b><small>회 / 건</small></div>' +
-        '<div class="total' + (minIdx > -1 ? " is-leak" : "") + '"><span>가장 많이 새는 구간</span><b>' + (minIdx > -1 ? STAGE_META[minIdx].name + " → " + STAGE_META[minIdx+1].name : "—") + '</b><small>' + (minIdx > -1 ? pctStr(v[minIdx+1], v[minIdx]) + ' · 여기부터 손댑니다' : '숫자를 넣어주세요') + '</small></div>';
-      var note = $("#leakNote");
-      if(note){
-        note.innerHTML = minIdx > -1
-          ? '<b>이번 주 병목은 ' + STAGE_META[minIdx].name + ' → ' + STAGE_META[minIdx+1].name + ' (' + pctStr(v[minIdx+1], v[minIdx]) + ')</b> 입니다. 이 구간을 맡은 ' +
-            (minIdx === 0 ? "01·03·05 (콘텐츠·배포·활성화)" : minIdx === 1 ? "06 (무료진단 랜딩)" : minIdx === 2 ? "08 (문의·영업 배정)" : "08·1·2팀장 (상담·클로징)") +
-            "에 이번 주 카드를 먼저 배분하세요. 예상 월 반복매출은 <b>약 " + fmt(mrr) + "만원</b> (계약 " + fmt(v[4]) + "건 × 단가 " + fmt(state.pipe.unit) + "만원)입니다."
-          : '단계별 숫자를 넣으면 병목과 예상 월 반복매출을 계산합니다.';
-      }
-    }
-  }
-
   /* ================= 드로어 ================= */
   var drawer = $("#drawer"), dwBody = $("#dwBody"), dwNo = $("#dwNo"),
       dwKicker = $("#dwKicker"), dwTitle = $("#dwTitle"), dwOne = $("#dwOneLiner");
@@ -3258,13 +2995,6 @@ input,textarea,select{font:inherit}
     if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  $$("#deptGrid .dept").forEach(function(card){
-    var idx = DEPTS.map(function(d){ return d.no; }).indexOf(card.getAttribute("data-dept"));
-    card.addEventListener("click", function(){ openDept(idx); });
-    card.addEventListener("keydown", function(e){
-      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openDept(idx); }
-    });
-  });
   $$("[data-close]", drawer).forEach(function(el){ el.addEventListener("click", closeDept); });
   $("#dwPrev").addEventListener("click", function(){ staffFormOpen = false; staffEditId = null; renderDept((current + DEPTS.length - 1) % DEPTS.length); });
   $("#dwNext").addEventListener("click", function(){ staffFormOpen = false; staffEditId = null; renderDept((current + 1) % DEPTS.length); });
@@ -3366,10 +3096,7 @@ input,textarea,select{font:inherit}
     tab.addEventListener("click", function(){
       $$(".tab[data-filter]").forEach(function(t){ t.classList.remove("is-active"); t.setAttribute("aria-selected","false"); });
       tab.classList.add("is-active"); tab.setAttribute("aria-selected","true");
-      var f = tab.getAttribute("data-filter");
-      $$("#deptGrid .dept").forEach(function(card){
-        card.classList.toggle("is-hidden", f !== "all" && card.getAttribute("data-cat") !== f);
-      });
+      voApplyFilter();
     });
   });
 
@@ -3582,24 +3309,6 @@ input,textarea,select{font:inherit}
     showToast("보드를 비웠습니다");
   });
 
-  $("#exportData").addEventListener("click", function(){
-    var data = JSON.stringify({ tasks: state.tasks, history: state.history, pipe: state.pipe, staff: state.staff, chain: state.chain, depts: DEPTS }, null, 2);
-    copyText(data);
-  });
-
-  $("#wipeData").addEventListener("click", function(){
-    if(!window.confirm("이 브라우저에 저장된 콘솔 데이터를 모두 지웁니다. 계속할까요?")) return;
-    state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff: staffDefaults(), chain: state.chain, depts: null };
-    DEPTS.length = 0;
-    BASE_DEPTS.forEach(function(d){ DEPTS.push(normalizeDept(JSON.parse(JSON.stringify(d)))); });
-    resSeen = {}; resSel = ""; resFilter = "all"; resSec = "report";
-    try{ localStorage.removeItem(STORE); localStorage.removeItem(RES_SEEN); }catch(e){}
-    staffFormOpen = false; staffEditId = null;
-    renderAll(); renderPipeline();
-    if(!drawer.hidden) renderDept(current);
-    showToast("저장값을 초기화했습니다 — 직원 명단도 기본값으로 돌아갔습니다");
-  });
-
   /* ================= 토스트 / 스크롤 스파이 ================= */
   var toast = $("#toast"), toastTimer;
   function showToast(msg){
@@ -3611,7 +3320,7 @@ input,textarea,select{font:inherit}
   }
 
   var links = $$(".nav a");
-  var secs = ["command","results","board","pipeline","office","org"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  var secs = ["command","results","board","office"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
   if("IntersectionObserver" in window){
     var spy = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
@@ -4182,6 +3891,7 @@ input,textarea,select{font:inherit}
 
   function pcTick(){
     var changed = false;
+    voTick();
     /* 진행 중 카드의 경과 시간(00:00) 갱신 */
     $$("[data-live-clock]").forEach(function(el){
       var card = el.closest ? el.closest(".task") : null;
@@ -4303,8 +4013,6 @@ input,textarea,select{font:inherit}
   renderPickChips();
   bindChain();
   renderAll();
-  renderPipeline();
-  bindPipeline();
   renderPC();
   if(pcReady()){ pcSub(); pcCheck(); }
 })();
