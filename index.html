@@ -552,6 +552,13 @@ input,textarea,select{font:inherit}
   .rail-txt b{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.32}
   .rail-lamp{margin-top:5px}
 }
+
+/* 오피스 앰비언트 */
+.stage::before{content:"";position:absolute;inset:0;border-radius:26px;z-index:2;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,0) 38%,rgba(255,241,214,.22) 50%,rgba(255,255,255,0) 62%);
+  background-size:240% 240%;animation:sunSweep 22s ease-in-out infinite;mix-blend-mode:soft-light}
+@keyframes sunSweep{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+@media (max-width:760px){.stage::before{border-radius:18px}}
 </style>
 </head>
 <body>
