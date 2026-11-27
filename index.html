@@ -221,6 +221,121 @@ input,textarea,select{font:inherit}
 .t-adv.is-last{background:#fff;color:#516678;border-color:var(--line-2);font-weight:800}
 .t-adv.is-last:hover{border-color:var(--navy);color:var(--navy)}
 
+/* ============ 5-1. 진행 중 라이브 표시 ============ */
+@keyframes spinRing{to{transform:rotate(360deg) }}
+@keyframes pulseSoft{0%,100%{opacity:.32;transform:scale(.86)}50%{opacity:1;transform:scale(1.08)}}
+.spin{display:inline-block;width:10px;height:10px;flex:none;border-radius:50%;border:2px solid rgba(29,111,212,.25);border-top-color:#1d6fd4;animation:spinRing .75s linear infinite}
+.spin.is-orange{border-color:rgba(255,106,31,.25);border-top-color:var(--orange)}
+.t-live{margin-top:8px;padding:8px 9px 7px;border-radius:9px;background:linear-gradient(135deg,#eef5fe 0%,#f8fbff 100%);border:1px solid #cfe0f9}
+.t-live-head{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;color:#155cad;letter-spacing:-.01em}
+.t-live-head b{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.t-live-clock{margin-left:auto;flex:none;font-family:var(--mono);font-size:10.5px;font-weight:800;color:#155cad;letter-spacing:0}
+.t-live-steps{display:flex;gap:3px;margin-top:6px}
+.t-live-steps i{flex:1;height:3px;border-radius:2px;background:#d7e5f6;transition:background .3s}
+.t-live-steps i.on{background:#1d6fd4}
+.t-live-steps i.now{background:#ff6a1f;animation:pulseSoft 1.2s ease-in-out infinite}
+.t-live-detail{margin-top:5px;font-size:9.5px;font-weight:700;color:#4a6a8c;line-height:1.45;word-break:break-word}
+.t-live-wait{font-size:10px;font-weight:800;color:#8a5a00;background:#fffaf0;border:1px solid #ffe2b0;border-radius:8px;padding:5px 8px;margin-top:8px;display:flex;align-items:center;gap:6px}
+.brief-live{margin-top:12px;padding:9px 10px;border-radius:11px;background:rgba(29,111,212,.14);border:1px solid rgba(125,182,255,.34)}
+.bl-row{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;color:#dcebfb;letter-spacing:-.01em}
+.bl-row b{color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.bl-row .spin{border-color:rgba(255,255,255,.25);border-top-color:#8cc4ff}
+.bl-clock{margin-left:auto;flex:none;font-family:var(--mono);font-size:11px;font-weight:800;color:#a8d3ff;letter-spacing:0}
+.bl-stage{margin-top:5px;font-size:10.5px;font-weight:800;color:#9ec9f5}
+.bl-bar{display:flex;gap:3px;margin-top:6px}
+.bl-bar i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.16)}
+.bl-bar i.on{background:#7fb6ff}
+.bl-bar i.now{background:var(--orange);animation:pulseSoft 1.2s ease-in-out infinite}
+.bl-more{margin-top:6px;font-size:10px;font-weight:800;color:#9ec9f5}
+
+/* ============ 5-2. 결과 보고함 ============ */
+.nav a .nav-badge{display:inline-grid;place-items:center;min-width:16px;height:16px;padding:0 4px;margin-left:3px;border-radius:99px;background:var(--orange);color:#fff;font-size:9.5px;font-weight:800;font-family:var(--mono);letter-spacing:0;vertical-align:1px}
+.nav a .nav-badge[hidden]{display:none}
+.brief .btn.brief-res{margin-top:14px;background:rgba(255,106,31,.14);border-color:rgba(255,106,31,.45);color:#ffcbb2}
+.brief .btn.brief-res:hover{background:rgba(255,106,31,.24);border-color:rgba(255,106,31,.72);color:#fff}
+.brief .btn.brief-res.is-new{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 14px 30px -16px rgba(255,106,31,.95)}
+.brief .btn.brief-res.is-new:hover{background:var(--orange-d);border-color:var(--orange-d)}
+.res-sec{background:linear-gradient(180deg,#fff 0%,#fbfdff 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.res-tabs{display:flex;flex-wrap:wrap;gap:5px}
+.res-tabs .tab b{font-family:var(--mono);font-size:10.5px;margin-left:4px;color:#9aa9b8}
+.res-tabs .tab.is-active b{color:#ffc4a3}
+.res-grid{display:grid;grid-template-columns:minmax(0,334px) minmax(0,1fr);gap:16px;margin-top:26px;align-items:start}
+.res-side{min-width:0}
+.res-list{display:flex;flex-direction:column;gap:8px;max-height:780px;overflow:auto;overscroll-behavior:contain;padding:2px}
+.res-item{display:block;width:100%;text-align:left;background:#fff;border:1px solid #dde7f1;border-radius:13px;padding:11px 12px;box-shadow:0 1px 2px rgba(13,32,52,.04);transition:border-color .16s,box-shadow .16s,transform .16s}
+.res-item:hover{border-color:#ffc7a9;transform:translateY(-1px)}
+.res-item.is-on{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,106,31,.13)}
+.ri-top{display:flex;align-items:center;gap:5px;flex-wrap:nowrap}
+.ri-no{flex:none;font-family:var(--mono);font-size:10.5px;font-weight:800;color:#fff;background:var(--navy);border-radius:5px;padding:1px 5px}
+.ri-dept{font-size:10.5px;font-weight:800;color:#6b8095;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.res-item .ri-top .chip{margin-left:auto;flex:none;height:19px;padding:0 7px;font-size:9.5px}
+.res-item h4{margin-top:7px;font-size:13px;font-weight:800;letter-spacing:-.02em;color:var(--navy);line-height:1.42;word-break:break-word}
+.ri-instr{margin-top:5px;font-size:11px;color:#8b9dae;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.ri-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:8px;font-size:10px;font-weight:800;color:#7b8b9c;font-family:var(--mono);letter-spacing:0}
+.ri-new{font-size:8.5px;font-weight:800;color:#fff;background:var(--orange);border-radius:99px;padding:1px 5px;letter-spacing:.04em}
+.res-empty{border:1px dashed #c9d7e5;border-radius:14px;padding:30px 20px;text-align:center;font-size:12.5px;color:#8b9dae;line-height:1.65;background:#fff}
+.res-empty b{display:block;margin-bottom:4px;font-size:14px;color:#3c556c}
+.res-empty .btn{margin-top:12px}
+.res-panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:19px 20px 17px;box-shadow:var(--shadow);min-width:0}
+.rp-kicker{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-d)}
+.res-panel h3{margin-top:6px;font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--navy);line-height:1.32;word-break:break-word}
+.rp-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.rp-instr{margin-top:12px;padding:10px 13px;border:1px solid #eaf1f8;border-left:3px solid #ffd0b6;border-radius:10px;background:#f8fbfe;font-size:12.5px;line-height:1.65;color:#3c556c;white-space:pre-wrap;word-break:break-word}
+.rp-instr i{display:block;font-style:normal;font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.rp-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:11px}
+.rp-meta div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:7px 9px;min-width:0}
+.rp-meta dt{font-size:9.5px;font-weight:800;color:var(--muted);letter-spacing:.02em}
+.rp-meta dd{margin:2px 0 0;font-size:11.5px;font-weight:800;color:var(--navy);line-height:1.4;word-break:break-word}
+.rp-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px;padding-top:12px;border-top:1px solid #eef3f8}
+.rp-tools .btn{height:34px;padding:0 13px;font-size:12px;border-radius:9px}
+.rp-tools .ok{background:#127a4a;border:1px solid #127a4a;color:#fff}
+.rp-tools .ok:hover{background:#0f6b45;border-color:#0f6b45}
+.rp-tools .no{background:#fff8f6;color:#a33a1c;border-color:#f0d3c6}
+.rp-tools .no:hover{border-color:#c2410c;color:#c2410c}
+.rp-tools .go{margin-left:auto}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
+.rp-secs{display:flex;flex-wrap:wrap;gap:4px;margin-top:13px}
+.rp-secs button{height:28px;padding:0 10px;border-radius:8px;border:1px solid var(--line-2);background:#fff;font-size:11px;font-weight:800;color:#5a6d80;transition:.14s;white-space:nowrap}
+.rp-secs button:hover{border-color:var(--navy);color:var(--navy)}
+.rp-secs button.is-on{background:var(--navy);border-color:var(--navy);color:#fff}
+.rp-secs button em{font-style:normal;font-family:var(--mono);font-size:9.5px;color:#9aa9b8;margin-left:3px}
+.rp-secs button.is-on em{color:#9fb8d2}
+.rp-body{margin-top:10px;border:1px solid #e2ebf5;border-radius:12px;background:#fbfdff;overflow:hidden}
+.rp-body-head{display:flex;align-items:center;gap:7px;padding:8px 13px;border-bottom:1px solid #eaf1f8;background:#f4f8fc;font-size:10.5px;font-weight:800;color:#6b8095;letter-spacing:.02em}
+.rp-body-head span{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:700;color:#93a2b2;letter-spacing:0}
+.rp-body pre{margin:0;padding:16px 18px;min-height:240px;max-height:min(64vh,700px);overflow:auto;overscroll-behavior:contain;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:13.2px;line-height:1.8;color:#2b4157;letter-spacing:-.01em}
+.rp-block{padding:14px 16px}
+.rp-block + .rp-block{border-top:1px dashed #e4edf6}
+.rp-block h5{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+.rp-block h5 i{width:6px;height:6px;border-radius:50%;background:var(--orange);flex:none}
+.rp-block pre{margin:6px 0 0;padding:0;min-height:0;max-height:none;overflow:visible;font-family:inherit;font-size:12.8px;line-height:1.78;color:#3b5163;white-space:pre-wrap;word-break:break-word}
+.ins-list{display:flex;flex-direction:column;gap:6px;padding:14px 16px}
+.ins-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px;background:#fff;border:1px solid #e7eef6;border-radius:10px;padding:8px 10px;font-size:12.2px;line-height:1.6;color:#3b5163}
+.ins-row b{font-size:11px;font-weight:800;color:var(--orange-d);word-break:break-word;align-self:start}
+.rp-mini{font-size:12px;color:#8b9dae;padding:22px 18px;line-height:1.6}
+.task.is-flash{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,106,31,.28)}
+.t-pc-secs{display:flex;flex-wrap:wrap;gap:3px;margin-top:7px}
+.t-pc-secs button{height:20px;padding:0 6px;border-radius:5px;border:1px solid #dbe6f2;background:#fff;font-size:9px;font-weight:800;color:#5d7286}
+.t-pc-secs button.is-on{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* ============ 5-3. 부서 관리 ============ */
+.office-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+.office-tools .note{font-size:11.5px;font-weight:700;color:var(--muted)}
+.dept-add{margin-top:12px;background:#fff;border:1px solid #dbe6f2;border-radius:14px;padding:14px 15px}
+.dept-add[hidden]{display:none}
+.da-row{display:flex;flex-wrap:wrap;gap:9px}
+.da-row + .da-row{margin-top:9px}
+.dept-add label,.dept-edit label{display:flex;flex-direction:column;gap:3px;flex:1 1 190px;min-width:0;font-size:10px;font-weight:800;color:#6b8095;letter-spacing:.02em}
+.dept-add input,.dept-add select,.dept-edit input,.dept-edit select{width:100%;height:34px;border:1px solid var(--line-2);border-radius:8px;padding:0 9px;font-size:12.5px;font-weight:600;color:var(--ink);background:#fbfdff}
+.dept-add input:focus,.dept-edit input:focus,.dept-add select:focus,.dept-edit select:focus{outline:none;border-color:var(--orange);background:#fff;box-shadow:0 0 0 3px rgba(255,106,31,.13)}
+.dept-edit{display:flex;flex-direction:column;gap:8px}
+.de-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.de-row button{height:30px;padding:0 11px;border-radius:8px;border:1px solid var(--line-2);background:#fff;font-size:11.5px;font-weight:800;color:#516678}
+.de-row button.save{background:var(--navy);border-color:var(--navy);color:#fff}
+.de-row button.is-del{color:#a33a1c;border-color:#f0d3c6;background:#fff8f6}
+.de-row button:hover{filter:brightness(.97)}
+.dept .dept-manage{position:absolute;right:10px;top:10px;display:none;gap:4px}
+
 /* ============ 6. 파이프라인 ============ */
 .pipe-sec{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
@@ -476,6 +591,13 @@ input,textarea,select{font:inherit}
 .t-pc-out-head{display:flex;align-items:center;gap:6px;padding:5px 8px;border-bottom:1px solid #eef3f8;font-size:9.5px;font-weight:800;color:#7b8b9c;background:#f5f9fc;letter-spacing:-.01em}
 .t-pc-out-head button{margin-left:auto;height:19px;padding:0 7px;border-radius:5px;border:1px solid var(--line-2);background:#fff;font-size:9.5px;font-weight:800;color:#516678}
 .t-pc-out-head button:hover{border-color:var(--navy);color:var(--navy)}
+.t-pc-out .t-pc-secs{padding:6px 8px 0}
+.t-pc-out .rp-block{padding:8px 9px;border-top:1px solid #eef3f8}
+.t-pc-out .rp-block h5{font-size:10.5px}
+.t-pc-out .rp-block pre{font-size:10.5px;line-height:1.62}
+.t-pc-out .ins-list{padding:6px 8px;gap:4px}
+.t-pc-out .ins-row{grid-template-columns:1fr;gap:1px;font-size:10px;padding:4px 6px}
+.t-pc-out .ins-row b{font-size:9.5px}
 .t-pc-out pre{margin:0;padding:8px 9px;max-height:230px;overflow:auto;font-family:var(--mono);font-size:10.5px;line-height:1.62;color:#33495f;white-space:pre-wrap;word-break:break-word;overscroll-behavior:contain}
 .t-btn.pcrun{order:-1;color:#0f6b45;border-color:#bfe3d2;background:#f3fbf7}
 .t-btn.pcrun:hover{border-color:#17945a;color:#0b5c39}
@@ -572,6 +694,24 @@ input,textarea,select{font:inherit}
   .pc-open{font-size:10.5px;padding:0 8px;height:26px}
   .pc-switch{width:100%;margin-top:2px}
 }
+@media (max-width:1120px){
+  .res-grid{grid-template-columns:minmax(0,300px) minmax(0,1fr)}
+}
+@media (max-width:860px){
+  .res-grid{grid-template-columns:1fr}
+  .res-list{max-height:none;overflow:visible}
+  .rp-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rp-body pre{max-height:56vh;min-height:180px}
+  .ins-row{grid-template-columns:1fr;gap:2px}
+}
+@media (max-width:640px){
+  .res-panel{padding:16px 14px 14px}
+  .res-panel h3{font-size:17.5px}
+  .rp-tools .btn{flex:1 1 auto}
+  .rp-tools .go{margin-left:0}
+  .rp-body pre{padding:13px;font-size:12.6px}
+  .dept-add label,.dept-edit label{flex:1 1 100%}
+}
 .pcm-how code{font-family:var(--mono);font-size:10.5px;background:#f2f6fa;border:1px solid #e6eef6;border-radius:4px;padding:0 4px;letter-spacing:0}
 </style>
 </head>
@@ -584,6 +724,7 @@ input,textarea,select{font:inherit}
     </a>
     <nav class="nav" aria-label="콘솔 메뉴">
       <a href="#command">지휘실</a>
+      <a href="#results" id="navResults">결과 보고 <span class="nav-badge" id="navResBadge" hidden>0</span></a>
       <a href="#board">분담 보드</a>
       <a href="#pipeline">수익·문의</a>
       <a href="#office">비서실 09</a>
@@ -674,9 +815,36 @@ input,textarea,select{font:inherit}
         </div>
         <div class="brief-bar" id="briefBar" aria-hidden="true"><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i><i style="width:0"></i></div>
         <p class="brief-now" id="briefNow">아직 지시가 없습니다. 왼쪽에 한 줄 던지면 배정된 부서 카드가 여기에 쌓입니다.</p>
+        <div class="brief-live" id="briefLive" hidden></div>
         <ul class="brief-list" id="briefList"></ul>
+        <a class="btn brief-res" href="#results" id="briefResults">결과 보고함 열기 →</a>
         <a class="btn" href="#board">분담 보드 열기 →</a>
       </aside>
+    </div>
+  </section>
+
+  <!-- ================= 결과 보고함 ================= -->
+  <section class="section res-sec" id="results">
+    <div class="wrap">
+      <div class="sec-top">
+        <div class="sec-head">
+          <span class="eyebrow">Results inbox</span>
+          <h2>결과 보고</h2>
+          <p>집 PC가 돌려준 <b>결과 본문</b>을 한곳에 모았습니다. 왼쪽에서 결과를 고르면 지시 내용·완료 시각·소요 시간과 함께 <b>전체 본문</b>이 펼쳐지고, <b>복사 · .md 저장 · 승인/반려</b>까지 여기서 바로 합니다. 비서실 5단계(비서 판단 → 직원 병렬 작업 → 인사이트 공유 → 비서 컨펌 → 대표님 보고)로 돌아온 결과는 <b>섹션별로</b> 나눠 볼 수 있습니다. 새로 도착한 결과는 <b>NEW</b> 표시와 상단 숫자로 알려 드립니다.</p>
+        </div>
+        <div class="res-tabs" id="resTabs" role="tablist" aria-label="결과 상태 필터">
+          <button class="tab is-active" type="button" role="tab" aria-selected="true" data-resfilter="all">전체 <b>0</b></button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-resfilter="review">검수 대기 <b>0</b></button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-resfilter="done">완료 <b>0</b></button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-resfilter="error">오류 <b>0</b></button>
+        </div>
+      </div>
+      <div class="res-grid">
+        <div class="res-side">
+          <div class="res-list" id="resList" aria-live="polite"></div>
+        </div>
+        <div class="res-detail" id="resDetail"></div>
+      </div>
     </div>
   </section>
 
@@ -761,11 +929,11 @@ input,textarea,select{font:inherit}
       <div class="sec-top">
         <div class="sec-head">
           <span class="eyebrow">The office · 01–09</span>
-          <h2>대표님 지시를 받아 처리하는 9개 부서</h2>
+          <h2>대표님 지시를 받아 처리하는 <span id="deptCountTop">9</span>개 부서</h2>
           <p>카드를 누르면 <b>하루 실행 루틴 · 쓰는 툴 · 산출물 · 목표 KPI · 지키는 선</b>이 열립니다. 드로어에서 바로 <b>보드에 업무 추가</b>도 됩니다.</p>
         </div>
         <div class="tabs" role="tablist" aria-label="부서 분류">
-          <button class="tab is-active" role="tab" aria-selected="true" data-filter="all">전체 9</button>
+          <button class="tab is-active" role="tab" aria-selected="true" data-filter="all">전체 <b id="deptCountAll">9</b></button>
           <button class="tab" role="tab" aria-selected="false" data-filter="content">콘텐츠</button>
           <button class="tab" role="tab" aria-selected="false" data-filter="inflow">유입</button>
           <button class="tab" role="tab" aria-selected="false" data-filter="convert">전환</button>
@@ -773,105 +941,26 @@ input,textarea,select{font:inherit}
         </div>
       </div>
 
-      <div class="dept-grid" id="deptGrid">
-        <article class="dept" data-dept="01" data-cat="content" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">01</span>
-            <span class="dept-tools"><span class="tool">클로드 코드</span><span class="tool">FFmpeg</span></span>
-          </div>
-          <h3>숏폼 제작자</h3>
-          <p class="dept-desc">대표님 지시를 20초 대본과 9:16 영상으로 뽑아내는 제작 담당</p>
-          <div class="dept-art" data-art="video"></div>
-          <div class="dept-foot"><span class="tag">대본</span><span class="tag">TTS</span><span class="tag">자막</span><span class="tag">9:16 렌더</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="02" data-cat="content" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">02</span>
-            <span class="dept-tools"><span class="tool">버터</span><span class="tool">인스타·유튜브·틱톡</span></span>
-          </div>
-          <h3>업로드 담당</h3>
-          <p class="dept-desc">완성본을 대표님 검수 한 번으로 3개 플랫폼에 예약 발행</p>
-          <div class="dept-art" data-art="upload"></div>
-          <div class="dept-foot"><span class="tag">21:30 검수</span><span class="tag">예약 발행</span><span class="tag">발행 로그</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="03" data-cat="inflow" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">03</span>
-            <span class="dept-tools"><span class="tool">당근비즈</span><span class="tool">블로그</span><span class="tool">스레드</span></span>
-          </div>
-          <h3>멀티채널 배포팀</h3>
-          <p class="dept-desc">한 번 쓴 이야기를 당근·블로그·스레드에 맞게 각색해 뿌립니다</p>
-          <div class="dept-art" data-art="channels"></div>
-          <div class="dept-foot"><span class="tag">당근 소식</span><span class="tag">블로그</span><span class="tag">카드뉴스</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="04" data-cat="ops" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">04</span>
-            <span class="dept-tools"><span class="tool">버터</span><span class="tool">자비스</span><span class="tool">클로드</span></span>
-          </div>
-          <h3>총괄 비서실장</h3>
-          <p class="dept-desc">8개 부서 보고를 모아 대표님이 결정할 것만 남깁니다</p>
-          <div class="dept-art" data-art="brief"></div>
-          <div class="dept-foot"><span class="tag">데일리 브리핑</span><span class="tag">승인 정리</span><span class="tag">마감 리포트</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="05" data-cat="inflow" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">05</span>
-            <span class="dept-tools"><span class="tool">인스타</span><span class="tool">ManyChat</span></span>
-          </div>
-          <h3>인스타 활성화 매니저</h3>
-          <p class="dept-desc">댓글·DM을 문의로 바꾸는 인스타 창구 담당</p>
-          <div class="dept-art" data-art="insta"></div>
-          <div class="dept-foot"><span class="tag">키워드 응답</span><span class="tag">반응 고객</span><span class="tag">스토리</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="06" data-cat="convert" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">06</span>
-            <span class="dept-tools"><span class="tool">진단 페이지</span><span class="tool">리드 DB</span></span>
-          </div>
-          <h3>무료진단·리드 수집기</h3>
-          <p class="dept-desc">무료 진단에서 문의 DB를 모아 영업팀에 넘깁니다</p>
-          <div class="dept-art" data-art="score"></div>
-          <div class="dept-foot"><span class="tag">자가진단</span><span class="tag">진단서</span><span class="tag">리드 DB</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="07" data-cat="ops" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">07</span>
-            <span class="dept-tools"><span class="tool">플레이스</span><span class="tool">인스타</span><span class="tool">웹</span></span>
-          </div>
-          <h3>경쟁사·트렌드 스파이</h3>
-          <p class="dept-desc">경쟁 대행사와 동네 매장 움직임을 매일 아침 보고합니다</p>
-          <div class="dept-art" data-art="spy"></div>
-          <div class="dept-foot"><span class="tag">경쟁 10곳</span><span class="tag">로직 변화</span><span class="tag">주간 리포트</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="08" data-cat="convert" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">08</span>
-            <span class="dept-tools"><span class="tool">카톡 채널</span><span class="tool">1·2팀장</span><span class="tool">업세일링</span></span>
-          </div>
-          <h3>문의·영업팀 배정</h3>
-          <p class="dept-desc">문의 1차 응대 후 플레이스 1·2팀장과 업세일링팀에 배정</p>
-          <div class="dept-art" data-art="funnel"></div>
-          <div class="dept-foot"><span class="tag">5분 응답</span><span class="tag">팀장 배정</span><span class="tag">재접촉</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
-
-        <article class="dept" data-dept="09" data-cat="convert" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="dept-top">
-            <span class="dept-no">09</span>
-            <span class="dept-tools"><span class="tool">시트</span><span class="tool">전환 추적</span></span>
-          </div>
-          <h3>전환·수익 리포트</h3>
-          <p class="dept-desc">부서별 실행이 계약·매출로 바뀌었는지 숫자로 검증합니다</p>
-          <div class="dept-art" data-art="report"></div>
-          <div class="dept-foot"><span class="tag">주간 퍼널</span><span class="tag">채널별 CAC</span><span class="tag">매출 기여</span><span class="dept-open">열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </article>
+      <div class="office-tools">
+        <button class="btn btn-ghost btn-sm" type="button" id="deptAddToggle">+ 부서 추가</button>
+        <span class="note">부서는 <b>9개로 고정되지 않습니다</b> — 필요한 만큼 만들고, 이름·키워드·직원을 직접 관리하세요. 부서를 누르면 하단에서 <b>부서 정보 수정·삭제</b>도 됩니다.</span>
+      </div>
+      <div class="dept-add" id="deptAddForm" hidden>
+        <div class="da-row">
+          <label>부서 이름<input id="ndTitle" type="text" maxlength="24" autocomplete="off" placeholder="예) 블로그 제작팀"></label>
+          <label>한 줄 역할<input id="ndOne" type="text" maxlength="60" autocomplete="off" placeholder="예) 지역 키워드로 블로그 글을 씁니다"></label>
+          <label>분류<select id="ndCat"><option value="content">콘텐츠</option><option value="inflow">유입</option><option value="convert">전환</option><option value="ops" selected>운영</option></select></label>
+        </div>
+        <div class="da-row">
+          <label>자동 배정 키워드 (쉼표)<input id="ndKw" type="text" maxlength="120" autocomplete="off" placeholder="예) 블로그, 포스팅, 원고"></label>
+          <label>쓰는 툴 (쉼표)<input id="ndTools" type="text" maxlength="90" autocomplete="off" placeholder="예) 클로드 코드, 네이버 블로그"></label>
+        </div>
+        <div class="da-row">
+          <button class="btn btn-primary btn-sm" type="button" id="deptAddBtn">부서 만들기</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="deptAddCancel">닫기</button>
+        </div>
+      </div>
+      <div class="dept-grid" id="deptGrid"></div>
       </div>
     </div>
   </section>
@@ -888,10 +977,10 @@ input,textarea,select{font:inherit}
       <div class="org-wrap">
         <div class="org-ai">
           <div class="oa-top">
-            <b>AI 비서실 01–09</b>
+            <b id="orgTitle">AI 비서실 01–09</b>
             <span>대표님 직속 · 04 총괄이 매일 09:00에 취합 보고</span>
           </div>
-          <div class="oa-chips">
+          <div class="oa-chips" id="orgChips">
             <span>01 숏폼</span><span>02 업로드</span><span>03 배포</span><span>04 총괄</span><span>05 인스타</span><span>06 진단·리드</span><span>07 스파이</span><span>08 영업 배정</span><span>09 리포트</span>
           </div>
           <p class="oa-link">여기서 만든 리드·문의가 아래 조직으로 배정됩니다 ↓</p>
@@ -1101,7 +1190,7 @@ input,textarea,select{font:inherit}
   }
   var PIPE_DEFAULT = { vals:[42000,380,46,27,4], unit:30 };
 
-  var state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff:null, chain:false };
+  var state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff:null, chain:false, depts:null };
   var legacyStaffData = false;
 
   function load(){
@@ -1114,6 +1203,11 @@ input,textarea,select{font:inherit}
       if(Array.isArray(s.tasks)) state.tasks = s.tasks.filter(function(t){ return t && t.dept && t.title; });
       if(Array.isArray(s.history)) state.history = s.history.slice(0,12);
       if(typeof s.chain === "boolean") state.chain = s.chain;
+      /* 부서 — 대표님이 추가·수정한 부서 목록이 있으면 9개 기본값을 교체합니다. */
+      if(Array.isArray(s.depts) && s.depts.length){
+        var dl = s.depts.filter(function(d){ return d && d.no && d.title; }).map(normalizeDept);
+        if(dl.length){ DEPTS.length = 0; dl.forEach(function(d){ DEPTS.push(d); }); }
+      }
       if(s.pipe && Array.isArray(s.pipe.vals) && s.pipe.vals.length === 5){
         state.pipe.vals = s.pipe.vals.map(function(v){ return isFinite(+v) ? +v : 0; });
         state.pipe.unit = isFinite(+s.pipe.unit) ? +s.pipe.unit : PIPE_DEFAULT.unit;
@@ -1129,6 +1223,7 @@ input,textarea,select{font:inherit}
     }catch(e){}
   }
   function save(){
+    state.depts = DEPTS;
     try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
   }
 
@@ -1228,6 +1323,131 @@ input,textarea,select{font:inherit}
   function deptByNo(no){
     for(var i=0;i<DEPTS.length;i++){ if(DEPTS[i].no === no) return DEPTS[i]; }
     return null;
+  }
+
+  /* 기본 9개 부서 스냅샷 — 저장값 초기화 때 되돌릴 원본 */
+  var BASE_DEPTS = JSON.parse(JSON.stringify(DEPTS));
+
+  /* ================= 부서 관리 (9개 고정 아님) ================= */
+  var ART_KEYS = ["video","upload","channels","brief","insta","score","spy","funnel","report"];
+  var CATS = [{k:"content",n:"콘텐츠"},{k:"inflow",n:"유입"},{k:"convert",n:"전환"},{k:"ops",n:"운영"}];
+
+  function deptNextNo(){
+    var used = {};
+    DEPTS.forEach(function(d){ var n = parseInt(d.no, 10); if(isFinite(n)) used[n] = 1; });
+    for(var i = 1; i < 100; i++){ if(!used[i]) return i < 10 ? ("0" + i) : String(i); }
+    return String(DEPTS.length + 1);
+  }
+
+  function normalizeDept(d){
+    d = d || {};
+    var o = {};
+    o.no = String(d.no || "").slice(0, 4);
+    o.title = String(d.title || "새 부서").slice(0, 24);
+    o.cat = CAT[d.cat] ? d.cat : "ops";
+    o.art = ART_KEYS.indexOf(d.art) > -1 ? d.art : "brief";
+    o.one = String(d.one || "").slice(0, 140);
+    o.lead = String(d.lead || o.one || "").slice(0, 800);
+    o.tools = Array.isArray(d.tools) ? d.tools.filter(Boolean).map(String).slice(0, 6) : [];
+    o.outputs = Array.isArray(d.outputs) ? d.outputs.filter(Boolean).map(String).slice(0, 6) : [];
+    o.kpis = Array.isArray(d.kpis) ? d.kpis.slice(0, 6) : [];
+    o.routine = Array.isArray(d.routine) ? d.routine.slice(0, 8) : [];
+    o.link = String(d.link || "");
+    o.note = String(d.note || "");
+    o.kw = Array.isArray(d.kw) ? d.kw.filter(Boolean).map(String).slice(0, 20) : [];
+    return o;
+  }
+
+  function deptKwText(d){ return (d.kw || []).join(", "); }
+
+  function splitList(s){
+    return String(s || "").split(/[,\n]/).map(function(x){ return x.trim(); }).filter(Boolean);
+  }
+
+  function addDept(title, one, cat, kw, tools){
+    title = String(title || "").trim();
+    if(!title){ showToast("부서 이름을 적어 주세요"); return null; }
+    if(DEPTS.length >= 30){ showToast("부서는 30개까지 만들 수 있습니다"); return null; }
+    var d = normalizeDept({
+      no: deptNextNo(), title: title, one: one || (title + " 업무를 맡습니다"),
+      cat: cat || "ops", art: ART_KEYS[DEPTS.length % ART_KEYS.length],
+      tools: tools, outputs: ["결과 보고서", "실행 로그"],
+      lead: (one || title) + " — 대표님 지시가 들어오면 이 부서가 맡아 실행합니다.",
+      routine: [], kpis: [["납기", "당일"], ["재작업", "1회 이하"]],
+      link: "결과는 총괄 비서 컨펌을 거쳐 대표님께 보고됩니다.", kw: kw
+    });
+    DEPTS.push(d);
+    if(!state.staff) state.staff = staffDefaults();
+    state.staff[d.no] = state.staff[d.no] || [];
+    save(); renderAll();
+    showToast(d.no + " " + d.title + " 부서를 만들었습니다 — 부서를 눌러 직원을 넣어 주세요");
+    return d;
+  }
+
+  function updateDept(no, patch){
+    var d = deptByNo(no);
+    if(!d) return;
+    var nw = normalizeDept({
+      no:d.no, title: patch.title != null ? patch.title : d.title,
+      cat: patch.cat || d.cat, art: d.art,
+      one: patch.one != null ? patch.one : d.one,
+      lead: patch.lead != null ? patch.lead : d.lead,
+      tools: patch.tools || d.tools, outputs: patch.outputs || d.outputs,
+      kpis: d.kpis, routine: d.routine, link: d.link, note: d.note,
+      kw: patch.kw || d.kw
+    });
+    for(var k in nw){ if(nw.hasOwnProperty(k)) d[k] = nw[k]; }
+    state.tasks.forEach(function(t){ if(t.dept === no) t.deptTitle = d.title; });
+    save(); renderAll();
+    showToast(d.no + " " + d.title + " 부서 정보를 저장했습니다");
+  }
+
+  function deleteDept(no){
+    var d = deptByNo(no);
+    if(!d) return;
+    if(DEPTS.length <= 1){ showToast("부서가 하나뿐이면 삭제할 수 없습니다"); return; }
+    var cards = state.tasks.filter(function(t){ return t.dept === no; }).length;
+    if(!window.confirm(d.no + " " + d.title + " 부서를 삭제합니다." + (cards ? "\n이 부서 카드 " + cards + "장과 소속 직원도 함께 지워집니다." : "") + "\n되돌릴 수 없습니다.")) return;
+    DEPTS.splice(DEPTS.indexOf(d), 1);
+    if(state.staff) delete state.staff[no];
+    state.tasks = state.tasks.filter(function(t){ return t.dept !== no; });
+    save(); renderAll();
+    showToast(d.no + " " + d.title + " 부서를 삭제했습니다");
+    if(!drawer.hidden) closeDept();
+  }
+
+  var DEPT_OPEN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+  function renderDeptGrid(){
+    var grid = $("#deptGrid");
+    if(!grid) return;
+    grid.innerHTML = DEPTS.map(function(d){
+      var tools = (d.tools || []).slice(0, 3).map(function(x){ return '<span class="tool">' + esc(x) + '</span>'; }).join("");
+      var tags = (d.outputs || []).slice(0, 3).map(function(x){ return '<span class="tag">' + esc(x) + '</span>'; }).join("");
+      return '<article class="dept" data-dept="' + esc(d.no) + '" data-cat="' + esc(d.cat) + '" tabindex="0" role="button" aria-haspopup="dialog">' +
+        '<div class="dept-top"><span class="dept-no">' + esc(d.no) + '</span><span class="dept-tools">' + tools + '</span></div>' +
+        '<h3>' + esc(d.title) + '</h3>' +
+        '<p class="dept-desc">' + esc(d.one || "") + '</p>' +
+        '<div class="dept-art" data-art="' + esc(d.art) + '"></div>' +
+        '<div class="dept-foot">' + tags + '<span class="dept-open">열기 ' + DEPT_OPEN_SVG + '</span></div>' +
+        '</article>';
+    }).join("") || '<div class="col-empty" style="grid-column:1/-1">부서가 없습니다 — 위의 <b>+ 부서 추가</b>로 만들어 주세요.</div>';
+    $$(".dept-art", grid).forEach(function(el, i){ el.innerHTML = buildArt(el.getAttribute("data-art"), i); });
+    var cnt = $("#deptCountAll"); if(cnt) cnt.textContent = DEPTS.length;
+    var top = $("#deptCountTop"); if(top) top.textContent = DEPTS.length;
+    var oc = $("#orgChips");
+    if(oc) oc.innerHTML = DEPTS.map(function(d){ return '<span>' + esc(d.no) + " " + esc(d.title) + '</span>'; }).join("");
+    var ot = $("#orgTitle");
+    if(ot && DEPTS.length) ot.textContent = "AI 비서실 " + DEPTS[0].no + "–" + DEPTS[DEPTS.length - 1].no;
+    var act = $(".tab.is-active[data-filter]");
+    var f = act ? act.getAttribute("data-filter") : "all";
+    $$(".dept", grid).forEach(function(card, i){
+      card.classList.toggle("is-hidden", f !== "all" && card.getAttribute("data-cat") !== f);
+      card.addEventListener("click", function(){ openDept(i); });
+      card.addEventListener("keydown", function(e){
+        if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openDept(i); }
+      });
+    });
   }
 
   /* ================= 부서별 소속 직원 (기본 프리셋) =================
@@ -1339,13 +1559,38 @@ input,textarea,select{font:inherit}
     return n;
   }
 
-  /* 지시문 머리줄을 [부서 / 담당 직원] 으로 다시 쓰기 */
-  function promptOf(t){
-    var name = staffNameOf(t);
-    var head = "[" + t.dept + " " + t.deptTitle + (name ? " / " + name : "") + "]";
-    var p = String(t.prompt || "");
-    if(/^\[[^\]]*\]/.test(p)) return p.replace(/^\[[^\]]*\]/, head);
-    return head + " 실행 지시문\n" + p;
+  /* ================= 집 PC 클로드 코드용 5단계 오케스트레이션 지시문 ================= */
+  var PC_STAGES = [
+    { key:"assign",  label:"① 비서 판단" },
+    { key:"work",    label:"② 직원 병렬 작업" },
+    { key:"share",   label:"③ 인사이트 공유" },
+    { key:"confirm", label:"④ 비서 취합·컨펌" },
+    { key:"report",  label:"⑤ 대표님 보고" }
+  ];
+
+  function promptOf(t, reqId){
+    var d = deptByNo(t.dept);
+    var title = d ? d.title : (t.deptTitle || "");
+    var staff = staffOf(t.dept);
+    var crew = staff.length
+      ? staff.slice(0, 5).map(function(s){ return s.name + (s.task ? "(" + String(s.task).slice(0, 26) + ")" : ""); }).join(", ")
+      : (staffNameOf(t) || "이 부서 클로드 1명");
+    var head = "[비서실 실행 · " + t.dept + " " + title + "]\n" +
+      "대표님 지시: \"" + String(t.instr || "").replace(/\s+/g, " ").slice(0, 200) + "\"\n" +
+      "카드: " + t.dept + " " + title + " — 결과는 이 콘솔로 돌려보냅니다.\n" +
+      "투입 직원: " + crew + "\n\n";
+    var rules = "■ 방식\n" +
+      "1) 비서가 필요한 직원·일만 판단 2) 직원마다 클로드 서브에이전트(Task)를 병렬로 띄워 각자 맡은 일 완수 3) 인사이트 1~2줄을 shared/insights.md에 공유하고 서로 보강 4) 비서가 취합·검수 후 최종 확정 5) 아래 형식으로 대표님께 보고\n" +
+      '■ 진행 보고(가능하면): {"event":"progress","id":"' + (reqId || "<ID>") + '","stage":"assign|work|share|confirm|report","detail":"한 줄"}\n' +
+      "■ 반환 형식 — 제목 그대로\n" +
+      "### 비서 배정 판단\n### 직원별 작업 결과\n### 직원 간 인사이트 공유\n### 비서 컨펌 결과\n### 대표님 최종 보고\n\n" +
+      "■ 이 부서 작업\n";
+    var body = String(t.prompt || "").split("\n").filter(function(l){
+      return !/^\[[^\]]*\]\s*실행 지시문/.test(l) && !/^대표님 지시:/.test(l);
+    }).join("\n").replace(/^\s*\n+/, "").trim();
+    var room = PC_MAX_BYTES - pcBytes(head + rules) - 40;
+    if(room < 300) room = 300;
+    return head + rules + pcTrim(body, room);
   }
 
   function wrapPrompt(no, deptTitle, staffName, body){
@@ -1443,9 +1688,26 @@ input,textarea,select{font:inherit}
 
   function normText(s){ return String(s == null ? "" : s).toLowerCase().replace(/\s+/g, " ").trim(); }
 
+  /* 부서별 자동 배정 키워드 — 기본 9개 부서의 ROUTE + 대표님이 추가·수정한 키워드 */
+  function routeTable(){
+    var out = [];
+    DEPTS.forEach(function(d){
+      var base = null;
+      for(var i=0;i<ROUTE.length;i++){ if(ROUTE[i].no === d.no){ base = ROUTE[i]; break; } }
+      var kw = base ? base.kw.slice() : [];
+      (d.kw || []).forEach(function(w){
+        var s = String(w).toLowerCase().trim();
+        if(s) kw.push([s, 4]);
+      });
+      out.push({ no:d.no, name:d.title, kw:kw });
+    });
+    return out;
+  }
+
   function route(raw){
     var t = normText(raw);
-    var scored = ROUTE.map(function(r){
+    var table = routeTable();
+    var scored = table.map(function(r){
       var s = 0, hits = [];
       for(var i=0;i<r.kw.length;i++){
         var k = r.kw[i];
@@ -1460,7 +1722,8 @@ input,textarea,select{font:inherit}
 
     var top = scored[0], second = scored[1];
     if(!top || !top.score){
-      return { depts:[{ no:"04", score:0, hits:[], why:"키워드 없음 — 기본 배정" }], fallback:true, near:null };
+      var fb = deptByNo("04") ? "04" : (DEPTS[0] ? DEPTS[0].no : "01");
+      return { depts:[{ no:fb, score:0, hits:[], why:"키워드 없음 — 기본 배정" }], fallback:true, near:null };
     }
     var out = [{ no:top.no, score:top.score, hits:top.hits, why:"" }];
     if(second && second.score >= 4 && second.score >= top.score * 0.6 && (top.score - second.score) >= 2){
@@ -1474,16 +1737,20 @@ input,textarea,select{font:inherit}
   function analyzeChain(raw){
     var t = normText(raw);
     var hit = {};
-    ROUTE.forEach(function(r){
+    routeTable().forEach(function(r){
       for(var i=0;i<r.kw.length;i++){
         if(r.kw[i][0] && t.indexOf(r.kw[i][0]) > -1){ hit[r.no] = true; break; }
       }
     });
     if(hit["01"]) hit["02"] = true;
     if(hit["08"] && (t.indexOf("진단") > -1 || t.indexOf("문의") > -1)) hit["06"] = true;
-    hit["04"] = true;
+    if(deptByNo("04")) hit["04"] = true;
     var depts = Object.keys(hit).filter(function(d){ return deptByNo(d); }).sort();
-    if(depts.length <= 1) depts = ["04","07","09"];
+    if(depts.length <= 1){
+      depts = [];
+      ["04","07","09"].forEach(function(no){ if(deptByNo(no)) depts.push(no); });
+      if(!depts.length && DEPTS[0]) depts.push(DEPTS[0].no);
+    }
     return depts.map(function(no){ return { no:no, score:0, hits:[], why:"전 과정 실행" }; });
   }
 
@@ -1584,10 +1851,33 @@ input,textarea,select{font:inherit}
     }
   };
 
+  /* 커스텀 부서용 기본 업무 템플릿 — 9개 기본 부서는 TPL 을 그대로 씁니다 */
+  function tplFor(no){
+    if(TPL[no]) return TPL[no];
+    var d = deptByNo(no);
+    if(!d) return null;
+    return function(c){
+      var outs = (d.outputs || []).filter(Boolean);
+      var tools = (d.tools || []).filter(Boolean);
+      var crit = outs.length ? (outs.slice(0, 3).join(" · ") + " 완성") : "결과 보고서 1장 완성";
+      var prompt = "[" + d.no + " " + d.title + "] 실행 지시문\n" +
+        "대표님 지시: \"" + String(c.raw || "").slice(0, 300) + "\"\n" +
+        "이 부서 역할: " + (d.one || d.title) + "\n" +
+        (tools.length ? "쓰는 툴: " + tools.join(", ") + "\n" : "") +
+        "\n1. 대표님 지시에서 이 부서가 맡을 부분만 뽑아 범위를 한 줄로 확정\n" +
+        "2. 맡은 일을 끝까지 실행하고, 막히면 이유와 대안을 같이 적기\n" +
+        "3. 산출물: " + (outs.length ? outs.join(" · ") : "결과 보고서") + "\n" +
+        "4. 결과는 마크다운으로 정리하고 대표님이 결정할 일만 남기기\n" +
+        "\n완료 기준: " + crit + "\n지키는 선: 확인되지 않은 수치·보장 표현 금지, 대표님 승인 없는 발행·지출 금지.";
+      return { title: d.title + " 업무 실행", criteria: crit, tools: tools.slice(0, 3), prompt: prompt };
+    };
+  }
+
   function makeTask(deptNo, ctx, rawInstr, staff){
     var d = deptByNo(deptNo);
-    if(!d || !TPL[deptNo]) return null;
-    var t = TPL[deptNo](ctx);
+    var tf = tplFor(deptNo);
+    if(!d || !tf) return null;
+    var t = tf(ctx);
     var st = staff || matchStaff(deptNo, rawInstr || ctx.raw)[0] || null;
     return {
       id: uid(), dept: d.no, deptTitle: d.title,
@@ -1756,9 +2046,335 @@ input,textarea,select{font:inherit}
     var days = ["일","월","화","수","목","금","토"];
     var dEl = $("#briefDate");
     if(dEl) dEl.textContent = (dt.getMonth()+1) + "월 " + dt.getDate() + "일 (" + days[dt.getDay()] + ")";
+    renderBriefLive();
   }
 
-  function renderAll(){ renderBoard(); renderBrief(); renderDeptStaffs(); }
+  /* 오늘의 지휘 현황 — 진행 중 카드의 단계·경과 시간을 살아 움직이게 */
+  function renderBriefLive(){
+    var box = $("#briefLive");
+    if(!box) return;
+    var live = state.tasks.filter(function(t){
+      return t.pc && (t.pc.state === "sent" || t.pc.state === "running");
+    }).sort(function(a, b){ return (b.pc.at || 0) - (a.pc.at || 0); });
+    if(!live.length){ box.hidden = true; box.innerHTML = ""; return; }
+    box.hidden = false;
+    var t = live[0];
+    var idx = t.pc.state === "sent" ? 0 : pcStageIdxOf(t);
+    var st = PC_STAGES[idx] || PC_STAGES[0];
+    var steps = "";
+    for(var i = 0; i < PC_STAGES.length; i++){ steps += '<i class="' + (i < idx ? "on" : i === idx ? "now" : "") + '"></i>'; }
+    box.innerHTML = '<div class="bl-row"><span class="spin"></span><b>' + esc(t.dept + " " + t.deptTitle) + '</b>' +
+      '<span class="bl-clock" data-brief-clock="1">' + pcClock((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000) + '</span></div>' +
+      '<div class="bl-stage">' + (t.pc.state === "sent" ? "PC 수신 대기" : esc(st.label)) + (t.pc.stageDetail ? " · " + esc(t.pc.stageDetail) : "") + '</div>' +
+      '<div class="bl-bar">' + steps + '</div>' +
+      (live.length > 1 ? '<p class="bl-more">진행 중 ' + live.length + '건 — 가장 최근 카드만 표시합니다</p>' : "");
+  }
+
+  /* ================= 결과 보고함 + 결과 섹션 파싱 ================= */
+  var resFilter = "all";
+  var resSel = "";
+  var resSec = "full";
+  var RES_SEEN = "vision_console_results_seen_v1";
+  var resSeen = {};
+  var RES_STATE = { done:{label:"✅ 완료", chip:"chip-done"}, review:{label:"👀 검수 대기", chip:"chip-review"}, error:{label:"❌ 오류", chip:"chip-error"} };
+  var RES_SECTIONS = [
+    { key:"assign",   title:"비서 배정 판단",    short:"배정",   re:/^#{2,4}\s*비서\s*배정\s*판단/ },
+    { key:"works",    title:"직원별 작업 결과",  short:"직원별", re:/^#{2,4}\s*직원별\s*(작업\s*)?결과/ },
+    { key:"insights", title:"직원 간 인사이트 공유", short:"인사이트", re:/^#{2,4}\s*직원\s*간\s*인사이트/ },
+    { key:"confirm",  title:"비서 컨펌 결과",    short:"컨펌",   re:/^#{2,4}\s*비서\s*컨?펌/ },
+    { key:"report",   title:"대표님 최종 보고",  short:"최종 보고", re:/^#{2,4}\s*대표님\s*최종\s*보고/ }
+  ];
+  var RES_TITLE = {};
+  RES_SECTIONS.forEach(function(s){ RES_TITLE[s.key] = s.title; });
+
+  function resLoadSeen(){
+    try{
+      var raw = localStorage.getItem(RES_SEEN);
+      var s = raw ? JSON.parse(raw) : null;
+      resSeen = (s && typeof s === "object") ? s : {};
+    }catch(e){ resSeen = {}; }
+  }
+  function resSaveSeen(){ try{ localStorage.setItem(RES_SEEN, JSON.stringify(resSeen)); }catch(e){} }
+
+  function resSig(t){ return String((t.pc && (t.pc.doneAt || t.pc.at)) || t.ts || 0); }
+  function resHasBody(t){ return !!(t.pc && t.pc.text); }
+  function resInbox(){
+    return state.tasks.filter(function(t){
+      if(t.status !== "done" && t.status !== "review" && t.status !== "error") return false;
+      return resHasBody(t) || t.status === "review";
+    }).sort(function(a, b){
+      var av = (a.pc && (a.pc.doneAt || a.pc.at)) || a.ts || 0;
+      var bv = (b.pc && (b.pc.doneAt || b.pc.at)) || b.ts || 0;
+      return bv - av;
+    });
+  }
+  function resUnread(){
+    return resInbox().filter(function(t){ return resSeen[t.id] !== resSig(t); }).length;
+  }
+
+  function resStamp(t){
+    var d = new Date((t.pc && (t.pc.doneAt || t.pc.at)) || t.ts || Date.now());
+    function p(n){ return (n < 10 ? "0" : "") + n; }
+    return d.getFullYear() + "." + p(d.getMonth() + 1) + "." + p(d.getDate()) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+  function resFileStamp(t){
+    var d = new Date((t.pc && (t.pc.doneAt || t.pc.at)) || t.ts || Date.now());
+    function p(n){ return (n < 10 ? "0" : "") + n; }
+    return "" + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + "-" + p(d.getHours()) + p(d.getMinutes());
+  }
+
+  function resMarkSeen(t){
+    if(!t) return;
+    resSeen[t.id] = resSig(t);
+    resSaveSeen();
+    resBadge();
+  }
+
+  function resBadge(){
+    var n = resUnread();
+    var badge = $("#navResBadge");
+    if(badge){ badge.textContent = n; badge.hidden = !n; }
+    var hero = $("#briefResults");
+    if(hero){
+      hero.innerHTML = n ? ("새 결과 " + n + "건 보기 →") : "결과 보고함 열기 →";
+      hero.classList.toggle("is-new", !!n);
+    }
+  }
+
+  /* 결과 본문의 5개 섹션 파싱 — 일반 텍스트 결과도 그대로 통과 */
+  function parseResult(text){
+    var src = String(text == null ? "" : text).replace(/\r/g, "");
+    var out = { full: src, has: false, order: [], map: {} };
+    var cur = "other";
+    out.map.other = [];
+    src.split("\n").forEach(function(line){
+      var hit = null, tr = line.replace(/^\s+/, "").replace(/\s+$/, "");
+      for(var i = 0; i < RES_SECTIONS.length; i++){
+        if(RES_SECTIONS[i].re.test(tr)){ hit = RES_SECTIONS[i]; break; }
+      }
+      if(hit){
+        cur = hit.key;
+        if(!out.map[cur]) out.map[cur] = [];
+        if(out.order.indexOf(cur) < 0) out.order.push(cur);
+        out.has = true;
+        return;
+      }
+      out.map[cur].push(line);
+    });
+    var k;
+    for(k in out.map){ if(out.map.hasOwnProperty(k)) out.map[k] = out.map[k].join("\n").replace(/^\s*\n+/, "").replace(/\s+$/, ""); }
+    return out;
+  }
+
+  function splitBlocks(text){
+    var blocks = [], cur = null;
+    String(text || "").split("\n").forEach(function(l){
+      var m = l.match(/^\s*#{3,5}\s+(.+)$/);
+      if(m){
+        cur = { title: m[1].replace(/[*#]/g, "").trim(), lines: [] };
+        blocks.push(cur);
+      } else {
+        if(!cur){ cur = { title:"", lines:[] }; blocks.push(cur); }
+        cur.lines.push(l);
+      }
+    });
+    return blocks.filter(function(b){ return b.title || b.lines.join("").trim(); });
+  }
+
+  function insRows(text){
+    return String(text || "").split("\n").map(function(l){ return l.replace(/^\s*[-*•]\s*/, "").trim(); }).filter(Boolean).map(function(l){
+      var m = l.match(/^([^:：]{2,18})\s*[:：]\s*(.+)$/);
+      return m ? { who:m[1].replace(/\*\*/g, ""), what:m[2] } : { who:"", what:l };
+    });
+  }
+
+  function resSectionHTML(text, key, compact){
+    var body = String(text || "").trim();
+    if(!body) return '<div class="rp-mini">이 섹션은 결과에 없습니다.</div>';
+    if(key === "insights"){
+      var rows = insRows(body);
+      if(rows.length > 1 || rows[0].who){
+        return '<div class="ins-list">' + rows.map(function(r){
+          return '<div class="ins-row">' + (r.who ? '<b>' + esc(r.who) + '</b>' : '<b>공유</b>') + '<span>' + esc(r.what) + '</span></div>';
+        }).join("") + '</div>';
+      }
+    }
+    if(key === "works"){
+      var blocks = splitBlocks(body);
+      if(blocks.length > 1 || (blocks[0] && blocks[0].title)){
+        return blocks.map(function(b){
+          return '<div class="rp-block">' + (b.title ? '<h5><i></i>' + esc(b.title) + '</h5>' : "") +
+            '<pre>' + esc(b.lines.join("\n").trim()) + '</pre></div>';
+        }).join("");
+      }
+    }
+    return '<pre' + (compact ? ' style="min-height:0;max-height:230px"' : '') + '>' + esc(body) + '</pre>';
+  }
+
+  function resTabsHTML(parsed, view, attr){
+    if(!parsed.has) return "";
+    var keys = [{ k:"full", t:"전체" }].concat(parsed.order.map(function(k){ return { k:k, t:RES_TITLE[k] || k }; }));
+    return keys.map(function(o){
+      return '<button type="button" ' + attr + '="' + o.k + '" class="' + (view === o.k ? "is-on" : "") + '">' + esc(o.t) + '</button>';
+    }).join("");
+  }
+
+  /* 보드 카드 안의 결과 — 5개 섹션을 작은 탭으로 */
+  function cardOutHTML(t){
+    var p = t.pc || {};
+    var parsed = parseResult(p.text || "");
+    var view = p.view || "full";
+    if(view !== "full" && !parsed.map[view]) view = "full";
+    var compactTabs = "";
+    if(parsed.has){
+      var keys = [{ k:"full", t:"전체" }].concat(parsed.order.map(function(k){
+        var s = null;
+        for(var i = 0; i < RES_SECTIONS.length; i++){ if(RES_SECTIONS[i].key === k) s = RES_SECTIONS[i]; }
+        return { k:k, t:(s ? s.short : k) };
+      }));
+      compactTabs = '<div class="t-pc-secs">' + keys.map(function(o){
+        return '<button type="button" data-act="pcsec" data-sec="' + o.k + '" class="' + (view === o.k ? "is-on" : "") + '">' + esc(o.t) + '</button>';
+      }).join("") + '</div>';
+    }
+    var bodyHTML;
+    if(view === "full" || !parsed.has){
+      bodyHTML = '<pre>' + esc(String(p.text || "").trim()) + '</pre>';
+    } else {
+      bodyHTML = resSectionHTML(parsed.map[view], view, true);
+    }
+    return '<div class="t-pc-out"><div class="t-pc-out-head">클로드 코드 결과' + (parsed.has ? " · 5단계 보고" : "") +
+      '<button type="button" data-act="pccopy">복사</button></div>' + compactTabs + bodyHTML + '</div>';
+  }
+
+  function resPanel(t){
+    var st = RES_STATE[t.status] || RES_STATE.done;
+    var parsed = parseResult((t.pc && t.pc.text) || "");
+    var view = (resSec !== "full" && !parsed.map[resSec]) ? "full" : resSec;
+    var secs = t.pc && t.pc.secs ? pcSecsText(t.pc.secs) : "—";
+    var body = (t.pc && t.pc.text) || "";
+    var staff = staffNameOf(t);
+    var reqId = (t.pc && t.pc.reqId) || "";
+    var tabs = "";
+    if(parsed.has){
+      var keys = [{ k:"full", t:"전체" }].concat(parsed.order.map(function(k){ return { k:k, t:RES_TITLE[k] || k }; }));
+      tabs = '<div class="rp-secs" role="tablist" aria-label="결과 섹션">' + keys.map(function(o){
+        return '<button type="button" role="tab" data-ressec="' + o.k + '" class="' + (view === o.k ? "is-on" : "") + '">' + esc(o.t) + '</button>';
+      }).join("") + '</div>';
+    }
+    var bodyHTML = body
+      ? (view === "full" ? '<pre>' + esc(body.trim()) + '</pre>' : resSectionHTML(parsed.map[view], view, false))
+      : '<div class="rp-mini">결과 본문이 없습니다. 보드에서 직접 옮긴 카드입니다 — 승인하면 완료로 넘어갑니다.</div>';
+    var headLabel = view === "full" ? "클로드 코드 결과 본문" : (RES_TITLE[view] || view);
+    var shown = (view === "full" || !body) ? body : (parsed.map[view] || "");
+    return '<article class="res-panel">' +
+      '<div class="rp-kicker">' + esc(t.dept + " " + t.deptTitle) + ' · result</div>' +
+      '<h3>' + esc(t.title) + '</h3>' +
+      '<div class="rp-chips"><span class="chip ' + st.chip + '">' + st.label + '</span>' +
+        (t.statusWhy ? '<span class="tag">' + esc(t.statusWhy) + '</span>' : "") +
+        (parsed.has ? '<span class="tag">5단계 보고</span>' : (body ? '<span class="tag">PC 실행</span>' : "")) + '</div>' +
+      '<div class="rp-instr"><i>대표님 지시</i>' + esc(t.instr || "—") + '</div>' +
+      '<div class="rp-meta">' +
+        '<div><dt>완료 시각</dt><dd>' + esc(resStamp(t)) + '</dd></div>' +
+        '<div><dt>소요 시간</dt><dd>' + esc(secs) + '</dd></div>' +
+        '<div><dt>배정</dt><dd>' + esc(t.dept) + ' · ' + esc(staff || "미배정") + '</dd></div>' +
+        '<div><dt>요청 ID</dt><dd>' + esc(reqId || "—") + '</dd></div>' +
+      '</div>' +
+      '<div class="rp-tools">' +
+        '<button class="btn btn-primary" type="button" data-resact="copy"' + (body ? "" : " disabled") + '>결과 복사</button>' +
+        '<button class="btn btn-ghost" type="button" data-resact="md"' + (body ? "" : " disabled") + '>.md로 저장</button>' +
+        (t.status === "review" ? '<button class="btn ok" type="button" data-resact="approve">승인 (완료로)</button><button class="btn no" type="button" data-resact="reject">반려 (대기로)</button>' : "") +
+        '<button class="btn btn-ghost go" type="button" data-resact="board">보드에서 보기</button>' +
+      '</div>' +
+      tabs +
+      '<div class="rp-body"><div class="rp-body-head">' + esc(headLabel) +
+        (shown ? '<span>' + fmt(shown.length) + "자 · " + shown.split("\n").length + "줄</span>" : "") +
+        '</div>' + bodyHTML + '</div>' +
+      '</article>';
+  }
+
+  function renderResults(){
+    var list = $("#resList"), det = $("#resDetail");
+    if(!list || !det) return;
+    var all = resInbox();
+    var counts = { all:all.length, review:0, done:0, error:0 };
+    all.forEach(function(t){ if(counts[t.status] != null) counts[t.status]++; });
+    $$("#resTabs .tab").forEach(function(b){
+      var f = b.getAttribute("data-resfilter");
+      var num = $("b", b);
+      if(num) num.textContent = counts[f] || 0;
+      var on = f === resFilter;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    var items = resFilter === "all" ? all : all.filter(function(t){ return t.status === resFilter; });
+    if(!items.length){
+      list.innerHTML = '<div class="res-empty"><b>' + (resFilter === "all" ? "아직 도착한 결과가 없습니다" : "이 칸에 해당하는 결과가 없습니다") + '</b>' +
+        (resFilter === "all"
+          ? "카드에서 <b>▶ PC 실행</b>으로 보내면, 클로드 코드가 끝낸 결과 본문이 이곳에 쌓입니다."
+          : "다른 필터를 눌러 전체 결과를 확인해 보세요.") + '</div>';
+    } else {
+      list.innerHTML = items.map(function(t){
+        var st = RES_STATE[t.status] || RES_STATE.done;
+        var unread = resSeen[t.id] !== resSig(t);
+        return '<button type="button" class="res-item' + (t.id === resSel ? " is-on" : "") + '" data-resid="' + esc(t.id) + '">' +
+          '<div class="ri-top"><span class="ri-no">' + esc(t.dept) + '</span><span class="ri-dept">' + esc(t.deptTitle) + '</span><span class="chip ' + st.chip + '">' + st.label + '</span></div>' +
+          '<h4>' + esc(t.title) + '</h4>' +
+          '<p class="ri-instr">' + esc(t.instr || "") + '</p>' +
+          '<div class="ri-meta">' + (unread ? '<span class="ri-new">NEW</span>' : "") +
+            '<span>' + esc(resStamp(t)) + '</span>' +
+            (t.pc && t.pc.secs ? '<span>' + esc(pcSecsText(t.pc.secs)) + '</span>' : "") + '</div>' +
+          '</button>';
+      }).join("");
+    }
+    var sel = null;
+    for(var i = 0; i < items.length; i++){ if(items[i].id === resSel){ sel = items[i]; break; } }
+    if(!sel && resSel) resSel = "";
+    if(!sel){
+      det.innerHTML = '<div class="res-empty"><b>' + (all.length ? "왼쪽 목록에서 결과를 고르세요" : "결과가 도착하면 여기에 펼쳐집니다") + '</b>' +
+        (all.length ? "지시 내용과 결과 본문 전체, 복사·저장·승인 버튼이 한 화면에 나옵니다."
+                    : "PC 실행이 끝나면 카드가 완료·검수 대기로 넘어오고, 그 결과를 이곳에서 바로 읽고 저장할 수 있습니다.") +
+        (all.length ? '<div><button class="btn btn-sm btn-navy" type="button" data-resact="newest">가장 최근 결과 열기</button></div>' : "") + '</div>';
+    } else {
+      det.innerHTML = resPanel(sel);
+    }
+  }
+
+  function resDownload(t){
+    var body = (t.pc && t.pc.text) || "";
+    var staff = staffNameOf(t);
+    var md = [
+      "# " + t.dept + " " + t.deptTitle + " — " + t.title,
+      "",
+      "- 상태: " + (t.status === "review" ? "검수 대기" : t.status === "done" ? "완료" : t.status === "error" ? "오류" : t.status),
+      "- 완료 시각: " + resStamp(t),
+      "- 소요 시간: " + (t.pc && t.pc.secs ? pcSecsText(t.pc.secs) : "—"),
+      "- 담당: " + (staff || "미배정"),
+      "- 요청 ID: " + ((t.pc && t.pc.reqId) || "—"),
+      "",
+      "## 대표님 지시",
+      "",
+      String(t.instr || ""),
+      "",
+      "## 클로드 코드 결과",
+      "",
+      body
+    ].join("\n");
+    var name = "결과_" + t.dept + "_" + String(t.deptTitle || "부서").replace(/[\\/:*?"<>|\s]+/g, "-") + "_" + resFileStamp(t) + ".md";
+    try{
+      var blob = new Blob([md], { type:"text/markdown;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = name; a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function(){ try{ URL.revokeObjectURL(url); }catch(e){} if(a.parentNode) a.parentNode.removeChild(a); }, 2000);
+      showToast(".md 파일로 저장했습니다 — " + name);
+    }catch(e){
+      copyText(md);
+    }
+  }
+
+  function renderAll(){ renderDeptGrid(); renderDeptStaffs(); renderBoard(); renderBrief(); renderResults(); resBadge(); }
 
   /* ================= 부서 카드: 직원 배지 · 이름 스트립 ================= */
   var PERSON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.5 3.1-5.6 7-5.6s7 2.1 7 5.6"/></svg>';
@@ -2239,6 +2855,15 @@ input,textarea,select{font:inherit}
     dwOne.textContent = d.one;
 
     var html = "";
+    html += '<section class="dw-sec"><h3><i></i>부서 정보 수정</h3><div class="dept-edit">' +
+      '<label>부서 이름<input data-da="title" type="text" maxlength="24" autocomplete="off" value="' + esc(d.title) + '"></label>' +
+      '<label>한 줄 역할<input data-da="one" type="text" maxlength="140" autocomplete="off" value="' + esc(d.one || "") + '"></label>' +
+      '<label>분류<select data-da="cat">' + CATS.map(function(c){ return '<option value="' + c.k + '"' + (c.k === d.cat ? " selected" : "") + '>' + c.n + '</option>'; }).join("") + '</select></label>' +
+      '<label>자동 배정 키워드 (쉼표)<input data-da="kw" type="text" maxlength="180" autocomplete="off" placeholder="예) 블로그, 포스팅, 원고" value="' + esc(deptKwText(d)) + '"></label>' +
+      '<label>산출물 (쉼표)<input data-da="outputs" type="text" maxlength="180" autocomplete="off" value="' + esc((d.outputs || []).join(", ")) + '"></label>' +
+      '<div class="de-row"><button type="button" class="save" data-dept-act="save">부서 정보 저장</button>' +
+        '<button type="button" class="is-del" data-dept-act="del">이 부서 삭제</button></div>' +
+      '</div></section>';
     html += staffSectionHTML(d);
     html += '<section class="dw-sec"><h3><i></i>무엇을 하나요</h3><div class="dw-lead">' + d.lead + '</div></section>';
     html += '<section class="dw-sec"><h3><i></i>하루 실행 루틴</h3><ul class="tl">';
@@ -2287,7 +2912,8 @@ input,textarea,select{font:inherit}
   $("#dwNext").addEventListener("click", function(){ staffFormOpen = false; staffEditId = null; renderDept((current + 1) % DEPTS.length); });
   $("#dwCopy").addEventListener("click", function(){
     var d = DEPTS[current];
-    var t = TPL[d.no] ? TPL[d.no]({ raw: d.title + " 상시 업무", n:0, unit:"", channels:[] }) : null;
+    var tf = tplFor(d.no);
+    var t = tf ? tf({ raw: d.title + " 상시 업무", n:0, unit:"", channels:[] }) : null;
     var st = staffOf(d.no)[0];
     copyText(t ? wrapPrompt(d.no, d.title, st ? st.name : "", t.prompt) : d.title);
   });
@@ -2302,6 +2928,27 @@ input,textarea,select{font:inherit}
       showToast(d.no + " " + d.title + " 업무를 보드에 추가했습니다");
     }
   });
+  /* 부서 정보 저장·삭제 (드로어 내부) */
+  dwBody.addEventListener("click", function(e){
+    var btn = e.target.closest ? e.target.closest("[data-dept-act]") : null;
+    if(!btn) return;
+    var act = btn.getAttribute("data-dept-act");
+    var d = DEPTS[current];
+    if(!d) return;
+    if(act === "save"){
+      var patch = {};
+      $$("[data-da]", dwBody).forEach(function(el){ patch[el.getAttribute("data-da")] = el.value; });
+      if(!String(patch.title || "").trim()){ showToast("부서 이름을 적어 주세요"); return; }
+      updateDept(d.no, {
+        title: String(patch.title).trim(), one: patch.one, cat: patch.cat,
+        kw: splitList(patch.kw), outputs: splitList(patch.outputs)
+      });
+      renderDept(current);
+      return;
+    }
+    if(act === "del"){ deleteDept(d.no); }
+  });
+
   /* 직원 추가·수정·삭제·배정 (드로어 내부) */
   dwBody.addEventListener("click", function(e){
     var btn = e.target.closest ? e.target.closest("[data-staff-act]") : null;
@@ -2357,9 +3004,9 @@ input,textarea,select{font:inherit}
   });
 
   /* ================= 필터 / 이벤트 ================= */
-  $$(".tab").forEach(function(tab){
+  $$(".tab[data-filter]").forEach(function(tab){
     tab.addEventListener("click", function(){
-      $$(".tab").forEach(function(t){ t.classList.remove("is-active"); t.setAttribute("aria-selected","false"); });
+      $$(".tab[data-filter]").forEach(function(t){ t.classList.remove("is-active"); t.setAttribute("aria-selected","false"); });
       tab.classList.add("is-active"); tab.setAttribute("aria-selected","true");
       var f = tab.getAttribute("data-filter");
       $$("#deptGrid .dept").forEach(function(card){
@@ -2413,7 +3060,12 @@ input,textarea,select{font:inherit}
     var id = card.getAttribute("data-id");
     var act = btn.getAttribute("data-act");
     var t = findTask(id);
-    if(act === "pccopy" && t && t.pc){ copyText(t.pc.text || ""); }
+    if(act === "pccopy" && t && t.pc){
+      var pv = t.pc.view || "full";
+      var pr = parseResult(t.pc.text || "");
+      copyText(pv !== "full" && pr.map[pv] ? pr.map[pv] : (t.pc.text || ""));
+    }
+    else if(act === "pcsec" && t && t.pc){ t.pc.view = btn.getAttribute("data-sec") || "full"; save(); renderBoard(); }
     else if(act === "pcview" && t && t.pc){ t.pc.open = !t.pc.open; save(); renderBoard(); }
     else if(act === "pcrun"){ pcRun(id); }
     else if(act === "copy" && t){ copyText(promptOf(t)); }
@@ -2464,6 +3116,80 @@ input,textarea,select{font:inherit}
     });
   }
 
+  /* 결과 보고함 — 목록 선택 · 필터 · 섹션 탭 · 복사/저장/승인/반려 */
+  function viewText(t){
+    var pr = parseResult((t.pc && t.pc.text) || "");
+    return (resSec !== "full" && pr.map[resSec]) ? pr.map[resSec] : ((t.pc && t.pc.text) || "");
+  }
+  (function bindResults(){
+    var root = $("#results");
+    if(!root) return;
+    root.addEventListener("click", function(e){
+      var item = e.target.closest ? e.target.closest(".res-item") : null;
+      if(item){
+        resSel = item.getAttribute("data-resid");
+        resSec = "full";
+        resMarkSeen(findTask(resSel));
+        renderResults();
+        if(window.innerWidth <= 860){
+          var det = $("#resDetail");
+          if(det && det.scrollIntoView) det.scrollIntoView({ behavior:"smooth", block:"start" });
+        }
+        return;
+      }
+      var tab = e.target.closest ? e.target.closest("[data-resfilter]") : null;
+      if(tab){ resFilter = tab.getAttribute("data-resfilter") || "all"; renderResults(); return; }
+      var secBtn = e.target.closest ? e.target.closest("[data-ressec]") : null;
+      if(secBtn){ resSec = secBtn.getAttribute("data-ressec") || "full"; renderResults(); return; }
+      var act = e.target.closest ? e.target.closest("[data-resact]") : null;
+      if(!act) return;
+      var kind = act.getAttribute("data-resact");
+      if(kind === "newest"){
+        var all = resInbox();
+        if(all.length){ resSel = all[0].id; resSec = "full"; resMarkSeen(all[0]); renderResults(); }
+        return;
+      }
+      var t = findTask(resSel);
+      if(!t) return;
+      if(kind === "copy"){ copyText(viewText(t)); }
+      else if(kind === "md"){ resDownload(t); }
+      else if(kind === "approve"){ resMarkSeen(t); resFilter = "all"; approveTask(t.id); }
+      else if(kind === "reject"){ resMarkSeen(t); resFilter = "all"; rejectTask(t.id); }
+      else if(kind === "board"){
+        var board = document.getElementById("board");
+        if(board && board.scrollIntoView) board.scrollIntoView({ behavior:"smooth", block:"start" });
+        var card = document.querySelector('.task[data-id="' + t.id + '"]');
+        if(card){
+          card.classList.add("is-flash");
+          setTimeout(function(){ card.classList.remove("is-flash"); }, 1800);
+        }
+      }
+    });
+  })();
+
+  /* 부서 추가 폼 */
+  (function bindDeptAdmin(){
+    var tog = $("#deptAddToggle"), form = $("#deptAddForm"), addBtn = $("#deptAddBtn"), cancel = $("#deptAddCancel");
+    if(tog && form) tog.addEventListener("click", function(){
+      form.hidden = !form.hidden;
+      if(!form.hidden){ var f = $("#ndTitle"); if(f) f.focus(); }
+    });
+    if(cancel && form) cancel.addEventListener("click", function(){ form.hidden = true; });
+    if(addBtn) addBtn.addEventListener("click", function(){
+      var d = addDept(
+        $("#ndTitle") ? $("#ndTitle").value : "",
+        $("#ndOne") ? $("#ndOne").value : "",
+        $("#ndCat") ? $("#ndCat").value : "ops",
+        splitList($("#ndKw") ? $("#ndKw").value : ""),
+        splitList($("#ndTools") ? $("#ndTools").value : "")
+      );
+      if(d){
+        ["ndTitle","ndOne","ndKw","ndTools"].forEach(function(id){ var el = $("#" + id); if(el) el.value = ""; });
+        if(form) form.hidden = true;
+      }
+    });
+  })();
+
   $("#copyAll").addEventListener("click", function(){
     if(!state.tasks.length){ showToast("복사할 카드가 없습니다"); return; }
     var lines = ['[비서실 실행 지시문 모음] ' + new Date().toLocaleString("ko-KR")];
@@ -2499,14 +3225,17 @@ input,textarea,select{font:inherit}
   });
 
   $("#exportData").addEventListener("click", function(){
-    var data = JSON.stringify({ tasks: state.tasks, history: state.history, pipe: state.pipe, staff: state.staff, chain: state.chain }, null, 2);
+    var data = JSON.stringify({ tasks: state.tasks, history: state.history, pipe: state.pipe, staff: state.staff, chain: state.chain, depts: DEPTS }, null, 2);
     copyText(data);
   });
 
   $("#wipeData").addEventListener("click", function(){
     if(!window.confirm("이 브라우저에 저장된 콘솔 데이터를 모두 지웁니다. 계속할까요?")) return;
-    state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff: staffDefaults(), chain: state.chain };
-    try{ localStorage.removeItem(STORE); }catch(e){}
+    state = { tasks:[], history:[], pipe:{ vals:PIPE_DEFAULT.vals.slice(), unit:PIPE_DEFAULT.unit }, staff: staffDefaults(), chain: state.chain, depts: null };
+    DEPTS.length = 0;
+    BASE_DEPTS.forEach(function(d){ DEPTS.push(normalizeDept(JSON.parse(JSON.stringify(d)))); });
+    resSeen = {}; resSel = ""; resFilter = "all"; resSec = "full";
+    try{ localStorage.removeItem(STORE); localStorage.removeItem(RES_SEEN); }catch(e){}
     staffFormOpen = false; staffEditId = null;
     renderAll(); renderPipeline();
     if(!drawer.hidden) renderDept(current);
@@ -2524,7 +3253,7 @@ input,textarea,select{font:inherit}
   }
 
   var links = $$(".nav a");
-  var secs = ["command","board","pipeline","office","org"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  var secs = ["command","results","board","pipeline","office","org"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
   if("IntersectionObserver" in window){
     var spy = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
@@ -2864,13 +3593,42 @@ input,textarea,select{font:inherit}
     try{ p = JSON.parse(ev.message || ""); }catch(e){ return; }
     if(!p || !p.id) return;
     var fresh = !ev.time || ev.time > (Date.now() / 1000 - 300);
-    if(fresh && (p.event === "ack" || p.event === "result" || p.event === "error" || p.event === "online")){
+    if(fresh && (p.event === "ack" || p.event === "result" || p.event === "error" || p.event === "online" || p.event === "progress")){
       pcAlive();
     }
     var req = pcPending[p.id];
     if(!req) return;
+    if(p.event === "progress"){ pcOnProgress(req, p); return; }
     if(p.event === "ack"){ pcOnAck(req, p); return; }
     if(p.event === "result" || p.event === "error"){ pcOnResult(req, p); return; }
+  }
+
+  /* PC가 보내는 진행 단계: {"event":"progress","stage":"work","detail":"..."} */
+  function pcStageKeyIndex(s){
+    var k = String(s == null ? "" : s).toLowerCase().trim();
+    var map = { assign:0, plan:0, judge:0, brief:0, "1":0, work:1, do:1, run:1, exec:1, parallel:1, "2":1,
+                share:2, insight:2, insights:2, "3":2, confirm:3, review:3, merge:3, collect:3, "4":3,
+                report:4, "5":4, done:4, final:4 };
+    return map[k] != null ? map[k] : -1;
+  }
+
+  function pcOnProgress(req, p){
+    if(req.kind !== "task") return;
+    var t = findTask(req.taskId);
+    if(!t || !t.pc) return;
+    if(t.pc.state === "done" || t.pc.state === "error") return;
+    if(!t.pc.ackAt) t.pc.ackAt = Date.now();
+    t.pc.state = "running";
+    t.pc.stageFrom = "event";
+    var idx = pcStageKeyIndex(p.stage);
+    if(idx < 0 && typeof p.idx === "number") idx = p.idx;
+    t.pc.stageIdx = idx;
+    t.pc.stageKey = String(p.stage || "");
+    t.pc.stageDetail = String(p.detail || "").slice(0, 180);
+    t.pc.stageAt = Date.now();
+    t.pc.stale = false;
+    if(t.status !== "doing"){ t.status = "doing"; t.statusAt = Date.now(); t.statusWhy = "PC 작업 중"; }
+    save(); renderBoard(); renderBrief();
   }
   function pcAlive(){
     var was = pc.live;
@@ -2888,6 +3646,11 @@ input,textarea,select{font:inherit}
     t.pc.state = "running";
     t.pc.ackAt = Date.now();
     t.pc.note = p.text || "";
+    t.pc.stageFrom = "time";
+    t.pc.stageIdx = 0;
+    t.pc.autoIdx = 0;
+    t.pc.stageDetail = "";
+    t.pc.stageAt = Date.now();
     /* ack를 받으면 그대로 진행 중 칸에 둡니다 */
     if(t.status !== "doing"){ t.status = "doing"; t.statusAt = Date.now(); t.statusWhy = "PC 작업 중"; }
     save(); renderAll();
@@ -2918,6 +3681,10 @@ input,textarea,select{font:inherit}
     t.pc.state = ok ? "done" : "error";
     t.pc.text = full || (ok ? "(빈 결과)" : "클로드 코드가 빈 오류를 돌려줬습니다.");
     t.pc.secs = typeof p.secs === "number" ? p.secs : (t.pc.at ? (Date.now() - t.pc.at) / 1000 : 0);
+    t.pc.view = "full";
+    t.pc.stageFrom = "event";
+    t.pc.stageIdx = 4;
+    t.pc.stageKey = "report";
     t.pc.doneAt = Date.now();
     t.pc.open = true;
     t.pc.stale = false;
@@ -2948,9 +3715,9 @@ input,textarea,select{font:inherit}
       if(!quiet) showToast("이미 PC로 보낸 카드입니다 — 결과를 기다리는 중");
       return;
     }
-    var body = pcTrim(promptOf(t), PC_MAX_BYTES);
     var id = pcNewId();
-    t.pc = { state:"sent", at:Date.now(), reqId:id, open:false, text:"", secs:0, ackAt:0, stale:false };
+    var body = pcTrim(promptOf(t, id), PC_MAX_BYTES);
+    t.pc = { state:"sent", at:Date.now(), reqId:id, open:false, text:"", secs:0, ackAt:0, stale:false, stageKey:"assign", stageIdx:-1, stageDetail:"", stageFrom:"", stageAt:0 };
     /* 보내는 순간 대기 → 진행 중으로 카드가 자리를 옮깁니다 */
     t.status = "doing";
     t.statusAt = Date.now();
@@ -2989,7 +3756,7 @@ input,textarea,select{font:inherit}
     var html = '<div class="t-pc" data-pc="' + stateAttr + '">' +
       '<span class="t-pc-state">' + label + '</span>';
     if(live){
-      html += '<span class="t-pc-time" data-pc-live="1">' + pcSecsText((Date.now() - (p.ackAt || p.at || Date.now())) / 1000) + '</span>';
+      html += '<span class="t-pc-time" data-live-clock="1">' + pcClock((Date.now() - (p.ackAt || p.at || Date.now())) / 1000) + '</span>';
     }else if(sec > 0){
       html += '<span class="t-pc-time">' + pcSecsText(sec) + (p.state === "done" ? " 걸림" : "") + '</span>';
     }
@@ -2997,33 +3764,93 @@ input,textarea,select{font:inherit}
       html += '<button class="t-pc-view" type="button" data-act="pcview">' + (p.open ? "접기" : "결과 보기") + '</button>';
     }
     html += '</div>';
-    if(p.text && p.open){
-      html += '<div class="t-pc-out"><div class="t-pc-out-head">클로드 코드 실행 결과' +
-        '<button type="button" data-act="pccopy">복사</button></div><pre>' + esc(p.text) + '</pre></div>';
-    }
+    if(live) html += pcLiveBlock(t);
+    if(p.text && p.open) html += cardOutHTML(t);
     return html;
   }
 
-  function pcTick(){
-    var nodes = $$("[data-pc-live]");
-    if(nodes.length){
-      nodes.forEach(function(el){
-        var card = el.closest ? el.closest(".task") : null;
-        if(!card) return;
-        var t = findTask(card.getAttribute("data-id"));
-        if(!t || !t.pc) return;
-        el.textContent = pcSecsText((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000);
-      });
+  /* 진행 중 카드 — 스피너 · 단계 · 경과 시간 */
+  function pcLiveBlock(t){
+    var p = t.pc;
+    var idx = pcStageIdxOf(t);
+    if(p.state === "sent") idx = 0;
+    var st = PC_STAGES[idx] || PC_STAGES[0];
+    var steps = "";
+    for(var i=0;i<PC_STAGES.length;i++){
+      steps += '<i class="' + (i < idx ? "on" : i === idx ? "now" : "") + '"></i>';
     }
-    /* 10분 동안 응답이 없으면 '응답 없음'으로 표시 (카드는 진행 중 칸에 유지) */
-    var staleChanged = false;
+    var detail = p.state === "sent"
+      ? "집 PC가 지시를 받으면 바로 시작합니다 (10분 응답 없으면 표시를 바꿉니다)"
+      : (p.stageDetail || (p.stageFrom === "event" ? "PC가 단계를 보고했습니다" : "경과 시간으로 단계를 추정 중 — PC 단계 보고가 오면 정확해집니다"));
+    return '<div class="t-live">' +
+      '<div class="t-live-head"><span class="spin"></span><b>' + (p.state === "sent" ? "PC 수신 대기" : esc(st.label)) + '</b>' +
+        '<span class="t-live-clock" data-live-clock="1">' + pcClock((Date.now() - (p.ackAt || p.at || Date.now())) / 1000) + '</span></div>' +
+      '<div class="t-live-steps">' + steps + '</div>' +
+      '<p class="t-live-detail">' + esc(detail) + '</p>' +
+      '</div>';
+  }
+
+  function pcClock(sec){
+    sec = Math.max(0, Math.round(sec || 0));
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  /* PC가 progress 이벤트를 안 보내도 경과 시간으로 단계를 움직입니다 */
+  function pcStageIdxOf(t){
+    var p = t && t.pc;
+    if(!p) return 0;
+    if(p.stageFrom === "event" && typeof p.stageIdx === "number" && p.stageIdx >= 0) return p.stageIdx;
+    if(typeof p.autoIdx === "number" && p.autoIdx >= 0 && p.state === "running"){
+      /* 1초 틱에서 갱신된 값이 있으면 그대로 */
+    }
+    var base = p.ackAt || p.at || Date.now();
+    var sec = (Date.now() - base) / 1000;
+    if(sec < 45) return 0;
+    if(sec < 300) return 1;
+    if(sec < 420) return 2;
+    if(sec < 660) return 3;
+    return 4;
+  }
+
+  function briefLiveTask(){
+    var live = state.tasks.filter(function(t){
+      return t.pc && (t.pc.state === "sent" || t.pc.state === "running");
+    }).sort(function(a, b){ return (b.pc.at || 0) - (a.pc.at || 0); });
+    return live[0] || null;
+  }
+
+  function pcTick(){
+    var changed = false;
+    /* 진행 중 카드의 경과 시간(00:00) 갱신 */
+    $$("[data-live-clock]").forEach(function(el){
+      var card = el.closest ? el.closest(".task") : null;
+      if(!card) return;
+      var t = findTask(card.getAttribute("data-id"));
+      if(!t || !t.pc) return;
+      el.textContent = pcClock((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000);
+    });
+    $$("[data-brief-clock]").forEach(function(el){
+      var t = briefLiveTask();
+      if(!t) return;
+      el.textContent = pcClock((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000);
+    });
+    /* 단계 자동 추정 + 10분 무응답 표시 */
     state.tasks.forEach(function(t){
+      if(t.pc && t.pc.state === "running" && t.pc.stageFrom !== "event"){
+        var idx = pcStageIdxOf(t);
+        if(t.pc.autoIdx !== idx){ t.pc.autoIdx = idx; changed = true; }
+      }
       if(t.pc && (t.pc.state === "sent" || t.pc.state === "running") && !t.pc.stale && (Date.now() - (t.pc.at || 0)) > PC_STALE_MS){
         t.pc.stale = true;
-        staleChanged = true;
+        changed = true;
       }
     });
-    if(staleChanged){ save(); renderBoard(); showToast("10분 넘게 응답이 없는 카드가 있습니다 — 카드는 진행 중에 그대로 둡니다"); }
+    if(changed){
+      save();
+      renderBoard();
+      renderBrief();
+    }
   }
   setInterval(pcTick, 1000);
 
@@ -3083,6 +3910,7 @@ input,textarea,select{font:inherit}
   /* ================= 시작 ================= */
   load();
   if(!state.staff) state.staff = staffDefaults();
+  resLoadSeen();
   /* 예전 저장값(직원 명단 없음)의 카드는 부서 대표 직원에게 이어받게 함 */
   if(legacyStaffData){
     var adopted = 0;
