@@ -3698,6 +3698,12 @@ input,textarea,select{font:inherit}
      V2 — 시안 개편 (간결한 보고창 · 컴팩트 보드 · 3D 오피스 레이어)
      ================================================================== */
   var baseRenderAll = renderAll;
+  var baseHeroLive = heroLiveTask;
+  heroLiveTask = function(){
+    var t = baseHeroLive();
+    if(!t || !t.pc) return null;
+    return (Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) > 600000 ? null : t;
+  };
 
   /* ---------- 요약 ---------- */
   function plainSummary(text, max){
