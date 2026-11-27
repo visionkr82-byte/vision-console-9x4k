@@ -603,12 +603,12 @@ input,textarea,select{font:inherit}
       </div>
 
       <div class="stage" id="stage">
-        <img class="stage-img" src="assets/office-3d-v2.png" alt="미니어처 3D 오피스 — 대회의실, 지휘실, 부서 데스크, 라운지">
+        <img class="stage-img" src="assets/office-3d-v2.png?v=2" alt="미니어처 3D 오피스 — 대회의실, 지휘실, 부서 데스크, 라운지">
         <div class="office-zones" id="officeZones">
-          <button class="zone" type="button" data-zone="meeting" style="--zx:3.4%;--zy:21%;--zw:31%;--zh:44%"><span class="zone-label"><i></i>대회의실</span></button>
-          <button class="zone" type="button" data-zone="director" style="--zx:37%;--zy:16%;--zw:17.5%;--zh:20%"><span class="zone-label"><i></i>지휘실</span></button>
-          <button class="zone" type="button" data-zone="desks" style="--zx:25.5%;--zy:33%;--zw:45%;--zh:53%"><span class="zone-label"><i></i>부서 데스크</span></button>
-          <button class="zone" type="button" data-zone="lounge" style="--zx:67%;--zy:33%;--zw:30%;--zh:47%"><span class="zone-label"><i></i>라운지</span></button>
+          <button class="zone" type="button" data-zone="meeting" style="--zx:2.4%;--zy:14%;--zw:27.5%;--zh:64%"><span class="zone-label"><i></i>대회의실</span></button>
+          <button class="zone" type="button" data-zone="director" style="--zx:38.5%;--zy:18.5%;--zw:16%;--zh:22%"><span class="zone-label"><i></i>지휘실</span></button>
+          <button class="zone" type="button" data-zone="desks" style="--zx:30%;--zy:43%;--zw:40%;--zh:40%"><span class="zone-label"><i></i>부서 데스크</span></button>
+          <button class="zone" type="button" data-zone="lounge" style="--zx:64.5%;--zy:33%;--zw:34%;--zh:40%"><span class="zone-label"><i></i>라운지</span></button>
         </div>
         <div class="office-floor" id="officeFloor"></div>
       </div>
@@ -3760,8 +3760,8 @@ input,textarea,select{font:inherit}
 
   /* ---------- 오피스 ---------- */
   var DESK_POS = {
-    "01":[73,76], "02":[61,68], "03":[54.5,63.5], "04":[45.5,29.5], "05":[58.2,51.5],
-    "06":[48.5,60.5], "07":[63.3,45.5], "08":[37.4,44.5], "09":[42.6,50.5]
+    "01":[66,71.5], "02":[63.5,56], "03":[54.5,56], "04":[47.5,32.5], "05":[54.5,71.5],
+    "06":[45.5,72], "07":[46,56.5], "08":[35.5,56], "09":[33.5,72]
   };
   var SHORT_DEPT = { "01":"숏폼", "02":"업로드", "03":"배포", "04":"총괄", "05":"인스타", "06":"진단", "07":"스파이", "08":"영업", "09":"리포트" };
   function shortDept(d){ return SHORT_DEPT[d.no] || String(d.title || "").replace(/\s+/g, "").slice(0, 4); }
@@ -3774,8 +3774,8 @@ input,textarea,select{font:inherit}
   renderOffice = function(){
     var floor = $("#officeFloor"), rail = $("#deptRail");
     if(!floor) return;
-    floor.innerHTML = DEPTS.map(function(d, i){
-      var p = deskPos(d.no, i);
+    floor.innerHTML = DEPTS.filter(function(d){ return DESK_POS[d.no]; }).map(function(d, i){
+      var p = DESK_POS[d.no];
       return '<button class="desk" type="button" data-dept-open="' + esc(d.no) + '" style="--x:' + p[0] + '%;--y:' + p[1] + '%" aria-label="' + esc(d.no + " " + d.title + " 열기") + '">' +
         '<span class="desk-glow" aria-hidden="true"></span>' +
         '<span class="desk-bub" aria-hidden="true"><b></b><i class="dots"><b></b><b></b><b></b></i></span>' +
@@ -3803,19 +3803,21 @@ input,textarea,select{font:inherit}
     var working = 0, idle = 0;
     DEPTS.forEach(function(d){
       var live = voLiveOf(d.no);
+      var stale = !!(live && live.sec > 600);
+      var on = !!live && !stale;
       var desk = floor.querySelector('.desk[data-dept-open="' + d.no + '"]');
       if(desk){
-        desk.classList.toggle("is-active", !!live);
+        desk.classList.toggle("is-active", on);
         var b = desk.querySelector(".desk-bub b");
-        if(b) b.textContent = live ? voClip(live.detail, 20) : "";
+        if(b) b.textContent = on ? voClip(live.detail, 20) : "";
       }
       var rail = document.querySelector('.rail[data-dept-open="' + d.no + '"]');
       if(rail){
-        rail.classList.toggle("is-working", !!live);
+        rail.classList.toggle("is-working", on);
         var s = rail.querySelector(".rail-txt span");
-        if(s) s.textContent = live ? live.label : (staffOf(d.no).length + "명 · 대기");
+        if(s) s.textContent = live ? (stale ? "응답 없음" : live.label) : (staffOf(d.no).length + "명 · 대기");
       }
-      if(live) working++; else idle++;
+      if(on) working++; else idle++;
     });
     var wn = $("#voWorkingN"); if(wn) wn.textContent = working;
     var inl = $("#voIdleN"); if(inl) inl.textContent = idle;
