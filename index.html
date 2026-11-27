@@ -411,6 +411,76 @@ input,textarea,select{font:inherit}
 .t-staff-pick svg{width:8px;height:8px;flex:none}
 .t-staff-sel{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer;border:0;padding:0;margin:0}
 
+/* ============ 10-c. 집 PC 연결 ============ */
+.pc-ctl{display:flex;align-items:center;gap:6px;flex:none}
+.pc-pill{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:28px;padding:0 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#c3d2e0;font-size:11px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;transition:.15s}
+.pc-pill:hover{background:rgba(255,255,255,.13);color:#fff}
+.pc-pill[data-live="checking"]{color:#ffd39c;border-color:rgba(255,190,90,.5);background:rgba(255,190,90,.13);animation:pcPulse 1.3s ease-in-out infinite}
+.pc-pill[data-live="on"]{color:#93e8bb;border-color:rgba(60,214,140,.5);background:rgba(45,190,120,.16)}
+.pc-pill[data-live="on"]:hover{color:#c6f7dd;border-color:rgba(90,230,165,.7)}
+@keyframes pcPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,190,90,0)}50%{box-shadow:0 0 0 4px rgba(255,190,90,.16)}}
+.pc-open{display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#b9cadb;font-size:11px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;transition:.15s}
+.pc-open:hover{color:#fff;border-color:rgba(255,255,255,.34);background:rgba(255,255,255,.11)}
+
+.pc-switch{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;color:#4e6578;cursor:pointer;-webkit-user-select:none;user-select:none;white-space:nowrap}
+.pc-switch input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pc-switch-track{position:relative;width:34px;height:19px;border-radius:999px;background:#d3dfea;transition:background .18s;flex:none}
+.pc-switch-track i{position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(9,23,38,.28);transition:left .18s}
+.pc-switch input:checked + .pc-switch-track{background:var(--orange)}
+.pc-switch input:checked + .pc-switch-track i{left:17px}
+.pc-switch input:focus-visible + .pc-switch-track{outline:3px solid rgba(255,106,31,.5);outline-offset:2px}
+.pc-switch.is-off{color:#93a2b2}
+
+.t-pc{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;padding:6px 8px;border-radius:8px;background:#f6f8fb;border:1px solid #e4ebf3;font-size:10px;font-weight:800;color:#5d7286;letter-spacing:-.01em}
+.t-pc[data-pc="running"]{background:#eef5fe;border-color:#cfe0f9;color:#155cad}
+.t-pc[data-pc="done"]{background:#eaf7f0;border-color:#c8ead8;color:#0f6b45}
+.t-pc[data-pc="error"]{background:#fff3f0;border-color:#f8d2c7;color:#a33a1c}
+.t-pc-state{white-space:nowrap}
+.t-pc-time{font-family:var(--mono);font-size:9.5px;font-weight:700;color:#7b8b9c;letter-spacing:0}
+.t-pc[data-pc="running"] .t-pc-time{color:#3d7fc4}
+.t-pc-view{margin-left:auto;height:20px;padding:0 7px;border-radius:5px;border:1px solid #cfdae6;background:#fff;font-size:9.5px;font-weight:800;color:#516678;transition:.14s}
+.t-pc-view:hover{border-color:var(--navy);color:var(--navy)}
+.t-pc-out{margin-top:7px;border:1px solid #e2ebf5;border-radius:9px;background:#fbfdff;overflow:hidden}
+.t-pc-out-head{display:flex;align-items:center;gap:6px;padding:5px 8px;border-bottom:1px solid #eef3f8;font-size:9.5px;font-weight:800;color:#7b8b9c;background:#f5f9fc;letter-spacing:-.01em}
+.t-pc-out-head button{margin-left:auto;height:19px;padding:0 7px;border-radius:5px;border:1px solid var(--line-2);background:#fff;font-size:9.5px;font-weight:800;color:#516678}
+.t-pc-out-head button:hover{border-color:var(--navy);color:var(--navy)}
+.t-pc-out pre{margin:0;padding:8px 9px;max-height:230px;overflow:auto;font-family:var(--mono);font-size:10.5px;line-height:1.62;color:#33495f;white-space:pre-wrap;word-break:break-word;overscroll-behavior:contain}
+.t-btn.pcrun{color:#0f6b45;border-color:#bfe3d2;background:#f3fbf7}
+.t-btn.pcrun:hover{border-color:#17945a;color:#0b5c39}
+.t-btn.pcrun[disabled]{opacity:.55;cursor:default}
+.t-btn.pcrun[disabled]:hover{border-color:#bfe3d2;color:#0f6b45}
+
+.pcm-wrap{position:fixed;inset:0;z-index:110;display:grid;place-items:center;padding:16px}
+.pcm-wrap[hidden]{display:none}
+.pcm-bg{position:absolute;inset:0;background:rgba(6,15,26,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:fade .2s ease}
+.pcm{position:relative;width:min(540px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);animation:popIn .2s cubic-bezier(.2,.8,.2,1)}
+@keyframes popIn{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.pcm-head{display:flex;align-items:flex-start;gap:10px;padding:16px 18px 13px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfdff)}
+.pcm-head h2{font-size:17px;font-weight:800;letter-spacing:-.03em;color:var(--navy);line-height:1.3}
+.pcm-head p{margin-top:3px;font-size:11.5px;color:var(--muted);line-height:1.5}
+.pcm-x{margin-left:auto;width:30px;height:30px;border-radius:50%;background:#f2f6fa;color:#5c7185;display:grid;place-items:center;flex:none;font-size:15px;line-height:1;transition:.15s}
+.pcm-x:hover{background:#e8eef5;color:var(--navy)}
+.pcm-body{padding:14px 18px 18px}
+.pcm-body label{display:block;margin-top:12px;font-size:11px;font-weight:800;color:#4b6076;letter-spacing:-.01em}
+.pcm-body label span{font-weight:700;color:#93a2b2}
+.pcm-body input{width:100%;height:38px;margin-top:4px;padding:0 10px;border:1px solid var(--line-2);border-radius:9px;background:#fbfdff;font-size:12.5px;font-family:var(--mono);color:var(--ink);letter-spacing:-.01em}
+.pcm-body input::placeholder{font-family:inherit;color:#a9b7c5;font-size:12px}
+.pcm-body input:focus{outline:none;border-color:var(--orange);background:#fff;box-shadow:0 0 0 3px rgba(255,106,31,.14)}
+.pcm-acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.pcm-acts .btn{height:38px;font-size:12.5px;padding:0 14px;border-radius:10px}
+.pcm-state{margin-top:11px;border-radius:10px;padding:9px 11px;font-size:11.5px;line-height:1.6;background:#f6f9fc;border:1px solid #e6eef6;color:#5a6f83;word-break:break-word}
+.pcm-state[data-live="on"]{background:#eaf7f0;border-color:#c8ead8;color:#0f6b45}
+.pcm-state[data-live="checking"]{background:#fffaf0;border-color:#ffe2b0;color:#8a5a00}
+.pcm-state[data-live="off"]{background:#fff5f2;border-color:#f8d2c7;color:#a33a1c}
+.pcm-state b{font-weight:800}
+.pcm-how{margin-top:12px;border-top:1px dashed var(--line);padding-top:11px;font-size:11px;color:#66798c;line-height:1.65}
+.pcm-how summary{font-size:11px;font-weight:800;color:#4b6076;cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px}
+.pcm-how summary::-webkit-details-marker{display:none}
+.pcm-how summary::before{content:"?";width:15px;height:15px;border-radius:50%;background:var(--navy-tint);color:#4b6076;display:grid;place-items:center;font-size:9.5px;font-weight:800;flex:none}
+.pcm-how p{margin-top:8px}
+.pcm-how b{color:var(--orange-d)}
+.pcm-warn{margin-top:10px;padding:8px 10px;border-radius:9px;background:#fffaf0;border:1px solid #ffe6ba;font-size:10.5px;line-height:1.55;color:#8a5a00}
+
 /* ============ 11. 토스트 / 반응형 ============ */
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--navy);color:#fff;font-size:12.5px;font-weight:800;padding:11px 18px;border-radius:999px;box-shadow:0 18px 40px -18px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.25s;z-index:120;max-width:calc(100vw - 32px);text-align:center}
 .toast.is-on{opacity:1;transform:translate(-50%,0)}
@@ -457,6 +527,19 @@ input,textarea,select{font:inherit}
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
   html{scroll-behavior:auto}
 }
+@media (max-width:1120px){
+  .hbadge{display:none}
+}
+@media (max-width:860px){
+  .pc-ctl{margin-left:auto}
+}
+@media (max-width:640px){
+  .head-in{gap:10px;padding:0 14px}
+  .pc-pill{font-size:10.5px;padding:0 9px;height:26px}
+  .pc-open{font-size:10.5px;padding:0 8px;height:26px}
+  .pc-switch{width:100%;margin-top:2px}
+}
+.pcm-how code{font-family:var(--mono);font-size:10.5px;background:#f2f6fa;border:1px solid #e6eef6;border-radius:4px;padding:0 4px;letter-spacing:0}
 </style>
 </head>
 <body>
@@ -473,6 +556,10 @@ input,textarea,select{font:inherit}
       <a href="#office">비서실 09</a>
       <a href="#org">조직·배분</a>
     </nav>
+    <div class="pc-ctl">
+      <button class="pc-pill" id="pcPill" type="button" data-live="off" title="집 PC 연결 상태 — 눌러서 확인"><span id="pcPillTxt">⚪ PC 미연결</span></button>
+      <button class="pc-open" id="pcOpen" type="button" title="수신·응답 토픽 설정">PC 설정</button>
+    </div>
     <span class="hbadge" title="대표님 1인 사용 · 외부 공개 금지">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
       대표님 전용 · 내부용
@@ -516,6 +603,11 @@ input,textarea,select{font:inherit}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
             <button class="btn btn-ghost" type="reset" id="cmdReset">비우기</button>
+            <label class="pc-switch is-off" id="pcAutoWrap" title="PC 설정에서 수신·응답 토픽을 먼저 넣어 주세요">
+              <input type="checkbox" id="pcAuto" aria-label="지시를 집 PC로 바로 실행">
+              <span class="pc-switch-track" aria-hidden="true"><i></i></span>
+              <span>PC로 바로 실행</span>
+            </label>
             <span class="cmd-note">분담 결과는 저장됩니다</span>
           </div>
 
@@ -556,7 +648,7 @@ input,textarea,select{font:inherit}
         <div class="sec-head">
           <span class="eyebrow">Dispatch board</span>
           <h2>오늘의 분담 보드</h2>
-          <p>카드의 <b>→</b>를 누르면 대기 → 진행 중 → 대표님 검수 → 완료로 넘어갑니다. <b>지시문 복사</b>로 클로드 코드나 버터에 바로 붙여넣으세요. 모든 변경은 이 브라우저에 자동 저장됩니다.</p>
+          <p>카드의 <b>→</b>를 누르면 대기 → 진행 중 → 대표님 검수 → 완료로 넘어갑니다. <b>▶ PC 실행</b>을 누르면 집 PC 클로드 코드가 실제로 돌고 결과가 그 카드에 붙습니다. <b>지시문 복사</b>로 직접 붙여넣을 수도 있습니다. 모든 변경은 이 브라우저에 자동 저장됩니다.</p>
         </div>
         <div class="board-tools">
           <button class="btn btn-ghost" type="button" id="copyAll">전체 지시문 복사</button>
@@ -864,7 +956,7 @@ input,textarea,select{font:inherit}
         <span><b>주식회사 비전</b><span>비서실 지휘 콘솔 · 내부용</span></span>
       </div>
       <div class="foot-note">
-        <b>대표님 1인 사용 콘솔입니다.</b> 외부 공개·고객 배포용이 아니며, 지시·분담 카드·파이프라인 숫자는 이 브라우저(localStorage)에만 저장됩니다. 서버로 전송되지 않습니다.
+        <b>대표님 1인 사용 콘솔입니다.</b> 외부 공개·고객 배포용이 아닙니다. 지시·분담 카드·파이프라인 숫자는 이 브라우저(localStorage)에 저장되고, <b>PC로 실행</b>한 카드만 집 PC(ntfy 토픽)로 전달되어 결과가 이 화면에 표시됩니다.
       </div>
       <div class="foot-tools">
         <button type="button" id="exportData">데이터 내보내기</button>
@@ -903,6 +995,38 @@ input,textarea,select{font:inherit}
       <button class="btn btn-primary" type="button" id="dwAdd">보드에 추가</button>
     </footer>
   </aside>
+</div>
+
+<!-- ================= 집 PC 연결 설정 ================= -->
+<div class="pcm-wrap" id="pcModal" hidden>
+  <div class="pcm-bg" data-pcm-close></div>
+  <div class="pcm" role="dialog" aria-modal="true" aria-labelledby="pcmTitle">
+    <header class="pcm-head">
+      <div>
+        <h2 id="pcmTitle">집 PC 연결 설정</h2>
+        <p>집 PC의 버터 연결 프로그램(butter_agent.py)과 ntfy 토픽 두 개로 이어집니다.</p>
+      </div>
+      <button class="pcm-x" type="button" data-pcm-close aria-label="닫기">✕</button>
+    </header>
+    <div class="pcm-body">
+      <label for="pcIn">수신 토픽 <span>— 집 PC가 지시를 받는 곳</span></label>
+      <input id="pcIn" type="text" autocomplete="off" spellcheck="false" placeholder="butter-xxxxxxxxxxxxxxxx">
+      <label for="pcOut">응답 토픽 <span>— 집 PC가 결과를 보내는 곳</span></label>
+      <input id="pcOut" type="text" autocomplete="off" spellcheck="false" placeholder="butter-xxxxxxxxxxxxxxxx">
+      <div class="pcm-acts">
+        <button class="btn btn-primary" type="button" id="pcSaveBtn">저장</button>
+        <button class="btn btn-ghost" type="button" id="pcTestBtn">연결 확인</button>
+        <button class="btn btn-ghost" type="button" id="pcLinkBtn">자동 연결 링크 복사</button>
+      </div>
+      <div class="pcm-state" id="pcState" data-live="off">아직 토픽이 없습니다.</div>
+      <details class="pcm-how">
+        <summary>토픽 이름은 어디서 보나요?</summary>
+        <p>집 PC 연결 프로그램 폴더의 <code>config.json</code> 에 <code>in_topic</code>·<code>out_topic</code> 두 줄이 있습니다. 그 값을 그대로 붙여 넣으면 됩니다. <code>https://ntfy.sh/…</code> 주소를 통째로 붙여 넣어도 됩니다.</p>
+        <p>연결된 상태에서 위 지시창의 <b>PC로 바로 실행</b>이 켜져 있으면, 지시를 넣는 즉시 카드가 만들어지고 집 PC 클로드 코드가 일을 시작합니다. 결과 본문은 그 카드 안에 펼쳐집니다.</p>
+      </details>
+      <div class="pcm-warn"><b>주의</b> — 이 설정과 ‘자동 연결 링크’에는 토픽 이름이 들어 있습니다. 토픽을 아는 사람은 집 PC에 지시를 보낼 수 있으니, 링크를 남에게 보내거나 공개하지 마세요.</div>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -1405,9 +1529,15 @@ input,textarea,select{font:inherit}
             '</div>' +
             '<p class="t-crit">' + esc(t.criteria) + '</p>' +
             '<p class="t-instr">' + esc(t.instr || "") + '</p>' +
+            pcBlock(t) +
             '<div class="t-tags">' + t.tools.map(function(x){ return "<span>" + esc(x) + "</span>"; }).join("") + '</div>' +
             '<div class="t-foot">' +
               '<button class="t-btn copy" type="button" data-act="copy">지시문 복사</button>' +
+              '<button class="t-btn pcrun" type="button" data-act="pcrun"' +
+                ((t.pc && (t.pc.state === "sent" || t.pc.state === "running")) ? " disabled" : "") + ">" +
+                ((t.pc && (t.pc.state === "sent" || t.pc.state === "running")) ? "⏳ 작업 중"
+                  : (t.pc && t.pc.state === "done") ? "↻ 다시 실행" : "▶ PC 실행") +
+              "</button>" +
               '<button class="t-btn" type="button" data-act="open">부서</button>' +
               '<button class="t-btn t-adv' + (nextIdx >= STATUS.length ? " is-last" : "") + '" type="button" data-act="adv" title="' + esc(nextLabel) + '">' +
                 (nextIdx >= STATUS.length ? "↺ 대기" : nextLabel) + ' ' + nextIcon +
@@ -1550,6 +1680,17 @@ input,textarea,select{font:inherit}
     showToast(made.length + "개 업무 카드를 만들었습니다 — 담당 직원까지 지정됨");
     picked = [];
     $$(".pick-chip").forEach(function(c){ c.classList.remove("is-on"); c.setAttribute("aria-pressed","false"); });
+
+    /* PC로 바로 실행 — 켜져 있으면 카드 생성과 동시에 집 PC로 보냅니다 */
+    if(pc.auto && made.length){
+      if(!pcReady()){
+        pcOpen(true);
+        setTimeout(function(){ showToast("카드는 만들었습니다. PC 설정에서 토픽을 넣으면 바로 실행됩니다"); }, 20);
+      }else{
+        made.forEach(function(t){ pcRun(t.id, true); });
+        showToast(made.length + "개 카드를 집 PC로 보냈습니다 — 결과가 카드에 표시됩니다");
+      }
+    }
 
     var board = document.getElementById("board");
     if(board && board.scrollIntoView) board.scrollIntoView({behavior:"smooth", block:"start"});
@@ -2034,7 +2175,10 @@ input,textarea,select{font:inherit}
     var id = card.getAttribute("data-id");
     var act = btn.getAttribute("data-act");
     var t = findTask(id);
-    if(act === "copy" && t){ copyText(promptOf(t)); }
+    if(act === "pccopy" && t && t.pc){ copyText(t.pc.text || ""); }
+    else if(act === "pcview" && t && t.pc){ t.pc.open = !t.pc.open; save(); renderBoard(); }
+    else if(act === "pcrun"){ pcRun(id); }
+    else if(act === "copy" && t){ copyText(promptOf(t)); }
     else if(act === "open" && t){ openDept(DEPTS.map(function(d){ return d.no; }).indexOf(t.dept)); }
     else if(act === "adv"){ advance(id); }
     else if(act === "del"){ removeTask(id); }
@@ -2134,6 +2278,513 @@ input,textarea,select{font:inherit}
     secs.forEach(function(s){ spy.observe(s); });
   }
 
+  /* ==================================================================
+     집 PC 연결 — butter_agent.py(ntfy 브릿지) 와 실제로 주고받기
+     · 설정(수신/응답 토픽)은 이 브라우저 localStorage 에만 저장합니다.
+       (공개 저장소 index.html 에는 어떤 토픽·비밀값도 적지 않습니다)
+     ================================================================== */
+  var PCSTORE = "vision_console_pc_v1";
+  var PC_WAIT = 12000;          /* 연결 확인 대기 시간(ms) */
+  var PC_MAX_BYTES = 3800;      /* ntfy 메시지 4KB 한도 */
+  var pc = { "in":"", out:"", auto:true, live:"off", note:"", lastOk:0 };
+  var pcES = null, pcPollTimer = null, pcRetryTimer = null;
+  var pcSince = 0, pcSeen = {}, pcSeenN = 0, pcPending = {};
+
+  function pcTopic(v){
+    var s = String(v == null ? "" : v).trim();
+    if(!s) return "";
+    s = s.replace(/^ntfy:\/\//i, "").replace(/^https?:\/\/[^\/]+\/?/i, "");
+    s = s.split(/[?#]/)[0].replace(/^\/+/, "").replace(/\/+$/, "");
+    return s;
+  }
+  function pcTopicOk(s){ return /^[-_A-Za-z0-9]{1,64}$/.test(String(s || "")); }
+  function pcReady(){ return pcTopicOk(pc["in"]) && pcTopicOk(pc.out); }
+  function pcUrl(topic, tail){ return "https://ntfy.sh/" + encodeURIComponent(topic) + (tail || ""); }
+  function pcNewId(){ return "vc" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+  function pcBytes(s){
+    try{ return new TextEncoder().encode(s).length; }catch(e){}
+    try{ return encodeURIComponent(String(s)).replace(/%[0-9A-F]{2}/gi, "x").length; }catch(e){ return String(s).length; }
+  }
+  function pcTrim(s, max){
+    s = String(s || "");
+    if(pcBytes(s) <= max) return s;
+    var tail = "\n\n(… 이하 생략 — 길어서 잘랐습니다)";
+    var room = max - pcBytes(tail);
+    if(room < 16) return s.slice(0, Math.max(0, max));
+    var lo = 0, hi = s.length;
+    while(lo < hi){
+      var mid = (lo + hi + 1) >> 1;
+      if(pcBytes(s.slice(0, mid)) <= room) lo = mid; else hi = mid - 1;
+    }
+    return s.slice(0, lo) + tail;
+  }
+  function pcSecsText(sec){
+    sec = Math.max(0, Math.round(sec || 0));
+    if(sec < 60) return sec + "초";
+    return Math.floor(sec / 60) + "분 " + (sec % 60) + "초";
+  }
+
+  /* ---------- 저장 / 불러오기 ---------- */
+  function pcLoad(){
+    try{
+      var raw = localStorage.getItem(PCSTORE);
+      if(!raw) return;
+      var s = JSON.parse(raw);
+      if(!s || typeof s !== "object") return;
+      pc["in"] = pcTopic(s["in"]);
+      pc.out = pcTopic(s.out);
+      if(typeof s.auto === "boolean") pc.auto = s.auto;
+    }catch(e){}
+  }
+  function pcStore(){
+    try{ localStorage.setItem(PCSTORE, JSON.stringify({ "in":pc["in"], out:pc.out, auto:pc.auto })); }catch(e){}
+  }
+
+  /* ---------- base64url (#connect= 해시) ---------- */
+  function pcB64Txt(s){
+    var enc = encodeURIComponent(String(s)), bin = "", i = 0;
+    while(i < enc.length){
+      if(enc.charAt(i) === "%"){ bin += String.fromCharCode(parseInt(enc.substr(i + 1, 2), 16)); i += 3; }
+      else { bin += enc.charAt(i); i += 1; }
+    }
+    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function pcTxtB64(s){
+    s = String(s || "").replace(/-/g, "+").replace(/_/g, "/");
+    while(s.length % 4) s += "=";
+    var bin = atob(s), esc2 = "", i = 0;
+    for(i = 0; i < bin.length; i++){ esc2 += "%" + ("0" + bin.charCodeAt(i).toString(16)).slice(-2); }
+    try{ return decodeURIComponent(esc2); }catch(e){ return bin; }
+  }
+
+  /* #connect=BASE64URL({"in":..,"out":..})  또는  #connect=in=..&out=..  또는  #connect={"in":..,"out":..} */
+  function pcReadHash(){
+    var h = String(location.hash || "");
+    if(h.indexOf("#connect=") !== 0) return false;
+    var raw = h.slice(9);
+    if(!raw) return false;
+    try{ raw = decodeURIComponent(raw); }catch(e){}
+    var cfg = null, q = {};
+    if(raw.indexOf("in=") > -1 || raw.indexOf("out=") > -1){
+      raw.split("&").forEach(function(kv){
+        var i = kv.indexOf("=");
+        if(i < 0) return;
+        var k = kv.slice(0, i).replace(/^\?/, ""), v = kv.slice(i + 1);
+        try{ v = decodeURIComponent(v); }catch(e){}
+        q[k] = v;
+      });
+      cfg = { "in": q["in"] || q.in_topic || q.i || "", out: q.out || q.out_topic || q.o || "" };
+    }else{
+      var txt = raw;
+      if(txt.charAt(0) !== "{"){ try{ txt = pcTxtB64(raw); }catch(e){ txt = ""; } }
+      try{
+        var o = JSON.parse(txt);
+        if(o && typeof o === "object"){
+          cfg = { "in": o["in"] || o.in_topic || o.i || "", out: o.out || o.out_topic || o.o || "" };
+        }
+      }catch(e){ cfg = null; }
+    }
+    if(!cfg) return false;
+    var inT = pcTopic(cfg["in"]), outT = pcTopic(cfg.out);
+    if(!pcTopicOk(inT) || !pcTopicOk(outT)) return false;
+    pc["in"] = inT; pc.out = outT; pc.auto = true; pc.live = "off"; pc.note = "";
+    pcStore();
+    /* 주소창에서 해시 제거 — #board 같은 다른 탭 이동과 부딪히지 않게 */
+    try{ history.replaceState(null, "", location.pathname + location.search); }
+    catch(e){ location.hash = ""; }
+    return true;
+  }
+
+  /* ---------- 화면(헤더 배지·설정 모달) ---------- */
+  function pcAgo(ts){
+    var d = Date.now() - (ts || 0);
+    if(d < 15000) return "방금";
+    if(d < 60000) return Math.round(d / 1000) + "초 전";
+    if(d < 3600000) return Math.round(d / 60000) + "분 전";
+    return Math.round(d / 3600000) + "시간 전";
+  }
+
+  function renderPC(){
+    var live = pcReady() ? pc.live : "off";
+    var pill = $("#pcPill"), txt = $("#pcPillTxt");
+    if(pill){
+      pill.setAttribute("data-live", live);
+      pill.title = live === "on"
+        ? "집 PC 연결됨 — 눌러서 다시 확인"
+        : live === "checking"
+        ? "집 PC 응답을 기다리는 중"
+        : "집 PC가 연결되어 있지 않습니다 — 눌러서 토픽 설정";
+    }
+    if(txt){
+      txt.textContent = live === "on" ? "🟢 집 PC 연결됨" : live === "checking" ? "🟡 확인 중" : "⚪ PC 미연결";
+    }
+    var st = $("#pcState");
+    if(st){
+      st.setAttribute("data-live", live);
+      if(!pcReady()){
+        st.innerHTML = "아직 토픽이 없습니다. 위 두 칸을 채우고 <b>저장</b>을 누르세요.";
+      }else if(live === "checking"){
+        st.innerHTML = "<b>확인 중…</b> 집 PC 응답을 " + Math.round(PC_WAIT / 1000) + "초 기다립니다.";
+      }else if(live === "on"){
+        st.innerHTML = "<b>🟢 연결됨</b> — " + esc(pc.note || "집 PC가 응답했습니다.") +
+          (pc.lastOk ? ' <span style="opacity:.7">(' + esc(pcAgo(pc.lastOk)) + ")</span>" : "");
+      }else{
+        st.innerHTML = "<b>⚪ 응답 없음</b> — " + esc(pc.note || "집 PC에서 버터 연결 프로그램(butter_agent.py)이 켜져 있는지 확인하세요.");
+      }
+    }
+    pcSwitchSync();
+  }
+
+  function pcSwitchSync(){
+    var sw = $("#pcAuto"), wrap = $("#pcAutoWrap");
+    if(!sw) return;
+    sw.checked = !!pc.auto;
+    if(wrap){
+      wrap.classList.toggle("is-off", !pc.auto);
+      wrap.title = pcReady()
+        ? "지시를 넣으면 카드가 만들어지면서 집 PC 클로드 코드로 바로 전송됩니다"
+        : "PC 설정에서 수신·응답 토픽을 먼저 넣어 주세요";
+    }
+  }
+
+  function pcOpen(focusFirst){
+    var m = $("#pcModal");
+    if(!m) return;
+    var i1 = $("#pcIn"), i2 = $("#pcOut");
+    if(i1 && (i1.value === "" || document.activeElement !== i1)) i1.value = pc["in"];
+    if(i2 && (i2.value === "" || document.activeElement !== i2)) i2.value = pc.out;
+    m.hidden = false;
+    document.body.style.overflow = "hidden";
+    renderPC();
+    if(focusFirst && i1) setTimeout(function(){ try{ i1.focus(); i1.select(); }catch(e){} }, 40);
+  }
+  function pcClose(){
+    var m = $("#pcModal");
+    if(!m) return;
+    m.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  function pcFormValues(){
+    var i1 = $("#pcIn"), i2 = $("#pcOut");
+    return { "in": pcTopic(i1 ? i1.value : ""), out: pcTopic(i2 ? i2.value : "") };
+  }
+  function pcApplyForm(){
+    var v = pcFormValues();
+    if(!v["in"] || !v.out){
+      pc.note = "두 칸을 모두 채워 주세요.";
+      renderPC();
+      showToast("수신·응답 토픽을 모두 넣어 주세요");
+      return false;
+    }
+    if(!pcTopicOk(v["in"]) || !pcTopicOk(v.out)){
+      pc.note = "토픽 이름에는 영문·숫자·-·_ 만 쓸 수 있습니다.";
+      renderPC();
+      showToast("토픽 이름을 확인해 주세요");
+      return false;
+    }
+    var changed = (v["in"] !== pc["in"]) || (v.out !== pc.out);
+    pc["in"] = v["in"]; pc.out = v.out; pc.note = "";
+    if(changed){ pc.live = "off"; pc.lastOk = 0; pcResetSub(); }
+    pcStore();
+    renderPC();
+    return true;
+  }
+
+  /* ---------- 연결 확인 (/status) ---------- */
+  function pcCheck(){
+    if(!pcReady()){ renderPC(); return; }
+    pc.live = "checking"; pc.note = "";
+    renderPC();
+    var id = pcNewId();
+    var timer = setTimeout(function(){
+      var req = pcPending[id];
+      if(!req) return;
+      delete pcPending[id];
+      if(pc.live === "checking"){
+        pc.live = "off";
+        pc.note = "12초 동안 응답이 없습니다. 집 PC 전원·인터넷·연결 프로그램을 확인하세요.";
+        renderPC();
+      }
+    }, PC_WAIT);
+    pcPending[id] = { kind:"check", timer:timer };
+    pcPost(id, "/status", function(err){
+      if(!err) return;
+      var req = pcPending[id];
+      if(req && req.timer) clearTimeout(req.timer);
+      delete pcPending[id];
+      pc.live = "off";
+      pc.note = "전송 실패: " + (err.message || err);
+      renderPC();
+    });
+  }
+
+  /* ---------- 보내기 ---------- */
+  function pcPost(id, text, cb){
+    if(!pcReady()){ cb(new Error("토픽이 설정되지 않았습니다")); return; }
+    pcSub();
+    var body = JSON.stringify({ id:id, text:text });
+    var timer = setTimeout(function(){ cb(new Error("보내는 데 시간이 너무 걸립니다")); }, 20000);
+    fetch(pcUrl(pc["in"]), {
+      method:"POST",
+      headers:{ "Content-Type":"text/plain; charset=utf-8" },
+      body:body,
+      cache:"no-store"
+    }).then(function(r){
+      clearTimeout(timer);
+      if(r.ok) return true;
+      if(r.status === 413) throw new Error("지시문이 ntfy 한도(4KB)를 넘었습니다");
+      if(r.status === 429) throw new Error("잠시 뒤 다시 시도해 주세요(요청 한도)");
+      throw new Error("HTTP " + r.status);
+    }).then(function(){ cb(null); })
+      .catch(function(e){ clearTimeout(timer); cb(e || new Error("전송 실패")); });
+  }
+
+  /* ---------- 받기 (SSE 우선, 실패하면 5초 폴링) ---------- */
+  function pcResetSub(){
+    if(pcES){ try{ pcES.close(); }catch(e){} pcES = null; }
+    pcStopPoll();
+    clearTimeout(pcRetryTimer);
+    pcSince = 0; pcSeen = {}; pcSeenN = 0;
+  }
+  function pcSub(){
+    if(!pcReady() || pcES || pcPollTimer) return;
+    if(typeof EventSource === "undefined"){ pcPoll(); return; }
+    var since = pcSince || (Math.floor(Date.now() / 1000) - 900);
+    try{
+      pcES = new EventSource(pcUrl(pc.out, "/sse?since=" + since));
+    }catch(e){
+      pcES = null; pcPoll(); return;
+    }
+    pcES.onmessage = function(e){ pcFeed(e.data); };
+    pcES.onerror = function(){
+      if(pcES){ try{ pcES.close(); }catch(e){} pcES = null; }
+      pcPoll();
+      clearTimeout(pcRetryTimer);
+      pcRetryTimer = setTimeout(function(){
+        if(pcES) return;
+        pcStopPoll();
+        pcSub();
+      }, 60000);
+    };
+  }
+  function pcStopPoll(){
+    if(pcPollTimer){ clearInterval(pcPollTimer); pcPollTimer = null; }
+  }
+  function pcPoll(){
+    if(pcPollTimer || !pcReady()) return;
+    pcPollOnce();
+    pcPollTimer = setInterval(pcPollOnce, 5000);
+  }
+  function pcPollOnce(){
+    if(!pcReady()){ pcStopPoll(); return; }
+    var since = pcSince || (Math.floor(Date.now() / 1000) - 120);
+    fetch(pcUrl(pc.out, "/json?poll=1&since=" + since), { cache:"no-store" })
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        String(t || "").split("\n").forEach(function(line){
+          line = line.replace(/^\s+|\s+$/g, "");
+          if(line) pcFeed(line);
+        });
+      })
+      .catch(function(){});
+  }
+
+  function pcFeed(raw){
+    var ev;
+    try{ ev = JSON.parse(raw); }catch(e){ return; }
+    if(!ev || ev.event !== "message") return;
+    if(ev.id){
+      if(pcSeen[ev.id]) return;
+      pcSeen[ev.id] = 1;
+      pcSeenN++;
+      if(pcSeenN > 400){ pcSeen = {}; pcSeenN = 0; pcSeen[ev.id] = 1; }
+    }
+    if(ev.time && ev.time > pcSince) pcSince = ev.time;
+    var p;
+    try{ p = JSON.parse(ev.message || ""); }catch(e){ return; }
+    if(!p || !p.id) return;
+    var fresh = !ev.time || ev.time > (Date.now() / 1000 - 300);
+    if(fresh && (p.event === "ack" || p.event === "result" || p.event === "error" || p.event === "online")){
+      pcAlive();
+    }
+    var req = pcPending[p.id];
+    if(!req) return;
+    if(p.event === "ack"){ pcOnAck(req, p); return; }
+    if(p.event === "result" || p.event === "error"){ pcOnResult(req, p); return; }
+  }
+  function pcAlive(){
+    var was = pc.live;
+    pc.live = "on";
+    pc.lastOk = Date.now();
+    if(was !== "on") renderPC();
+  }
+
+  function pcOnAck(req, p){
+    if(req.kind !== "task") return;
+    var t = findTask(req.taskId);
+    if(!t) return;
+    if(!t.pc) t.pc = { state:"sent", at:Date.now(), open:false, text:"", secs:0 };
+    if(t.pc.state !== "sent") return;
+    t.pc.state = "running";
+    t.pc.ackAt = Date.now();
+    t.pc.note = p.text || "";
+    save(); renderBoard();
+  }
+
+  function pcOnResult(req, p){
+    req.buf = req.buf || {};
+    req.buf[p.part || 1] = String(p.text == null ? "" : p.text);
+    var total = p.parts || 1, got = 0, k;
+    for(k in req.buf){ if(req.buf.hasOwnProperty(k)) got++; }
+    if(got < total) return;
+    var full = "";
+    for(k = 1; k <= total; k++){ full += (req.buf[k] || ""); }
+    delete pcPending[p.id];
+
+    if(req.kind === "check"){
+      if(req.timer) clearTimeout(req.timer);
+      pc.live = p.event === "error" ? "off" : "on";
+      pc.lastOk = Date.now();
+      pc.note = full.slice(0, 400);
+      renderPC();
+      return;
+    }
+    var t = findTask(req.taskId);
+    if(!t) return;
+    t.pc = t.pc || {};
+    t.pc.state = p.event === "error" ? "error" : "done";
+    t.pc.text = full || (p.event === "error" ? "클로드 코드가 빈 오류를 돌려줬습니다." : "(빈 결과)");
+    t.pc.secs = typeof p.secs === "number" ? p.secs : (t.pc.at ? (Date.now() - t.pc.at) / 1000 : 0);
+    t.pc.doneAt = Date.now();
+    t.pc.open = true;
+    save(); renderBoard(); renderBrief();
+    showToast(t.dept + " " + t.deptTitle + " — " + (p.event === "error" ? "오류가 돌아왔습니다" : "결과가 도착했습니다"));
+  }
+
+  /* ---------- 카드에서 실행 ---------- */
+  function pcRun(taskId, quiet){
+    var t = findTask(taskId);
+    if(!t) return;
+    if(!pcReady()){
+      if(!quiet){ pcOpen(true); showToast("먼저 PC 설정에서 수신·응답 토픽을 넣어 주세요"); }
+      return;
+    }
+    if(t.pc && (t.pc.state === "sent" || t.pc.state === "running")){
+      if(!quiet) showToast("이미 PC로 보낸 카드입니다 — 결과를 기다리는 중");
+      return;
+    }
+    var body = pcTrim(promptOf(t), PC_MAX_BYTES);
+    var id = pcNewId();
+    t.pc = { state:"sent", at:Date.now(), reqId:id, open:false, text:"", secs:0, ackAt:0 };
+    pcPending[id] = { kind:"task", taskId:t.id };
+    save(); renderBoard();
+    if(!quiet) showToast("PC로 보냈습니다 — 결과가 이 카드에 표시됩니다");
+    pcPost(id, body, function(err){
+      if(!err) return;
+      var card = findTask(taskId);
+      if(!card || !card.pc) return;
+      if(card.pc.state === "done" || card.pc.state === "error") return;
+      card.pc.state = "error";
+      card.pc.text = "전송하지 못했습니다: " + (err.message || err);
+      card.pc.open = true;
+      delete pcPending[id];
+      save(); renderBoard();
+      showToast("PC로 보내지 못했습니다 — " + (err.message || err));
+    });
+  }
+
+  function pcBlock(t){
+    var p = t.pc;
+    if(!p || !p.state) return "";
+    var label = p.state === "sent" ? "⏳ 대기" : p.state === "running" ? "⚙️ 클로드 작업 중" : p.state === "done" ? "✅ 완료" : "❌ 오류";
+    var live = (p.state === "sent" || p.state === "running");
+    var sec = live ? 0 : (p.secs || 0);
+    var html = '<div class="t-pc" data-pc="' + p.state + '">' +
+      '<span class="t-pc-state">' + label + '</span>';
+    if(live){
+      html += '<span class="t-pc-time" data-pc-live="1">' + pcSecsText((Date.now() - (p.ackAt || p.at || Date.now())) / 1000) + '</span>';
+    }else if(sec > 0){
+      html += '<span class="t-pc-time">' + pcSecsText(sec) + (p.state === "done" ? " 걸림" : "") + '</span>';
+    }
+    if(p.text){
+      html += '<button class="t-pc-view" type="button" data-act="pcview">' + (p.open ? "접기" : "결과 보기") + '</button>';
+    }
+    html += '</div>';
+    if(p.text && p.open){
+      html += '<div class="t-pc-out"><div class="t-pc-out-head">클로드 코드 실행 결과' +
+        '<button type="button" data-act="pccopy">복사</button></div><pre>' + esc(p.text) + '</pre></div>';
+    }
+    return html;
+  }
+
+  function pcTick(){
+    var nodes = $$("[data-pc-live]");
+    if(!nodes.length) return;
+    nodes.forEach(function(el){
+      var card = el.closest ? el.closest(".task") : null;
+      if(!card) return;
+      var t = findTask(card.getAttribute("data-id"));
+      if(!t || !t.pc) return;
+      el.textContent = pcSecsText((Date.now() - (t.pc.ackAt || t.pc.at || Date.now())) / 1000);
+    });
+  }
+  setInterval(pcTick, 1000);
+
+  /* ---------- 설정 모달 이벤트 ---------- */
+  function pcBind(){
+    var pill = $("#pcPill");
+    if(pill){
+      pill.addEventListener("click", function(){
+        if(!pcReady()){ pcOpen(true); return; }
+        pcOpen(false);
+        pcCheck();
+      });
+    }
+    var open = $("#pcOpen");
+    if(open) open.addEventListener("click", function(){ pcOpen(true); });
+    $$("[data-pcm-close]").forEach(function(el){ if(el) el.addEventListener("click", pcClose); });
+
+    var saveBtn = $("#pcSaveBtn");
+    if(saveBtn) saveBtn.addEventListener("click", function(){
+      if(!pcApplyForm()) return;
+      showToast("저장했습니다 — 연결을 확인합니다");
+      pcCheck();
+    });
+    var testBtn = $("#pcTestBtn");
+    if(testBtn) testBtn.addEventListener("click", function(){
+      if(!pcApplyForm()) return;
+      pcCheck();
+    });
+    var linkBtn = $("#pcLinkBtn");
+    if(linkBtn) linkBtn.addEventListener("click", function(){
+      var v = pcFormValues();
+      if(!v["in"]) v["in"] = pc["in"];
+      if(!v.out) v.out = pc.out;
+      if(!pcTopicOk(v["in"]) || !pcTopicOk(v.out)){ showToast("토픽 두 개를 먼저 넣어 주세요"); return; }
+      var base = location.href.split("#")[0];
+      var url = base + "#connect=" + pcB64Txt(JSON.stringify({ "in":v["in"], out:v.out }));
+      copyText(url);
+      showToast("자동 연결 링크를 복사했습니다 — 이 링크에는 토픽 이름이 담겨 있으니 남에게 보내지 마세요");
+    });
+    var auto = $("#pcAuto");
+    if(auto) auto.addEventListener("change", function(){
+      pc.auto = !!auto.checked;
+      pcStore();
+      pcSwitchSync();
+      showToast(pc.auto ? "지시를 넣으면 PC로 바로 보냅니다" : "지시는 보드 카드로만 만듭니다");
+    });
+
+    document.addEventListener("keydown", function(e){
+      var m = $("#pcModal");
+      if(e.key === "Escape" && m && !m.hidden){ pcClose(); }
+    });
+    window.addEventListener("hashchange", function(){
+      if(pcReadHash()){ renderPC(); pcCheck(); }
+    });
+  }
+
   /* ================= 시작 ================= */
   load();
   if(!state.staff) state.staff = staffDefaults();
@@ -2148,10 +2799,15 @@ input,textarea,select{font:inherit}
     });
     if(adopted) save();
   }
+  pcBind();
+  pcLoad();
+  pcReadHash();
   renderPickChips();
   renderAll();
   renderPipeline();
   bindPipeline();
+  renderPC();
+  if(pcReady()){ pcSub(); pcCheck(); }
 })();
 </script>
 </body>
