@@ -569,20 +569,27 @@ input,textarea,select{font:inherit}
 /* ============ 오피스 라이프 (V3) ============ */
 .office-life{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden;border-radius:26px}
 .mon{position:absolute;left:var(--x);top:var(--y);width:var(--w,3.9%);height:var(--h,4.6%);transform:translate(-50%,-50%);
-  border-radius:1.5px;background:linear-gradient(165deg,rgba(150,215,255,.55),rgba(120,190,240,.18) 60%,rgba(96,160,210,.1));
-  opacity:0;overflow:hidden;mix-blend-mode:screen;transition:opacity .7s;
-  box-shadow:0 0 10px rgba(120,200,255,.45)}
-.mon i{display:block;height:1px;margin:2px 2px 0;background:rgba(210,240,255,.9);width:22%;border-radius:1px;opacity:0}
-.mon.is-on{opacity:.95}
-.mon.is-on i{opacity:.9;animation:scrLine 4.6s linear infinite}
+  border-radius:1.5px;background:linear-gradient(170deg,rgba(22,52,82,.55),rgba(12,32,52,.42));
+  opacity:0;overflow:hidden;transition:opacity .7s;box-shadow:0 0 12px rgba(120,205,255,.65),inset 0 0 6px rgba(150,220,255,.45)}
+.mon i{display:block;height:1px;margin:3px 3px 0;background:rgba(175,232,255,.95);width:22%;border-radius:1px;opacity:0;
+  box-shadow:0 0 4px rgba(150,220,255,.8)}
+.mon.is-on{opacity:.92}
+.mon.is-on i{opacity:1;animation:scrLine 4.6s linear infinite}
 .mon.is-on i:nth-child(2){animation-duration:3.4s;animation-delay:.5s}
 .mon.is-on i:nth-child(3){animation-duration:5.6s;animation-delay:1.1s}
-.mon.is-report{box-shadow:0 0 14px rgba(130,240,180,.6)}
+.mon.is-report{box-shadow:0 0 16px rgba(130,240,180,.75),inset 0 0 6px rgba(170,255,205,.5)}
+.mon.is-report i{background:rgba(185,255,215,.95)}
 @keyframes scrLine{0%{width:16%}28%{width:80%}52%{width:44%}78%{width:90%}100%{width:16%}}
 .wk{position:absolute;left:var(--x);top:var(--y);width:0;height:0;z-index:3;pointer-events:auto;cursor:pointer;
   transition:left 3.4s cubic-bezier(.5,.05,.5,.95),top 3.4s cubic-bezier(.5,.05,.5,.95)}
 .wk-sh{position:absolute;left:0;bottom:-3px;width:22px;height:7px;border-radius:50%;transform:translateX(-50%);
   background:radial-gradient(closest-side,rgba(48,30,12,.5),rgba(48,30,12,0));transition:opacity .3s}
+.wk-ring{position:absolute;left:0;bottom:-4px;width:26px;height:11px;border-radius:50%;transform:translateX(-50%);
+  border:1.5px dashed rgba(242,100,25,.55);opacity:0;transition:opacity .4s}
+.wk.is-work .wk-ring{opacity:1;animation:wkRing 2.4s linear infinite}
+.wk.is-stale .wk-ring{opacity:1;border-color:rgba(200,80,20,.75);border-style:solid;animation:bubAlarm 1.9s ease-in-out infinite}
+.wk.is-report .wk-ring{opacity:1;border-color:rgba(60,170,110,.75);border-style:solid}
+@keyframes wkRing{to{transform:translateX(-50%) rotate(360deg)}}
 .wk-mk{position:absolute;left:0;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
 .wk-hd{width:11px;height:11px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#ffe6cf,#e3ab80 72%);
   box-shadow:0 0 0 .5px rgba(70,45,25,.3);position:relative;z-index:2;transition:transform .3s}
@@ -5418,6 +5425,7 @@ input,textarea,select{font:inherit}
       html += '<div class="wk" data-no="' + esc(d.no) + '" data-dept-open="' + esc(d.no) + '" role="button" tabindex="0" aria-label="' + esc(d.no + " " + d.title + " 열기") + '"' +
         ' style="--x:' + s.seat[0] + '%;--y:' + s.seat[1] + '%;--c1:' + c[0] + ';--c2:' + c[1] + '">' +
         '<span class="wk-sh" aria-hidden="true"></span>' +
+        '<span class="wk-ring" aria-hidden="true"></span>' +
         '<span class="wk-mk" aria-hidden="true"><i class="wk-hd"></i><i class="wk-bd"><b class="wk-no">' + esc(d.no) + '</b></i></span>' +
         '<span class="wk-bub" aria-hidden="true"></span>' +
         '<span class="wk-name" aria-hidden="true">' + esc(d.no + " " + d.title) + '</span>' +
