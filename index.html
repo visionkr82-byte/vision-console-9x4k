@@ -565,6 +565,74 @@ input,textarea,select{font:inherit}
   background-size:240% 240%;animation:sunSweep 22s ease-in-out infinite;mix-blend-mode:soft-light}
 @keyframes sunSweep{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
 @media (max-width:760px){.stage::before{border-radius:18px}}
+
+/* ============ 오피스 라이프 (V3) ============ */
+.office-life{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden;border-radius:26px}
+.mon{position:absolute;left:var(--x);top:var(--y);width:4.6%;height:4.2%;transform:translate(-50%,-50%);
+  border-radius:2px;background:linear-gradient(165deg,#1d2c3c,#0a131b);opacity:.55;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);transition:opacity .7s,box-shadow .7s}
+.mon::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(150,215,255,.30),rgba(150,215,255,0) 72%);opacity:0;transition:opacity .7s}
+.mon i{display:block;height:1px;margin:2px 2px 0;background:rgba(168,222,255,.85);width:22%;border-radius:1px;opacity:0}
+.mon.is-on{opacity:.97;box-shadow:0 0 10px rgba(130,205,255,.55),inset 0 0 0 1px rgba(190,232,255,.5)}
+.mon.is-on::after{opacity:1}
+.mon.is-on i{opacity:1;animation:scrLine 4.6s linear infinite}
+.mon.is-on i:nth-child(2){animation-duration:3.4s;animation-delay:.5s}
+.mon.is-on i:nth-child(3){animation-duration:5.6s;animation-delay:1.1s}
+.mon.is-report{box-shadow:0 0 12px rgba(120,230,170,.55),inset 0 0 0 1px rgba(180,255,215,.55)}
+@keyframes scrLine{0%{width:16%}28%{width:80%}52%{width:44%}78%{width:90%}100%{width:16%}}
+.wk{position:absolute;left:var(--x);top:var(--y);width:0;height:0;z-index:3;pointer-events:auto;cursor:pointer;
+  transition:left 3.4s cubic-bezier(.5,.05,.5,.95),top 3.4s cubic-bezier(.5,.05,.5,.95)}
+.wk-sh{position:absolute;left:0;bottom:-2px;width:18px;height:6px;border-radius:50%;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(48,30,12,.5),rgba(48,30,12,0));transition:opacity .3s}
+.wk-mk{position:absolute;left:0;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.wk-hd{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#ffe6cf,#e3ab80 72%);
+  box-shadow:0 0 0 .5px rgba(70,45,25,.3);position:relative;z-index:2;transition:transform .3s}
+.wk-hd::after{content:"";position:absolute;left:-.5px;right:-.5px;top:-1px;height:5px;border-radius:5px 5px 2px 2px;
+  background:linear-gradient(180deg,#41302a,#2b201b)}
+.wk-bd{width:13px;height:15px;margin-top:-1px;border-radius:7px 7px 4px 4px;position:relative;
+  background:linear-gradient(180deg,var(--c1,#3d6f9e),var(--c2,#2b5276));box-shadow:0 2px 4px rgba(40,25,10,.32)}
+.wk-no{position:absolute;left:0;right:0;top:3px;text-align:center;font-family:var(--mono);font-style:normal;
+  font-size:6.5px;font-weight:900;color:rgba(255,255,255,.92);letter-spacing:-.02em}
+.wk-name{position:absolute;left:50%;top:calc(100% + 3px);transform:translate(-50%,-2px);white-space:nowrap;
+  padding:2px 6px;border-radius:6px;background:rgba(31,42,54,.94);color:#fff;font-size:9px;font-weight:800;
+  opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;z-index:6}
+.wk:hover .wk-name{opacity:1;transform:translate(-50%,0)}
+.wk:hover .wk-hd{transform:scale(1.15)}
+.wk-bub{position:absolute;left:50%;bottom:28px;transform:translate(-50%,4px) scale(.92);opacity:0;white-space:nowrap;
+  padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;color:#2f4250;background:rgba(255,253,246,.97);
+  border:1px solid rgba(120,88,48,.25);box-shadow:0 6px 14px -8px rgba(60,40,10,.6);
+  transition:opacity .22s,transform .22s;pointer-events:none;z-index:4;max-width:46vw}
+.wk-bub::after{content:"";position:absolute;left:50%;bottom:-4px;margin-left:-4px;border:4px solid transparent;
+  border-top-color:rgba(255,253,246,.97);border-bottom:0}
+.wk.is-work .wk-bub,.wk.is-wait .wk-bub,.wk.is-stale .wk-bub,.wk.is-report .wk-bub{opacity:1;transform:translate(-50%,0) scale(1)}
+.wk.is-work .wk-bub{border-color:#f3b183;background:#fff6ec;color:#8a4a12}
+.wk.is-wait .wk-bub{color:#5b6b78}
+.wk.is-stale .wk-bub{border-color:#df7a34;background:#fff0e2;color:#9c4712;animation:bubAlarm 1.9s ease-in-out infinite}
+.wk.is-report .wk-bub{border-color:#63b382;background:#eefaf2;color:#1d6a3d}
+@keyframes bubAlarm{0%,100%{opacity:1}50%{opacity:.55}}
+.wk.is-work .wk-bd{animation:wkType 1.5s ease-in-out infinite}
+.wk.is-walk .wk-mk{animation:wkStep .44s ease-in-out infinite}
+.wk.is-walk .wk-bub{opacity:0}
+.wk.is-work .wk-sh,.wk.is-stale .wk-sh{opacity:.9}
+@keyframes wkStep{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.6px)}}
+@keyframes wkType{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.93)}}
+.docfly{position:absolute;left:var(--x0);top:var(--y0);width:9px;height:12px;border-radius:1px;background:#fffdf6;
+  box-shadow:0 2px 5px rgba(0,0,0,.35);z-index:4;pointer-events:none;
+  animation:docFly 1.5s cubic-bezier(.35,.05,.5,1) forwards}
+.docfly::after{content:"";position:absolute;left:1px;right:1px;top:3px;height:1px;background:#b9c8d4;box-shadow:0 3px 0 #b9c8d4}
+@keyframes docFly{0%{left:var(--x0);top:var(--y0);opacity:0;transform:scale(.6) rotate(-4deg)}
+  16%{opacity:1;transform:scale(1) rotate(0)}
+  100%{left:var(--x1);top:var(--y1);opacity:0;transform:scale(1.25) rotate(6deg)}}
+.hr-live-bar{display:flex;align-items:center;gap:7px;padding:7px 13px;margin:0 0 2px;border-radius:10px;
+  background:#fff7ee;border:1px solid #f6d4b6;font-size:11.5px;font-weight:800;color:#a1541c}
+.hr-live-bar .spin{width:9px;height:9px;border-radius:50%;border:2px solid #f0a15e;border-top-color:transparent;animation:spin 1s linear infinite;flex:none}
+.hr-live-bar b{color:#7d3d0c}
+.hr-live-bar span{color:#b07546;font-weight:700}
+@media (max-width:760px){
+  .wk{transform:scale(.86)}
+  .wk-bub{font-size:9px;bottom:24px}
+  .mon{width:5.4%;height:4.6%}
+}
 </style>
 </head>
 <body>
@@ -657,6 +725,7 @@ input,textarea,select{font:inherit}
           <button class="zone" type="button" data-zone="lounge" style="--zx:64.5%;--zy:29.5%;--zw:34%;--zh:48%"><span class="zone-label"><i></i>라운지</span></button>
         </div>
         <div class="office-floor" id="officeFloor"></div>
+        <div class="office-life" id="officeLife" aria-hidden="true"></div>
       </div>
 
       <div class="dept-rail" id="deptRail" aria-label="부서"></div>
@@ -685,7 +754,6 @@ input,textarea,select{font:inherit}
         <h2>분담 보드 <em id="boardCount">0</em></h2>
         <div class="board-tools">
           <button class="btn btn-text btn-sm" type="button" id="copyAll">전체 복사</button>
-          <button class="btn btn-text btn-sm" type="button" id="clearDone">완료 정리</button>
           <button class="btn btn-text btn-sm danger" type="button" id="clearAll">비우기</button>
         </div>
       </div>
@@ -868,11 +936,30 @@ input,textarea,select{font:inherit}
         });
       }
     }catch(e){}
+    /* 브라우저 저장값이 비어 있거나 일부만 남아 있어도 결과 보고는 보관함에서 되살립니다 */
+    try{ resArchLoad(); resArchRestore(); }catch(e){}
   }
   function save(){
     state.depts = DEPTS;
-    try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
+    try{ resArchSync(); }catch(e){}
+    persistStore();
     syncAfterSave();
+  }
+  /* localStorage 쓰기 — 공간이 모자라면 지시 이력부터 덜어내고, 카드·결과는 마지막까지 남깁니다 */
+  function persistStore(){
+    try{ localStorage.setItem(STORE, JSON.stringify(state)); return true; }
+    catch(e){
+      var hist = state.history;
+      try{
+        state.history = (hist || []).slice(0, 2);
+        localStorage.setItem(STORE, JSON.stringify(state));
+        state.history = hist;
+        return true;
+      }catch(e2){
+        state.history = hist;
+        return false;
+      }
+    }
   }
 
   function uid(){ return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
@@ -1055,6 +1142,9 @@ input,textarea,select{font:inherit}
     if(!window.confirm(d.no + " " + d.title + " 부서를 삭제합니다." + (cards ? "\n이 부서 카드 " + cards + "장과 소속 직원도 함께 지워집니다." : "") + "\n되돌릴 수 없습니다.")) return;
     DEPTS.splice(DEPTS.indexOf(d), 1);
     if(state.staff) delete state.staff[no];
+    var goneIds = state.tasks.filter(function(t){ return t.dept === no; }).map(function(t){ return t.id; });
+    goneIds.forEach(function(id){ resArchDrop(id); });
+    syncDropKeys(goneIds.map(function(id){ return "t:" + id; }));
     state.tasks = state.tasks.filter(function(t){ return t.dept !== no; });
     save(); renderAll();
     showToast(d.no + " " + d.title + " 부서를 삭제했습니다");
@@ -2558,6 +2648,8 @@ input,textarea,select{font:inherit}
   }
 
   function removeTask(id){
+    resArchDrop(id);
+    syncDropKeys(["t:" + id]);
     state.tasks = state.tasks.filter(function(t){ return t.id !== id; });
     save(); renderAll();
     showToast("카드를 삭제했습니다");
@@ -3035,17 +3127,12 @@ input,textarea,select{font:inherit}
     copyText(lines.join("\n"));
   });
 
-  $("#clearDone").addEventListener("click", function(){
-    var before = countBy("done");
-    if(!before){ showToast("완료 카드가 없습니다"); return; }
-    state.tasks = state.tasks.filter(function(t){ return t.status !== "done"; });
-    save(); renderAll();
-    showToast("완료 카드 " + before + "건을 정리했습니다");
-  });
-
   $("#clearAll").addEventListener("click", function(){
     if(!state.tasks.length){ showToast("비울 카드가 없습니다"); return; }
-    if(!window.confirm("분담 카드 " + state.tasks.length + "건을 모두 지웁니다. 되돌릴 수 없습니다.")) return;
+    if(!window.confirm("분담 카드 " + state.tasks.length + "건을 모두 지웁니다. 결과 보고도 함께 지워집니다. 되돌릴 수 없습니다.")) return;
+    var goneIds = state.tasks.map(function(t){ return t.id; });
+    resArchClear();
+    syncDropKeys(goneIds.map(function(id){ return "t:" + id; }));
     state.tasks = [];
     save(); renderAll();
     showToast("보드를 비웠습니다");
@@ -3794,7 +3881,7 @@ input,textarea,select{font:inherit}
     hist.sort(function(a, b){ return (b.ts || 0) - (a.ts || 0); });
 
     sync.applying = true;
-    state.tasks = tasks;
+    state.tasks = syncMergeTasks(tasks);
     DEPTS.length = 0;
     depts.forEach(function(d){ DEPTS.push(d); });
     state.depts = DEPTS;
@@ -3818,6 +3905,50 @@ input,textarea,select{font:inherit}
       }
     }
     sync.applying = false;
+    try{ resArchHeal(); }catch(e){}
+  }
+
+  /* 카드 목록 합치기 — 동기화 항목에 없는 로컬 카드도 지우지 않고 더합니다.
+     결과가 붙은 카드는 어떤 경우에도 사라지지 않습니다. */
+  function syncMergeTasks(items){
+    var byId = {}, order = [];
+    (items || []).forEach(function(t){
+      if(!t || !t.id) return;
+      byId[t.id] = t;
+      order.push(t.id);
+    });
+    (state.tasks || []).forEach(function(t){
+      if(!t || !t.id) return;
+      if(sync.tomb && sync.tomb["t:" + t.id]) return;
+      if(byId[t.id]){ byId[t.id] = taskMergeSafe(byId[t.id], t); return; }
+      byId[t.id] = t;
+      order.push(t.id);
+    });
+    var out = [];
+    order.forEach(function(id){ if(byId[id]){ out.push(byId[id]); delete byId[id]; } });
+    return out;
+  }
+
+  /* 항목에 없는 로컬 카드는 지우지 않고 보드에 다시 올립니다 */
+  function syncAdoptLocal(){
+    if(!sync.ready || sync.applying) return 0;
+    var list = [], now = Date.now();
+    (state.tasks || []).forEach(function(t){
+      if(!t || !t.id) return;
+      var k = "t:" + t.id;
+      if(sync.items[k] || sync.tomb[k]) return;
+      sync.items[k] = t;
+      sync.rev[k] = syncNextRev();
+      sync.shadow[k] = JSON.stringify(t);
+      list.push({ key:k, r: sync.rev[k], c:t });
+    });
+    if(!list.length) return 0;
+    try{
+      localStorage.setItem(SYNC_ITEMS, JSON.stringify(sync.items));
+      localStorage.setItem(SYNC_REV, JSON.stringify(sync.rev));
+    }catch(e){}
+    if(sync.on && !sync.hold && now > 0) syncQueue(list);
+    return list.length;
   }
 
   /* 저장 전에 디스크(localStorage) 상태를 먼저 합칩니다.
@@ -3866,8 +3997,8 @@ input,textarea,select{font:inherit}
       localStorage.setItem(SYNC_TOMB, JSON.stringify(sync.tomb));
       localStorage.setItem(SYNC_BOOT, sync.booted ? "1" : "0");
       localStorage.setItem(SYNC_SNAP, String(sync.lastSnap || 0));
-      localStorage.setItem(STORE, JSON.stringify(state));
     }catch(e){}
+    persistStore();
     if(merged){ syncProject(); syncRenderSoon(); }
   }
 
@@ -3912,6 +4043,8 @@ input,textarea,select{font:inherit}
     if(sync.hold){ sync.dirty = true; return; }
     var now = syncBuildItems(), k, s, list = [], gone = [];
     for(k in now){
+      /* 카드는 이미 올라가 있는 값과 합쳐서 봅니다 — 결과 보고는 덮여쓰이지 않습니다 */
+      if(k.slice(0, 2) === "t:" && sync.items[k]) now[k] = taskMergeSafe(sync.items[k], now[k]);
       s = JSON.stringify(now[k]);
       if(sync.shadow[k] !== s){
         sync.items[k] = now[k];
@@ -3920,7 +4053,9 @@ input,textarea,select{font:inherit}
         list.push({ key:k, r: sync.rev[k], c: now[k] });
       }
     }
-    for(k in sync.shadow){ if(!(k in now)) gone.push(k); }
+    /* 카드는 지우지 않습니다. 지우기는 대표님이 카드에서 지울 때만(syncDropKeys).
+       보드에 금방 안 보이는 카드가 다른 기기에서까지 지워지는 일을 막습니다. */
+    for(k in sync.shadow){ if(!(k in now) && k.slice(0, 2) !== "t:") gone.push(k); }
     gone.forEach(function(key){
       delete sync.items[key];
       delete sync.shadow[key];
@@ -4129,10 +4264,12 @@ input,textarea,select{font:inherit}
         delete sync.items[e.key]; delete sync.rev[e.key]; delete sync.shadow[e.key];
         sync.tomb[e.key] = e.r;
       }else{
-        sync.items[e.key] = e.c;
+        var val = e.c;
+        if(e.key.slice(0, 2) === "t:" && sync.items[e.key]) val = taskMergeSafe(sync.items[e.key], e.c);
+        sync.items[e.key] = val;
         sync.rev[e.key] = e.r;
         delete sync.tomb[e.key];
-        sync.shadow[e.key] = JSON.stringify(e.c);
+        sync.shadow[e.key] = JSON.stringify(val);
       }
       n++;
     }
@@ -4291,6 +4428,8 @@ input,textarea,select{font:inherit}
       else if(Date.now() - sync.lastSnap > SYNC_SNAP_OPEN) setTimeout(syncSnapshot, 1500);
     }
     syncPersist();
+    /* 이 기기에만 있던 카드(결과 포함)도 보드에 올려 둡니다 */
+    syncAdoptLocal();
     if(sync.dirty){ sync.dirty = false; syncAfterSave(); }
     syncFlush();
     /* 다른 기기가 새로 열 때 바로 받도록, 이 PC 상태를 캐시에 한 번 남깁니다 */
@@ -5019,6 +5158,450 @@ input,textarea,select{font:inherit}
     tick();
     setInterval(tick, 15000);
   })();
+
+  /* ==================================================================
+     V3 — ① 결과 보고 보관함 ② 오피스 라이프
+     ================================================================== */
+
+  /* ---------- ① 결과 보고 보관함 ----------
+     결과가 도착하면 카드와 따로 보관함에도 적어 둡니다. 새로고침·브라우저 재시작·
+     몇 시간이 지나도 결과가 그대로 남고, 동기화가 무엇을 하든 되살아납니다.
+     지우는 것은 대표님이 카드에서 직접 지울 때뿐입니다. */
+  var RES_ARCH = "vision_console_results_v3";
+  var RES_ARCH_MAX = 150;
+  var resArch = {};
+  var resArchAt = 0;
+
+  function resArchLoad(){
+    try{
+      var raw = localStorage.getItem(RES_ARCH);
+      var s = raw ? JSON.parse(raw) : null;
+      resArch = (s && typeof s === "object" && !Array.isArray(s)) ? s : {};
+    }catch(e){ resArch = {}; }
+  }
+  function resArchSave(){
+    var keys = Object.keys(resArch);
+    if(keys.length > RES_ARCH_MAX){
+      keys.sort(function(a, b){ return (resArch[b].doneAt || 0) - (resArch[a].doneAt || 0); });
+      keys.slice(RES_ARCH_MAX).forEach(function(k){ delete resArch[k]; });
+    }
+    try{ localStorage.setItem(RES_ARCH, JSON.stringify(resArch)); return true; }
+    catch(e){
+      var k2 = Object.keys(resArch).sort(function(a, b){ return (resArch[b].doneAt || 0) - (resArch[a].doneAt || 0); });
+      for(var i = k2.length - 1; i >= 10; i--){ delete resArch[k2[i]]; }
+      try{ localStorage.setItem(RES_ARCH, JSON.stringify(resArch)); }catch(e2){}
+      return false;
+    }
+  }
+  function resArchPut(t){
+    if(!t || !t.id) return;
+    if(!(t.pc && t.pc.text)) return;
+    var p = t.pc;
+    var done = p.doneAt || p.at || t.statusAt || t.ts || Date.now();
+    var prev = resArch[t.id];
+    /* 다른 기기의 늦은 저장이 더 새 결과를 덮지 않게 합니다 */
+    if(prev && (prev.doneAt || 0) > done + 60000) return;
+    if(prev && prev.pc && (prev.pc.text || "").length > (p.text || "").length && (prev.doneAt || 0) >= done && prev.status === t.status) return;
+    resArch[t.id] = {
+      id: t.id, dept: t.dept, deptTitle: t.deptTitle, title: t.title,
+      instr: t.instr || "", criteria: t.criteria || "",
+      tools: Array.isArray(t.tools) ? t.tools : [],
+      staffId: t.staffId || "", staffName: t.staffName || "",
+      ts: t.ts || done, status: t.status, statusAt: t.statusAt || done, statusWhy: t.statusWhy || "",
+      review: !!t.review, reject: t.reject || "", approvedAt: t.approvedAt || 0,
+      doneAt: done,
+      pc: {
+        state: p.state || "done", text: p.text, at: p.at || 0, ackAt: p.ackAt || 0,
+        doneAt: p.doneAt || 0, secs: p.secs || 0, stageKey: p.stageKey || "report", stageIdx: 4,
+        open: true, stale: false, rejected: !!p.rejected
+      }
+    };
+    resArchAt = Date.now();
+  }
+  function resArchDrop(id){
+    if(!id || !resArch[id]) return;
+    delete resArch[id];
+    resArchSave();
+  }
+  function resArchClear(){
+    resArch = {};
+    try{ localStorage.removeItem(RES_ARCH); }catch(e){}
+  }
+  function resArchSync(){
+    var n = 0;
+    (state.tasks || []).forEach(function(t){ if(t && t.pc && t.pc.text){ resArchPut(t); n++; } });
+    if(n) resArchSave();
+  }
+  function resArchEntryTask(e){
+    return {
+      id: e.id, dept: e.dept, deptTitle: e.deptTitle, title: e.title,
+      instr: e.instr || "", criteria: e.criteria || "",
+      tools: Array.isArray(e.tools) ? e.tools : [],
+      staffId: e.staffId || "", staffName: e.staffName || "",
+      ts: e.ts || e.doneAt || Date.now(),
+      status: e.status || "done", statusAt: e.statusAt || e.doneAt || Date.now(), statusWhy: e.statusWhy || "",
+      review: !!e.review, reject: e.reject || "", approvedAt: e.approvedAt || 0,
+      route: { mode: "archive", score: 0, hits: [], why: "", near: "" },
+      pc: e.pc
+    };
+  }
+  function resArchRestore(){
+    var ids = Object.keys(resArch), restored = 0;
+    ids.forEach(function(id){
+      var e = resArch[id];
+      if(!e || !e.pc || !e.pc.text) return;
+      var t = findTask(id);
+      if(!t){
+        if(sync.tomb && sync.tomb["t:" + id]) return;
+        state.tasks.push(resArchEntryTask(e));
+        restored++;
+        return;
+      }
+      var hasText = !!(t.pc && t.pc.text);
+      var final = (t.status === "done" || t.status === "review" || t.status === "error");
+      if(!hasText){
+        t.pc = e.pc;
+        if(!t.instr && e.instr) t.instr = e.instr;
+        if(!t.staffName && e.staffName) t.staffName = e.staffName;
+        if(!final){ t.status = e.status || "done"; }
+        if(!t.statusAt) t.statusAt = e.statusAt || e.doneAt;
+        if(!t.statusWhy) t.statusWhy = e.statusWhy || "";
+        restored++;
+      } else if(!final){
+        t.status = e.status || "done";
+        t.statusAt = e.statusAt || t.statusAt;
+        t.statusWhy = e.statusWhy || t.statusWhy;
+        restored++;
+      }
+    });
+    if(restored){ try{ persistStore(); }catch(e){} }
+    return restored;
+  }
+  /* 동기화가 도는 중에도 결과가 비어 있으면 되돌립니다 (5초에 한 번) */
+  function resArchHeal(){
+    var now = Date.now();
+    if(now - resArchAt < 5000) return;
+    resArchAt = now;
+    if(resArchRestore()){ save(); renderAll(); }
+  }
+
+  /* ---------- 카드 합치기: 결과는 절대 지워지지 않습니다 ---------- */
+  function taskHasResult(t){ return !!(t && t.pc && t.pc.text); }
+  function taskMergeSafe(local, inc){
+    if(!local) return inc;
+    if(!inc) return local;
+    var out = {}, k;
+    for(k in inc){ if(Object.prototype.hasOwnProperty.call(inc, k)) out[k] = inc[k]; }
+    var lr = taskHasResult(local), ir = taskHasResult(inc);
+    if(lr && !ir){
+      out.pc = local.pc;
+      out.status = local.status;
+      out.statusAt = local.statusAt;
+      out.statusWhy = local.statusWhy;
+      out.review = local.review;
+      out.reject = local.reject;
+      if(local.approvedAt) out.approvedAt = local.approvedAt;
+      return out;
+    }
+    if(lr && ir){
+      var lt = local.pc.doneAt || local.pc.at || 0, it = inc.pc.doneAt || inc.pc.at || 0;
+      var ll = (local.pc.text || "").length, il = (inc.pc.text || "").length;
+      if(it < lt || (it === lt && il < ll)){
+        out.pc = local.pc;
+        out.status = local.status;
+        out.statusAt = local.statusAt;
+        out.statusWhy = local.statusWhy;
+        if(local.approvedAt) out.approvedAt = local.approvedAt;
+      }
+    }
+    return out;
+  }
+
+  /* 카드 지우기 — 대표님이 직접 지울 때만 이 함수를 거쳐 다른 기기에도 알립니다 */
+  function syncDropKeys(keys){
+    if(!keys || !keys.length || !sync.ready) return;
+    var list = [];
+    keys.forEach(function(key){
+      delete sync.items[key];
+      delete sync.shadow[key];
+      delete sync.rev[key];
+      sync.tomb[key] = syncNextRev();
+      list.push({ key: key, r: sync.tomb[key], c: null });
+    });
+    try{
+      localStorage.setItem(SYNC_ITEMS, JSON.stringify(sync.items));
+      localStorage.setItem(SYNC_REV, JSON.stringify(sync.rev));
+      localStorage.setItem(SYNC_TOMB, JSON.stringify(sync.tomb));
+    }catch(e){}
+    syncPersist();
+    if(sync.on && !sync.hold) syncQueue(list);
+  }
+
+  /* 결과 보고창 — 결과가 있으면 진행 중 카드와 상관없이 계속 보여 줍니다 */
+  var v3BaseHero = renderHeroReport;
+  renderHeroReport = function(){
+    var box = $("#heroReport");
+    if(!box) return;
+    var t = heroReportTask();
+    if(!t){ v3BaseHero(); return; }
+    var live = heroLiveTask();
+    heroSel = t.id === heroSel ? heroSel : (resInbox()[0] && resInbox()[0].id === t.id ? heroSel : heroSel);
+    heroStageId = live ? live.id : "";
+    heroStageIdx = live ? (live.pc.state === "sent" ? 0 : pcStageIdxOf(live)) : -1;
+    box.className = "so-report";
+    box.innerHTML = heroReportHTML(t, live);
+    if(live && live.id !== t.id){
+      var p = live.pc;
+      var idx = p.state === "sent" ? 0 : pcStageIdxOf(live);
+      var st = PC_STAGES[idx] || PC_STAGES[0];
+      var bar = document.createElement("div");
+      bar.className = "hr-live-bar";
+      bar.innerHTML = '<i class="spin"></i><b>' + esc(live.dept + " " + live.deptTitle) + '</b>' +
+        '<span>' + esc(p.state === "sent" ? "PC 수신 대기" : st.label) + ' · ' + esc(pcClock((Date.now() - (p.ackAt || p.at || Date.now())) / 1000)) + '</span>';
+      box.insertBefore(bar, box.firstChild);
+    }
+    if(resSeen[t.id] !== resSig(t)) resMarkSeen(t);
+  };
+
+  /* ---------- ② 오피스 라이프 ---------- */
+  var V3_FIXED = {
+    "09": { seat:[33.0, 78.6], scr:[33.0, 60.6], lane:[87.4, 28, 40] },
+    "06": { seat:[43.6, 77.9], scr:[43.4, 60.4], lane:[87.4, 41, 50] },
+    "05": { seat:[52.2, 77.3], scr:[51.9, 59.9], lane:[87.4, 50, 58] },
+    "01": { seat:[62.2, 76.7], scr:[61.8, 59.7], lane:[87.4, 58, 68] },
+    "08": { seat:[34.6, 57.6], scr:[34.3, 41.4], lane:[36.6, 29, 39] },
+    "07": { seat:[44.6, 57.2], scr:[44.2, 41.0], lane:[36.6, 39, 48] },
+    "03": { seat:[52.6, 56.9], scr:[52.3, 40.9], lane:[36.6, 48, 56] },
+    "02": { seat:[61.0, 56.4], scr:[60.7, 40.6], lane:[36.6, 56, 66] },
+    "04": { seat:[47.6, 31.6], scr:[46.6, 26.7], lane:[33.8, 41, 55] }
+  };
+  var V3_EXTRA = [
+    { seat:[19.4, 44.4], scr:null, lane:[58.0, 7, 22] },
+    { seat:[9.0, 45.0],  scr:null, lane:[58.0, 6, 22] },
+    { seat:[81.6, 53.4], scr:null, lane:[59.0, 72, 90] },
+    { seat:[73.4, 43.0], scr:null, lane:[59.0, 71, 88] },
+    { seat:[87.0, 63.0], scr:null, lane:[70.0, 72, 90] },
+    { seat:[14.0, 54.0], scr:null, lane:[58.0, 6, 22] }
+  ];
+  var V3_SHIRT = [
+    ["#4a7fa8","#2f5a7c"], ["#d9813f","#b0611f"], ["#5f8f74","#3f6a52"],
+    ["#8a6fb8","#6650a0"], ["#c25f7a","#a0445c"], ["#4e8a8f","#336a70"],
+    ["#b8894a","#94682f"], ["#6f7f9a","#4f5f78"], ["#a86a6a","#885050"],
+    ["#5a8ab0","#3f6a8a"]
+  ];
+  var officeLife = { sig:"", wk:{}, mon:{}, lastRes:{}, tickAt:0, boss:null };
+
+  function v3Slot(no, idx){
+    if(V3_FIXED[no]) return V3_FIXED[no];
+    var extras = DEPTS.filter(function(d){ return !V3_FIXED[d.no]; }).map(function(d){ return d.no; });
+    var i = extras.indexOf(no);
+    if(i < 0) i = idx;
+    return V3_EXTRA[i % V3_EXTRA.length];
+  }
+
+  function v3Build(){
+    var life = $("#officeLife");
+    if(!life) return;
+    var sig = DEPTS.map(function(d){ return d.no + "|" + d.title; }).join("~");
+    if(officeLife.sig === sig) return;
+    officeLife.sig = sig;
+    officeLife.wk = {};
+    officeLife.mon = {};
+    officeLife.boss = (V3_FIXED["04"] || {}).seat || [47.6, 31.6];
+    var html = "";
+    DEPTS.forEach(function(d, i){
+      var s = v3Slot(d.no, i);
+      if(!s) return;
+      var c = V3_SHIRT[i % V3_SHIRT.length];
+      html += '<div class="wk" data-no="' + esc(d.no) + '" data-dept-open="' + esc(d.no) + '" role="button" tabindex="0" aria-label="' + esc(d.no + " " + d.title + " 열기") + '"' +
+        ' style="--x:' + s.seat[0] + '%;--y:' + s.seat[1] + '%;--c1:' + c[0] + ';--c2:' + c[1] + '">' +
+        '<span class="wk-sh" aria-hidden="true"></span>' +
+        '<span class="wk-mk" aria-hidden="true"><i class="wk-hd"></i><i class="wk-bd"><b class="wk-no">' + esc(d.no) + '</b></i></span>' +
+        '<span class="wk-bub" aria-hidden="true"></span>' +
+        '<span class="wk-name" aria-hidden="true">' + esc(d.no + " " + d.title) + '</span>' +
+      '</div>';
+      if(s.scr){
+        html += '<div class="mon" data-no="' + esc(d.no) + '" style="--x:' + s.scr[0] + '%;--y:' + s.scr[1] + '%" aria-hidden="true"><i></i><i></i><i></i></div>';
+      }
+    });
+    life.innerHTML = html;
+    $$(".wk", life).forEach(function(el){
+      var no = el.getAttribute("data-no");
+      var s = v3Slot(no, 0);
+      officeLife.wk[no] = {
+        el: el, bub: $(".wk-bub", el), home: s.seat, lane: s.lane || null,
+        walk: false, until: 0, next: 0, mode: "", at: -1
+      };
+    });
+    $$(".mon", life).forEach(function(el){ officeLife.mon[el.getAttribute("data-no")] = el; });
+  }
+
+  function v3Clock(sec){
+    sec = Math.max(0, Math.round(sec));
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  /* 이 부서가 지금 어떤 상태인가 — 대기 · 작업 · 응답 없음 · 보고 */
+  function v3DeptState(no){
+    var tasks = state.tasks.filter(function(t){ return t.dept === no; });
+    var live = null, liveSec = 0, waiting = 0, doing = 0, newest = 0;
+    tasks.forEach(function(t){
+      var p = t.pc;
+      if(p && (p.state === "sent" || p.state === "running")){
+        var sec = (Date.now() - (p.ackAt || p.at || Date.now())) / 1000;
+        if(!live || (p.at || 0) > (live.pc.at || 0)){ live = t; liveSec = sec; }
+      }
+      if(t.status === "wait") waiting++;
+      if(t.status === "doing") doing++;
+      var d = (p && (p.doneAt || p.at)) || 0;
+      if(p && p.text && d > newest) newest = d;
+    });
+    if(live){
+      if(liveSec > 600){
+        return { mode:"stale", label:"응답 없음 " + Math.floor(liveSec / 60) + "분", res: newest };
+      }
+      var idx = live.pc.state === "sent" ? 0 : pcStageIdxOf(live);
+      if(idx < 0 || idx > 4) idx = 0;
+      var stage = (PC_STAGES[idx] || PC_STAGES[0]).label.replace(/^[①②③④⑤]\s*/, "");
+      return { mode:"work", label:(live.pc.state === "sent" ? "PC 수신 대기" : stage) + " · " + v3Clock(liveSec), res: newest };
+    }
+    if(doing) return { mode:"work", label:"작업 중", res: newest };
+    if(waiting) return { mode:"wait", label:"지시 " + waiting + "건 대기", res: newest };
+    return { mode:"idle", label:"", res: newest };
+  }
+
+  function v3Move(w, x, y, walking){
+    var el = w.el;
+    var cur = el.style.getPropertyValue("--x");
+    if(cur !== "") el.style.setProperty("--x", x.toFixed(2) + "%");
+    else el.style.setProperty("--x", x.toFixed(2) + "%");
+    el.style.setProperty("--y", y.toFixed(2) + "%");
+    el.style.left = x.toFixed(2) + "%";
+    el.style.top = y.toFixed(2) + "%";
+    el.classList.toggle("is-walk", !!walking);
+  }
+
+  function v3DocFly(from, to){
+    var life = $("#officeLife");
+    if(!life || !from || !to) return;
+    var d = document.createElement("i");
+    d.className = "docfly";
+    d.style.setProperty("--x0", from[0].toFixed(2) + "%");
+    d.style.setProperty("--y0", from[1].toFixed(2) + "%");
+    d.style.setProperty("--x1", to[0].toFixed(2) + "%");
+    d.style.setProperty("--y1", to[1].toFixed(2) + "%");
+    life.appendChild(d);
+    setTimeout(function(){ if(d.parentNode) d.parentNode.removeChild(d); }, 1700);
+  }
+
+  function v3Tick(){
+    if(!$("#officeLife")) return;
+    var now = Date.now();
+    DEPTS.forEach(function(d){
+      var no = d.no;
+      var w = officeLife.wk[no];
+      if(!w) return;
+      var st = v3DeptState(no);
+      var mode = st.mode;
+      /* 결과 도착 — 그 부서 직원이 보고 말풍선을 띄우고 지휘실로 문서를 올립니다 */
+      if(st.res && st.res > (officeLife.lastRes[no] || 0)){
+        var first = !officeLife.lastRes[no];
+        officeLife.lastRes[no] = st.res;
+        if(!first && now - st.res < 90000){
+          w.reportUntil = now + 14000;
+          v3DocFly(w.home, officeLife.boss);
+        }
+      }
+      if(w.reportUntil && now < w.reportUntil && (mode === "idle" || mode === "wait")) mode = "report";
+      if(mode === "report" && st.mode === "work") mode = "work";
+
+      var label = st.label;
+      if(mode === "report") label = "보고 완료";
+      if(mode === "idle") label = "";
+
+      if(w.mode !== mode){
+        w.el.classList.remove("is-work", "is-wait", "is-stale", "is-report");
+        if(mode !== "idle") w.el.classList.add("is-" + mode);
+        w.mode = mode;
+      }
+      if(w.bub && w.bub.textContent !== label) w.bub.textContent = label;
+
+      var mon = officeLife.mon[no];
+      if(mon){
+        mon.classList.toggle("is-on", mode === "work" || mode === "report");
+        mon.classList.toggle("is-report", mode === "report");
+      }
+
+      if(mode === "idle" && w.lane && !w.reportUntil){
+        if(!w.walk && now > (w.next || 0)){
+          w.walk = true;
+          w.until = now + 3200 + Math.random() * 3800;
+          var tx = w.lane[1] + Math.random() * (w.lane[2] - w.lane[1]);
+          var ty = w.lane[0] + (Math.random() * 1.6 - 0.8);
+          v3Move(w, tx, ty, true);
+        } else if(w.walk && now > w.until){
+          w.walk = false;
+          w.next = now + 7000 + Math.random() * 12000;
+          v3Move(w, w.home[0], w.home[1], false);
+        }
+      } else if(w.walk || (mode !== "idle" && w.at !== 1)){
+        w.walk = false;
+        w.next = Math.max(w.next || 0, now + 4000);
+        v3Move(w, w.home[0], w.home[1], false);
+        w.at = 1;
+      }
+      if(mode === "idle" && !w.walk && w.at !== 0){
+        if(!w.lane) w.at = -1;
+        else if(now > (w.next || 0)) w.at = -1;
+      }
+    });
+  }
+
+  /* 부서 레일 — 남은 문제였던 '응답 없음' 상태가 여기와 오피스에 그대로 남습니다 */
+  renderOffice = function(){
+    v3Build();
+    var rail = $("#deptRail");
+    if(rail){
+      rail.innerHTML = DEPTS.map(function(d){
+        return '<button class="rail" type="button" data-dept-open="' + esc(d.no) + '">' +
+          '<span class="rail-no">' + esc(d.no) + '</span>' +
+          '<span class="rail-txt"><b>' + esc(d.title) + '</b><span>대기</span></span>' +
+          '<span class="rail-lamp" aria-hidden="true"></span>' +
+        '</button>';
+      }).join("");
+    }
+    var top = $("#deptCountTop"); if(top) top.textContent = DEPTS.length;
+    var all = $("#deptCountAll"); if(all) all.textContent = DEPTS.length;
+    v3Tick();
+  };
+
+  voTick = function(){
+    var working = 0, idle = 0;
+    DEPTS.forEach(function(d){
+      var st = v3DeptState(d.no);
+      var w = officeLife.wk[d.no];
+      var mode = w && w.reportUntil && Date.now() < w.reportUntil ? "report" : st.mode;
+      var on = (mode === "work" || mode === "report");
+      var rail = document.querySelector('.rail[data-dept-open="' + d.no + '"]');
+      if(rail){
+        rail.classList.toggle("is-working", on || mode === "stale");
+        var s = rail.querySelector(".rail-txt span");
+        var rt = mode === "stale" ? "응답 없음"
+               : mode === "work" ? (st.label || "작업 중")
+               : mode === "wait" ? "지시 대기"
+               : mode === "report" ? "보고 도착"
+               : (staffOf(d.no).length + "명 · 대기");
+        if(s && s.textContent !== rt) s.textContent = rt;
+      }
+      if(on) working++; else idle++;
+    });
+    var wn = $("#voWorkingN"); if(wn) wn.textContent = working;
+    var inl = $("#voIdleN"); if(inl) inl.textContent = idle;
+  };
+
+  setInterval(function(){ try{ v3Tick(); voTick(); }catch(e){} }, 1000);
+
 
   /* ================= 시작 ================= */
   load();
