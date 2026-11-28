@@ -5355,13 +5355,14 @@ input,textarea,select{font:inherit}
 
   /* 결과 보고창 — 결과가 있으면 진행 중 카드와 상관없이 계속 보여 줍니다 */
   var v3BaseHero = renderHeroReport;
+  var heroLiveMode = false;   /* 대표님이 '진행 중 보기'를 누른 동안만 진행 화면 */
   renderHeroReport = function(){
     var box = $("#heroReport");
     if(!box) return;
     var t = heroReportTask();
-    if(!t){ v3BaseHero(); return; }
     var live = heroLiveTask();
-    heroSel = t.id === heroSel ? heroSel : (resInbox()[0] && resInbox()[0].id === t.id ? heroSel : heroSel);
+    if(!live) heroLiveMode = false;
+    if(!t || (heroLiveMode && live)){ v3BaseHero(); return; }
     heroStageId = live ? live.id : "";
     heroStageIdx = live ? (live.pc.state === "sent" ? 0 : pcStageIdxOf(live)) : -1;
     box.className = "so-report";
@@ -5378,6 +5379,15 @@ input,textarea,select{font:inherit}
     }
     if(resSeen[t.id] !== resSig(t)) resMarkSeen(t);
   };
+  (function(){
+    var root = $("#heroReport");
+    if(!root) return;
+    root.addEventListener("click", function(e){
+      if(!e.target || !e.target.closest) return;
+      if(e.target.closest("[data-hrlive]")){ heroLiveMode = true; setTimeout(renderHeroReport, 0); return; }
+      if(e.target.closest("[data-hrpick],[data-hrview],[data-hraux],[data-hract]")){ heroLiveMode = false; }
+    });
+  })();
 
   /* ---------- ② 오피스 라이프 ---------- */
   var V3_FIXED = {
