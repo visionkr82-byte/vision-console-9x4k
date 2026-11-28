@@ -5633,6 +5633,22 @@ input,textarea,select{font:inherit}
   syncRender();
   if(pcReady()){ pcSub(); pcCheck(); }
   syncStart();
+
+  /* 자체 점검용 창구 — ?v3test=1 로 열었을 때만 열립니다 (일반 화면에는 영향 없음) */
+  if(String(location.search).indexOf("v3test=1") > -1){
+    window.__v3 = {
+      merge: taskMergeSafe,
+      hasResult: taskHasResult,
+      deptState: v3DeptState,
+      clock: v3Clock,
+      archPut: resArchPut,
+      archRestore: resArchRestore,
+      arch: function(){ return resArch; },
+      setTasks: function(list){ state.tasks = list.slice(); save(); renderAll(); return state.tasks.length; },
+      tasks: function(){ return state.tasks; },
+      build: function(){ officeLife.sig = ""; renderOffice(); return DEPTS.length; }
+    };
+  }
 })();
 </script>
 </body>
